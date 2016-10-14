@@ -3,9 +3,6 @@ package midi;
 import javax.sound.midi.*;
 import java.io.*;
 
-// TO COMMIT
-// NOG EENS TO COMMIT
-
 public class PianoPlayer {
     // These are some MIDI constants from the spec.  They aren't defined for us in javax.sound.midi.
     private static final int DAMPER_PEDAL = 64;
@@ -23,7 +20,6 @@ public class PianoPlayer {
         // -t <beats per minute>  default tempo is 120 quarter notes per minute
         // -o <filename>          save to a midi file instead of playing
         int a = 0;
-        label:
         while (a < args.length)
         {
             switch (args[a])
@@ -41,11 +37,13 @@ public class PianoPlayer {
                     a += 2;
                     break;
                 default:
-                    break label;
+                    break;
             }
         }
 
-        char[] notes = args[a].toCharArray();
+        char[] notes = args[a-1].toCharArray();
+        for (char note : notes)
+            System.out.println(note);
 
         // 16 ticks per quarter note.
         Sequence sequence = new Sequence(Sequence.PPQ, 16);
