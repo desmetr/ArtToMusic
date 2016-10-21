@@ -41,10 +41,11 @@ public class TwoTasks extends Application
 
         HBox hbox = new HBox(25);
 
-        Task<Integer> task1 = new Task<Integer>()
+        Task<Integer> task1On = new Task<Integer>()
         {
             @Override protected Integer call() throws Exception
             {
+                midiChannels[0].noteOff(67, 600);
                 midiChannels[0].noteOn(60, 600);
                 Thread.sleep(3000);
                 midiChannels[0].noteOff(60, 600);
@@ -52,10 +53,11 @@ public class TwoTasks extends Application
             }
         };
 
-        Task<Integer> task2 = new Task<Integer>()
+        Task<Integer> task2On = new Task<Integer>()
         {
             @Override protected Integer call() throws Exception
             {
+                midiChannels[0].noteOff(60, 600);
                 midiChannels[0].noteOn(67, 600);
                 Thread.sleep(5000);
                 midiChannels[0].noteOff(67, 600);
@@ -63,16 +65,44 @@ public class TwoTasks extends Application
             }
         };
 
-        Button buttonTask1 = new Button();
-        buttonTask1.setText("Start task 1");
-        buttonTask1.setOnAction(event -> executorService1.execute(task1));
+        Task<Integer> task1Off = new Task<Integer>()
+        {
+            @Override
+            protected Integer call() throws Exception
+            {
+                midiChannels[0].noteOff(60, 600);
+                return null;
+            }
+        };
 
-        Button buttonTask2 = new Button();
-        buttonTask2.setText("Start task 2");
-        buttonTask2.setOnAction(event -> executorService2.execute(task2));
+        Task<Integer> task2Off = new Task<Integer>()
+        {
+            @Override
+            protected Integer call() throws Exception
+            {
+                midiChannels[0].noteOff(67, 600);
+                return null;
+            }
+        };
+
+        Button buttonTask1On = new Button();
+        buttonTask1On.setText("Start task 1");
+        buttonTask1On.setOnAction(event -> executorService1.execute(task1On));
+
+        Button buttonTask2On = new Button();
+        buttonTask2On.setText("Start task 2");
+        buttonTask2On.setOnAction(event -> executorService2.execute(task2On));
+
+        Button buttonTask1Off = new Button();
+        buttonTask1Off.setText("Stop task 1");
+        buttonTask1Off.setOnAction(event -> executorService1.execute(task1Off));
+
+        Button buttonTask2Off = new Button();
+        buttonTask2Off.setText("Stop task 2");
+        buttonTask1Off.setOnAction(event -> executorService1.execute(task2Off));
 
         hbox.setAlignment(Pos.CENTER);
-        hbox.getChildren().addAll(buttonTask1, buttonTask2);
+        hbox.getChildren().addAll(buttonTask1On, buttonTask2On, buttonTask1Off, buttonTask2Off);
 
         StackPane root = new StackPane();
         root.getChildren().add(hbox);

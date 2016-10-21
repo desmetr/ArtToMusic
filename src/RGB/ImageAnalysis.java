@@ -1,12 +1,21 @@
 package RGB;
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.LookupOp;
+import java.awt.image.ShortLookupTable;
 import java.io.File;
 import java.util.Vector;
 
@@ -125,15 +134,24 @@ public class ImageAnalysis extends Application
             pixelHSVs.add(rgbToHsv(pixelRGBs.get(i)));
     }
 
+    public BufferedImage imageProcessing(BufferedImage source)
+    {
+        return null;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        primaryStage.setTitle("Image Analysis");
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         BufferedImage bi = ImageIO.read(selectedFile);
+        WritableImage imageBI = SwingFXUtils.toFXImage(bi, null);
+        ImageView imageViewBI = new ImageView(imageBI);
 
         int[] pixel;
 
@@ -145,13 +163,28 @@ public class ImageAnalysis extends Application
                 pixelRGBs.add(new PixelRGB(pixel[0], pixel[1], pixel[2]));
             }
         }
-        analysePixelsRGB(pixelRGBs);
-        analysePixelsHSV(pixelRGBs);
 
-        System.out.println("\n");
-        for (PixelHSV pixelHSV : pixelHSVs)
-        {
-            pixelHSV.print();
-        }
+//        BufferedImage newBI = imageProcessing(bi);
+//        System.out.println("d1");
+//        WritableImage imageNewBI = SwingFXUtils.toFXImage(newBI, null);
+//        System.out.println("d2");
+//        ImageView imageViewNewBI = new ImageView(imageNewBI);
+//        System.out.println("d3");
+
+        HBox hbox = new HBox(50);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.getChildren().addAll(imageViewBI);
+        System.out.println("e");
+
+        primaryStage.setScene(new Scene(hbox, 600, 300));
+        primaryStage.show();
+        System.out.println("f");
+
+//        analysePixelsRGB(pixelRGBs);
+//        analysePixelsHSV(pixelRGBs);
+
+//        System.out.println("\n");
+//        for (PixelHSV pixelHSV : pixelHSVs)
+//            pixelHSV.print();
     }
 }
