@@ -1,4 +1,4 @@
-package RGB;
+package model.graphics;
 
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
@@ -11,11 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.LookupOp;
-import java.awt.image.ShortLookupTable;
 import java.io.File;
 import java.util.Vector;
 

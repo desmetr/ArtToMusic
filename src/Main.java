@@ -1,14 +1,18 @@
-import midi.PianoPlayer;
+import controller.MidiPlayerController;
 
-import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
-import java.io.IOException;
 
-public class Main {
+public class Main
+{
+    private MidiPlayerController midiPlayerController;
 
-    public static void main(String[] args) throws MidiUnavailableException, InvalidMidiDataException, IOException {
-        System.out.println("Start of program");
-        PianoPlayer pianoPlayer = new PianoPlayer();
-        pianoPlayer.main(args);
+    public Main() throws MidiUnavailableException
+    {
+        midiPlayerController = new MidiPlayerController();
+    }
+
+    public static void main(String[] args) throws MidiUnavailableException
+    {
+        new Main();
     }
 }

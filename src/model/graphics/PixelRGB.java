@@ -1,4 +1,4 @@
-package RGB;
+package model.graphics;
 
 /**
  * Created by rafael on 15.10.16.
