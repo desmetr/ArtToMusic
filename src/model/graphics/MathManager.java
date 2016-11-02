@@ -10,38 +10,47 @@ import matlabcontrol.MatlabProxyFactory;
  */
 public class MathManager
 {
-
-    // Create a proxy, which we will use to control MATLAB
-    private static MatlabProxyFactory factory = new MatlabProxyFactory();
+    private static MatlabProxyFactory factory;
     private static MatlabProxy proxy;
 
-    public MathManager() throws MatlabConnectionException
-    {
-    }
-
-    public static void computeSobelEdgeDetection(String pathToFile) throws MatlabInvocationException, MatlabConnectionException
+    public static void edgeDetection(String algorithm) throws MatlabInvocationException, MatlabConnectionException
     {
         proxy = factory.getProxy();
 
         // Read file in MATLAB.
         proxy.eval("I = imread('img/picasso.tif');");
+
+        // Detect objects/edges.
+        proxy.eval("I = rgb2gray(I);");
+        proxy.eval("BWs = edge(I, '" + algorithm + "');");
+        double[][] BWs = ((double[][]) proxy.getVariable("BWs"));
     }
 
-    public static void main(String[] args) throws MatlabConnectionException, MatlabInvocationException
+    public MathManager() throws MatlabConnectionException, MatlabInvocationException, InterruptedException
     {
-        computeSobelEdgeDetection("");
+        factory = new MatlabProxyFactory();
+        proxy = factory.getProxy();
+
+        edgeDetection("sobel");
+//        Thread.sleep(5000);
+//        edgeDetection("canny");
+    }
+
+    public static void main(String[] args) throws MatlabConnectionException, MatlabInvocationException, InterruptedException
+    {
+        new MathManager();
+
+        // Create a proxy, which we will use to control MATLAB.
+
         //Display 'hello world' just like when using the demo
-        /*
-        proxy.eval("disp('hello world')");
-         */
+        //proxy.eval("disp('hello world')");
 
         //Set a variable, add to it, retrieve it, and print the result
-        /*
-        proxy.setVariable("a", 5);
-        proxy.eval("a = a + 6");
-        double result = ((double[]) proxy.getVariable("a"))[0];
-        System.out.println("Result: " + result);
-        */
+
+//        proxy.setVariable("a", 5);
+//        proxy.eval("a = a + 6");
+//        double result = ((double[]) proxy.getVariable("a"))[0];
+//        System.out.println("Result: " + result);
 
         /*
         //Create a 4x3x2 array filled with random values
@@ -121,6 +130,5 @@ public class MathManager
 
         //Disconnect the proxy from MATLAB
         proxy.disconnect();
-
     }
 }
