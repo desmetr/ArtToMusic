@@ -1,0 +1,9 @@
+{"noteOffsets" : [
+  {"WHOLE"          : 4.0},
+  {"HALF"           : 2.0},
+  {"QUARTER"        : 1.0},
+  {"QUARTER_DOTTED" : 1.5},
+  {"EIGHTH"         : 0.5},
+  {"SIXTEENTH"      : 0.25},
+  {"THIRTY_SECOND"  : 0.125}
+]}
