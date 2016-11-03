@@ -1,6 +1,5 @@
 package model.music;
 
-import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import utilities.Globals;
@@ -14,8 +13,6 @@ import java.util.Vector;
  */
 public class MusicData
 {
-    private static JSONParser parser = new JSONParser();
-
     private static Globals.NoteLength getEnumValue(Element element, String tagName)
     {
         String textValue = null;

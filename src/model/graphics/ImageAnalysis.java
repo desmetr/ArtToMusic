@@ -17,15 +17,14 @@ import java.util.Vector;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
-import static javax.swing.UIManager.get;
 
 /**
  * Created by rafael on 15.10.16.
  */
 public class ImageAnalysis extends Application
 {
-    private Vector<PixelRGB> pixelRGBs = new Vector();
-    private Vector<PixelHSV> pixelHSVs = new Vector();
+    private Vector<PixelRGB> pixelRGBs = new Vector<PixelRGB>();
+    private Vector<PixelHSV> pixelHSVs = new Vector<PixelHSV>();
 
     private void analysePixelsRGB(Vector<PixelRGB> pixelRGBs)
     {

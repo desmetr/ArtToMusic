@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: Main
+Class-Path: /home/rafael/Dropbox/MasterInformatica/Eerste Jaar/Onderzo
+ eksproject 1/ArtToMusic/src/model/graphics/MathManager.java
+Main-Class: MathManager
 
