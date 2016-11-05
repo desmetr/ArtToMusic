@@ -1,27 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <note-offsets>
-    <note value="whole" offset="4.0"/>
-    <note>
-        <value>"half"</value>
-        <offset>2.0</offset>
-    </note>
-    <note>
-        <value>"quarter"</value>
-        <offset>1.0</offset>
-    </note>
-    <note>
-        <value>"quarter_dotted"</value>
-        <offset>1.5</offset>
-    </note>
-    <note>
-        <value>"eight"</value>
-        <offset>0.5</offset>
-    </note>
-    <note>
-        <value>"sixteenth"</value>
-        <offset>0.25</offset>
-    </note>
-    <note>
-        <value>"thirty_second"</value>
-        <offset>0.125</offset>
-    </note>
+    <note length="whole" offset="4.0"/>
+    <note length="half" offset="2.0"/>
+    <note length="quarter" offset="1.0"/>
+    <note length="quarter-dotted" offset="1.5"/>
+    <note length="eight" offset="0.5"/>
+    <note length="sixteenth" offset="0.25"/>
+    <note length="thirty-second" offset="0.125"/>
 </note-offsets>

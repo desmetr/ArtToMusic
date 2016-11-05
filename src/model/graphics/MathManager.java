@@ -2,6 +2,7 @@ package model.graphics;
 
 import org.rosuda.JRI.Rengine;
 
+import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
 /**
@@ -11,7 +12,6 @@ public class MathManager
 {
     public static void edgeDetection(String algorithm)
     {
-    	// TODO write matrix to log file
     	// Start Rengine.
         Rengine engine = new Rengine(new String[] {"--no-save" }, false, null);
 
@@ -23,8 +23,14 @@ public class MathManager
         // Retrieve matrix of image.
         double[][] imEdgeMatrix = engine.eval("imEdge").asDoubleMatrix();
         
-        //Print output values
-        System.out.println("Length of matrix : " + imEdgeMatrix.length);
+        for (int i = 0; i < imEdgeMatrix.length; i++)
+        {
+        	for (int j = 0; j < imEdgeMatrix[i].length; j++)
+        	{
+        		ArtToMusicLogger.getInstance().info(String.valueOf(imEdgeMatrix[i][j]) + " ");		
+        	}
+        	ArtToMusicLogger.getInstance().info("\n");
+        }
         
         engine.end();
     }
