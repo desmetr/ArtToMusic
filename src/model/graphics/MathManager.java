@@ -23,14 +23,17 @@ public class MathManager
         // Retrieve matrix of image.
         double[][] imEdgeMatrix = engine.eval("imEdge").asDoubleMatrix();
         
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < imEdgeMatrix.length; i++)
         {
         	for (int j = 0; j < imEdgeMatrix[i].length; j++)
         	{
-        		ArtToMusicLogger.getInstance().info(String.valueOf(imEdgeMatrix[i][j]) + " ");		
+        		sb.append(String.valueOf(imEdgeMatrix[i][j]) + " ");
         	}
-        	ArtToMusicLogger.getInstance().info("\n");
+        	sb.append("\n");
         }
+        
+        ArtToMusicLogger.getInstance().info(sb.toString());
         
         engine.end();
     }
