@@ -1,8 +1,5 @@
-<noteOffsets>
-    <note>
-        <value>"whole"</value>
-        <offset>4.0</offset>
-    </note>
+<note-offsets>
+    <note value="whole" offset="4.0"/>
     <note>
         <value>"half"</value>
         <offset>2.0</offset>
@@ -27,4 +24,4 @@
         <value>"thirty_second"</value>
         <offset>0.125</offset>
     </note>
-</noteOffsets>
+</note-offsets>

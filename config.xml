@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Code conventions -->
+<!-- 	Paths have to end with a / -->  
+
+<arttomusic-configuration>
+	<paths>
+		<path-to-images>/home/rafael/Dropbox/MasterInformatica/Eerste Jaar/Onderzoeksproject 1/ArtToMusic/img/</path-to-images>
+	</paths>
+</arttomusic-configuration>
