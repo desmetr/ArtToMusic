@@ -15,18 +15,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Vector;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 /**
  * Created by rafael on 15.10.16.
  */
 public class ImageAnalysis extends Application
 {
     private Vector<PixelRGB> pixelRGBs = new Vector<PixelRGB>();
-    private Vector<PixelHSV> pixelHSVs = new Vector<PixelHSV>();
+//    private Vector<PixelHSV> pixelHSVs = new Vector<PixelHSV>();
 
-    private void analysePixelsRGB(Vector<PixelRGB> pixelRGBs)
+   /* private void analysePixelsRGB(Vector<PixelRGB> pixelRGBs)
     {
         int greyCounter = 0;
         int redCounter = 0;
@@ -75,9 +72,9 @@ public class ImageAnalysis extends Application
 
         if ((greyCounter + blackCounter + whiteCounter + redCounter + greenCounter + blueCounter) != pixelRGBs.size())
             System.out.println("Woops, missed some pixelRGBs.");
-    }
+    }*/
 
-    private PixelHSV rgbToHsv(PixelRGB pixelRGB)
+   /* private PixelHSV rgbToHsv(PixelRGB pixelRGB)
     {
         int currentRed = pixelRGB.getRed();
         int currentGreen = pixelRGB.getGreen();
@@ -121,13 +118,13 @@ public class ImageAnalysis extends Application
         pixel.setValue(cMax);
 
         return pixel;
-    }
+    }*/
 
-    private void analysePixelsHSV(Vector<PixelRGB> pixelRGBs)
+/*  private void analysePixelsHSV(Vector<PixelRGB> pixelRGBs)
     {
         for (int i = 0; i < pixelRGBs.size(); i++)
             pixelHSVs.add(rgbToHsv(pixelRGBs.get(i)));
-    }
+    } */
 
     public BufferedImage imageProcessing(BufferedImage source)
     {

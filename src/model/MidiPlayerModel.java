@@ -7,10 +7,8 @@ import model.music.MusicData;
  */
 public class MidiPlayerModel
 {
-    private MusicData musicData;
-
     public void initialize()
     {
-        musicData = new MusicData();
+        new MusicData();
     }
 }
