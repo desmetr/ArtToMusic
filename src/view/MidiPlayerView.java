@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.graphics.MathManager;
 import utilities.ArtToMusicLogger;
@@ -39,7 +39,6 @@ public class MidiPlayerView extends Application
 	{
 		ArtToMusicLogger.getInstance().info("Submit Graphics button clicked.");
 		
-		final ToggleGroup graphicsGroup = scene.lookup("$graphicsGroup");
 		graphicsGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() 
 		{
 		    @Override
@@ -58,7 +57,6 @@ public class MidiPlayerView extends Application
 	{
 		ArtToMusicLogger.getInstance().info("Submit Music button clicked.");
 		
-//		final ToggleGroup graphicsGroup = scene.lookup("$musicGroup");
 		musicGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() 
 		{
 		    @Override
@@ -75,7 +73,7 @@ public class MidiPlayerView extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-    	GridPane root = (GridPane) FXMLLoader.load(getClass().getResource("/view/ArtToMusicView.fxml"));
+    	BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/view/ArtToMusicView.fxml"));
     	scene = new Scene(root);
     
         primaryStage.setTitle("MidiPlayer");
