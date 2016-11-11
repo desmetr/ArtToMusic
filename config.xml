@@ -6,5 +6,6 @@
 <arttomusic-configuration>
 	<paths>
 		<path-to-images>/home/rafael/Dropbox/MasterInformatica/Eerste Jaar/Onderzoeksproject 1/ArtToMusic/img/</path-to-images>
+		<path-to-music>/home/rafael/Dropbox/MasterInformatica/Eerste Jaar/Onderzoeksproject 1/ArtToMusic/music/</path-to-music>
 	</paths>
 </arttomusic-configuration>

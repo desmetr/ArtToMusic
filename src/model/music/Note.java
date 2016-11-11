@@ -21,4 +21,9 @@ public class Note
     public Globals.NoteLength getLength()   {   return length;    }
     public int getPitch()                   {   return pitch;     }
     public double getOffset()               {   return offset;    }
+    
+    public void print()
+    {
+    	System.out.println(length + "\t" + pitch + "\t" + offset);
+    }
 }

@@ -13,6 +13,7 @@ import utilities.Globals;
 public class MathManager
 {
 	private Rengine engine;
+	private ObservableList<ObservableList<Double>> edgeMatrix;
 	
 	private ObservableList<ObservableList<Double>> convertToObservableMatrix(double[][] source)
 	{
@@ -42,14 +43,14 @@ public class MathManager
                 
         // Retrieve matrix of image.
         double[][] imEdgeMatrix = engine.eval("imEdge").asDoubleMatrix();
-        ObservableList<ObservableList<Double>> oImEdgeMatrix = convertToObservableMatrix(imEdgeMatrix);
+        edgeMatrix = convertToObservableMatrix(imEdgeMatrix);
         
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < oImEdgeMatrix.size(); i++)
+        for (int i = 0; i < edgeMatrix.size(); i++)
         {
-        	for (int j = 0; j < oImEdgeMatrix.get(i).size(); j++)
+        	for (int j = 0; j < edgeMatrix.get(i).size(); j++)
         	{
-        		sb.append(String.valueOf(oImEdgeMatrix.get(i).get(j)) + " ");
+        		sb.append(String.valueOf(edgeMatrix.get(i).get(j)) + " ");
         	}
         	sb.append("\n");
         }

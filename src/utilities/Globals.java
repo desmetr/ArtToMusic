@@ -17,11 +17,14 @@ public class Globals
 {	
 	private static Globals instance = null;
 	
+	public static String pathToImages;
+	public static String pathToMusic;
+	
 	private Globals()
 	{
 		try
 		{
-			getPathToImages();
+			getPaths();
 		}
 		catch (JDOMException e) {	e.printStackTrace();	} 
 		catch (IOException e) 	{	e.printStackTrace();	}
@@ -35,21 +38,23 @@ public class Globals
        }
        return instance;
     }
-	
-	public static String pathToImages;
-	
+		
 	// Paths
-	private void getPathToImages() throws JDOMException, IOException
+	private void getPaths() throws JDOMException, IOException
 	{
 		SAXBuilder parser = new SAXBuilder();
 		Document document = parser.build("config.xml");
 		
-		XPathExpression<Element> xpath = XPathFactory.instance().compile("//path-to-images", Filters.element());
+		XPathExpression<Element> xpathImages = XPathFactory.instance().compile("//path-to-images", Filters.element());
+		XPathExpression<Element> xpathMusic = XPathFactory.instance().compile("//path-to-music", Filters.element());
 
-		Element pathToImagesElement = xpath.evaluateFirst(document);
-		if (pathToImagesElement != null) {
+		Element pathToImagesElement = xpathImages.evaluateFirst(document);
+		if (pathToImagesElement != null)
 		    pathToImages = pathToImagesElement.getValue();
-		}
+		
+		Element pathToMusicElement = xpathMusic.evaluateFirst(document);
+		if (pathToMusicElement != null)
+		    pathToMusic = pathToMusicElement.getValue();
 	}
 	
 	// Graphics

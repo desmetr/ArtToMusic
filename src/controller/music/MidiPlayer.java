@@ -1,6 +1,7 @@
 package controller.music;
 
 import model.music.Note;
+import utilities.ArtToMusicLogger;
 
 import javax.sound.midi.*;
 import java.util.Vector;
@@ -23,6 +24,8 @@ public class MidiPlayer
 
     public void playNotes(int bpm, Vector<Note> notes) throws InterruptedException
     {
+    	ArtToMusicLogger.getInstance().info("Playing notes.");
+    	
         for (Note note : notes)
         {
             double time = (note.getOffset() * (60 /(double) bpm));

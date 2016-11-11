@@ -14,6 +14,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
+import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
 /**
@@ -28,7 +29,7 @@ public class MusicData
 		try 
 		{
 			SAXBuilder parser = new SAXBuilder();
-			Document document = parser.build("src/model/music/noteOffsets.xml");
+			Document document = parser.build(Globals.getInstance().pathToMusic + "NoteOffsets.xml");
 			
 			XPathExpression<Element> xpath = XPathFactory.instance().compile("//note", Filters.element());
 			List<Element> noteValues = xpath.evaluate(document);
@@ -46,7 +47,7 @@ public class MusicData
 				else if (value.getAttributeValue("length").equalsIgnoreCase("quarter-dotted"))
 					noteOffsets.put(Globals.NoteLength.QUARTER_DOTTED, Double.parseDouble(value.getAttributeValue("offset")));
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("eight"))
+				else if (value.getAttributeValue("length").equalsIgnoreCase("eighth"))
 					noteOffsets.put(Globals.NoteLength.EIGHTH, Double.parseDouble(value.getAttributeValue("offset")));
 				
 				else if (value.getAttributeValue("length").equalsIgnoreCase("sixteenth"))
@@ -62,15 +63,17 @@ public class MusicData
         return noteOffsets;
     }
 
-    public static Vector<Note> generateFourBars()
+    public static Vector<Note> generate(String path)
     {
+    	ArtToMusicLogger.getInstance().info("Generating " + path);
+    	
         Map<Globals.NoteLength, Double> noteOffsets = getNoteOffsets();
         Vector<Note> notes = new Vector<Note>();
         
 		try 
 		{
 			SAXBuilder parser = new SAXBuilder();
-			Document document = parser.build("src/model/music/fourBars.xml");
+			Document document = parser.build(path);
 			
 			XPathExpression<Element> xpath = XPathFactory.instance().compile("//note", Filters.element());
 			List<Element> notesXML = xpath.evaluate(document);
@@ -89,7 +92,7 @@ public class MusicData
 				else if (value.getAttributeValue("length").equalsIgnoreCase("quarter-dotted"))
 					notes.add(new Note(Globals.NoteLength.QUARTER_DOTTED, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.QUARTER_DOTTED)));
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("eight"))
+				else if (value.getAttributeValue("length").equalsIgnoreCase("eighth"))
 					notes.add(new Note(Globals.NoteLength.EIGHTH, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.EIGHTH)));
 				
 				else if (value.getAttributeValue("length").equalsIgnoreCase("sixteenth"))

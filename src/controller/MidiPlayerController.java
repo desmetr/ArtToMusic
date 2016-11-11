@@ -13,16 +13,7 @@ import model.music.Note;
  */
 public class MidiPlayerController
 {
-    public static void playNotes() throws MidiUnavailableException, InterruptedException
-    {
-        Vector<Note> notes = MusicData.generateFourBars();
-
-        MidiPlayer midiPlayer = new MidiPlayer();
-        midiPlayer.playNotes(120, notes);
-    }
-
     public MidiPlayerController()
     {
-//        MidiPlayerView.start(MidiPlayerView.class);
     }
 }
