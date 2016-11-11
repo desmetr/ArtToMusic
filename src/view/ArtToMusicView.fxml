@@ -27,16 +27,16 @@
          <children>
             <VBox alignment="CENTER" spacing="10.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Frei Chen">
+                  <RadioButton selected="true" text="Frei Chen">
                      <toggleGroup>
                         <ToggleGroup fx:id="graphicsGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="LoG" toggleGroup="$graphicsGroup" />
-                  <RadioButton mnemonicParsing="false" text="Prewitt" toggleGroup="$graphicsGroup" />
-                  <RadioButton mnemonicParsing="false" text="Roberts Cross" toggleGroup="$graphicsGroup" />
-                  <RadioButton mnemonicParsing="false" text="Scharr" toggleGroup="$graphicsGroup" />
-                  <RadioButton mnemonicParsing="false" text="Sobel" toggleGroup="$graphicsGroup" />
+                  <RadioButton text="LoG" toggleGroup="$graphicsGroup" />
+                  <RadioButton text="Prewitt" toggleGroup="$graphicsGroup" />
+                  <RadioButton text="Roberts Cross" toggleGroup="$graphicsGroup" />
+                  <RadioButton text="Scharr" toggleGroup="$graphicsGroup" />
+                  <RadioButton text="Sobel" toggleGroup="$graphicsGroup" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -44,13 +44,13 @@
             </VBox>
             <VBox alignment="CENTER" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Melody Sample">
+                  <RadioButton selected="true" text="Melody Sample">
                      <toggleGroup>
                         <ToggleGroup fx:id="musicGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Rhythm Sample" toggleGroup="$musicGroup" />
-                  <RadioButton mnemonicParsing="false" text="Combined Sample" toggleGroup="$musicGroup" />
+                  <RadioButton text="Rhythm Sample" toggleGroup="$musicGroup" />
+                  <RadioButton text="Combined Sample" toggleGroup="$musicGroup" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -58,12 +58,12 @@
             </VBox>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="450.0" prefWidth="450.0" text="Graphics" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.halignment="CENTER" />
             <Label alignment="CENTER" prefHeight="125.0" prefWidth="300.0" text="Music" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" onAction="#onSubmitGraphicsClicked" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button onAction="#onGraphicalAnalysisClicked" text="Graphical Analysis" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onSubmitMusicClicked" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button onAction="#onMusicGenerationClicked" text="Music Generation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>

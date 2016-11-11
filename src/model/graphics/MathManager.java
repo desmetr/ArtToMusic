@@ -12,7 +12,9 @@ import utilities.Globals;
  */
 public class MathManager
 {
-	private static ObservableList<ObservableList<Double>> convertToObservableMatrix(double[][] source)
+	private Rengine engine;
+	
+	private ObservableList<ObservableList<Double>> convertToObservableMatrix(double[][] source)
 	{
 		ObservableList<ObservableList<Double>> destination = FXCollections.<ObservableList<Double>>observableArrayList();
 		
@@ -29,16 +31,12 @@ public class MathManager
 		return destination;
 	}
 	
-    public static void edgeDetection(String algorithm)
+    public void edgeDetection(String algorithm)
     {
-//    	ArtToMusicLogger.getInstance().info("Performing the " + algorithm + " filter."); 
-    			
-    	// Start Rengine.
-        Rengine engine = new Rengine(new String[] {"--no-save" }, false, null);
-        Globals.getInstance();
+    	ArtToMusicLogger.getInstance().info("Performing the " + algorithm + " filter."); 
         
         engine.eval("library('OpenImageR')");
-		engine.eval("im = readImage('" + Globals.pathToImages + "picasso.jpg')");
+		engine.eval("im = readImage('" + Globals.getInstance().pathToImages + "picasso.jpg')");
         engine.eval("imGray = rgb_2gray(im)");
         engine.eval("imEdge = edge_detection(imGray, method = '" + algorithm + "', conv_mode = 'same')");
                 
@@ -55,17 +53,14 @@ public class MathManager
         	}
         	sb.append("\n");
         }
-//        ArtToMusicLogger.getInstance().info(sb.toString());
+        ArtToMusicLogger.getInstance().info(sb.toString());
         
         engine.end();
     }
 
     public MathManager() throws InterruptedException
     {
-    }
-
-    public static void main(String[] args) throws InterruptedException
-    {
-        new MathManager();
+    	// Start Rengine.
+    	engine = new Rengine(new String[] {"--no-save" }, false, null);
     }
 }

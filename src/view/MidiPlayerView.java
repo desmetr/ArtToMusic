@@ -24,38 +24,46 @@ import utilities.ArtToMusicLogger;
 public class MidiPlayerView extends Application
 {
 	private Scene scene;
+	private MathManager mathManager;
 	
-	@FXML private Button startButton;
 	@FXML private ToggleGroup graphicsGroup;
 	@FXML private ToggleGroup musicGroup;
 	
 	@FXML 
 	private void initialize()
 	{
-	}
-	
-	@FXML
-	protected void onSubmitGraphicsClicked() throws InterruptedException
-	{
-		ArtToMusicLogger.getInstance().info("Submit Graphics button clicked.");
-		
-		graphicsGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() 
+		try 
 		{
-		    @Override
-		    public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) 
-		    {
-		        RadioButton radioButton = (RadioButton) t1.getToggleGroup().getSelectedToggle(); // Cast object to radio button
-		        ArtToMusicLogger.getInstance().info("Selected filter: " + radioButton.getText());
-		        
-		        MathManager.edgeDetection(radioButton.getText());
-		    }
-		});
+			mathManager = new MathManager();
+		} 
+		catch (InterruptedException e) {	e.printStackTrace();	}
 	}
 	
 	@FXML
-	protected void onSubmitMusicClicked() throws MidiUnavailableException, InterruptedException
+	protected void onGraphicalAnalysisClicked() throws InterruptedException
 	{
-		ArtToMusicLogger.getInstance().info("Submit Music button clicked.");
+		ArtToMusicLogger.getInstance().info("Graphical Analysis button clicked.");
+		
+		String radioButtonText = ((RadioButton) graphicsGroup.getSelectedToggle()).getText();
+				
+		switch (radioButtonText)
+		{
+			case "Frei Chen":
+				mathManager.edgeDetection("Frei_chen");
+				break;
+			case "Roberts Cross":
+				mathManager.edgeDetection("Roberts_cross");
+				break;
+			default:
+				mathManager.edgeDetection(radioButtonText);
+				break;
+		}
+	}
+	
+	@FXML
+	protected void onMusicGenerationClicked() throws MidiUnavailableException, InterruptedException
+	{
+		ArtToMusicLogger.getInstance().info("Music Generation button clicked.");
 		
 		musicGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() 
 		{
@@ -65,7 +73,7 @@ public class MidiPlayerView extends Application
 		        RadioButton radioButton = (RadioButton) t1.getToggleGroup().getSelectedToggle(); // Cast object to radio button
 		        ArtToMusicLogger.getInstance().info("Selected filter: " + radioButton.getText());
 		        
-		        MathManager.edgeDetection(radioButton.getText());
+		        mathManager.edgeDetection(radioButton.getText());
 		    }
 		});
 	}
