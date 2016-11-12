@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ArtToMusicView">
    <center>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
@@ -27,16 +26,16 @@
          <children>
             <VBox alignment="CENTER" spacing="10.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
                <children>
-                  <RadioButton selected="true" text="Frei Chen">
+                  <RadioButton prefWidth="120.0" selected="true" text="Frei Chen">
                      <toggleGroup>
                         <ToggleGroup fx:id="graphicsGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton text="LoG" toggleGroup="$graphicsGroup" />
-                  <RadioButton text="Prewitt" toggleGroup="$graphicsGroup" />
-                  <RadioButton text="Roberts Cross" toggleGroup="$graphicsGroup" />
-                  <RadioButton text="Scharr" toggleGroup="$graphicsGroup" />
-                  <RadioButton text="Sobel" toggleGroup="$graphicsGroup" />
+                  <RadioButton prefWidth="120.0" text="LoG" toggleGroup="$graphicsGroup" />
+                  <RadioButton prefWidth="120.0" text="Prewitt" toggleGroup="$graphicsGroup" />
+                  <RadioButton prefWidth="120.0" text="Roberts Cross" toggleGroup="$graphicsGroup" />
+                  <RadioButton prefWidth="120.0" text="Scharr" toggleGroup="$graphicsGroup" />
+                  <RadioButton prefWidth="120.0" text="Sobel" toggleGroup="$graphicsGroup" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -44,13 +43,13 @@
             </VBox>
             <VBox alignment="CENTER" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <RadioButton selected="true" text="Melody Sample">
+                  <RadioButton prefWidth="145.0" selected="true" text="Melody Sample">
                      <toggleGroup>
                         <ToggleGroup fx:id="musicGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton text="Rhythm Sample" toggleGroup="$musicGroup" />
-                  <RadioButton text="Combined Sample" toggleGroup="$musicGroup" />
+                  <RadioButton prefWidth="145.0" text="Rhythm Sample" toggleGroup="$musicGroup" />
+                  <RadioButton prefWidth="145.0" text="Combined Sample" toggleGroup="$musicGroup" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

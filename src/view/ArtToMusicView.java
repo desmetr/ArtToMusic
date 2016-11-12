@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import javax.sound.midi.MidiUnavailableException;
 
-import controller.MidiPlayerController;
+import controller.ArtToMusicController;
 import controller.music.MidiPlayer;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -104,7 +104,7 @@ public class ArtToMusicView extends Application
     public static void main(String[] args)
 	{
     	ArtToMusicLogger.getInstance().info("In constructor of Main.");
-        new MidiPlayerController();
+        new ArtToMusicController();
 		launch(args);
 	}
 }

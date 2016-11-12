@@ -11,9 +11,9 @@ import model.music.Note;
 /**
  * Created by rafael on 22.10.16.
  */
-public class MidiPlayerController
+public class ArtToMusicController
 {
-    public MidiPlayerController()
+    public ArtToMusicController()
     {
     }
 }
