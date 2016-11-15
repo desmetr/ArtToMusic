@@ -14,6 +14,9 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
@@ -22,7 +25,9 @@ import utilities.Globals;
  */
 public class MusicData
 {
-    private static Map<Globals.NoteLength, Double> getNoteOffsets()
+	public static ObservableList<ObservableList<Double>> destinationEdgeMatrix = FXCollections.observableArrayList();
+
+	private static Map<Globals.NoteLength, Double> getNoteOffsets()
     {
         Map<Globals.NoteLength, Double> noteOffsets = new HashMap<Globals.NoteLength, Double>();
         
@@ -63,6 +68,24 @@ public class MusicData
         return noteOffsets;
     }
 
+     public static void printEdgeMatrix()
+     {
+ 		ArtToMusicLogger.getInstance().info("MusicData: destinationEdgeMatrix change notified");
+ 		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.size()));
+ 		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.get(0).size()));
+ 		
+// 		StringBuilder sb = new StringBuilder();
+// 		for (int i = 0; i < destinationEdgeMatrix.size(); i++)
+// 		{
+// 			for (int j = 0; j < destinationEdgeMatrix.get(i).size(); j++)
+// 			{
+// 				sb.append(String.valueOf(destinationEdgeMatrix.get(i).get(j)) + " ");
+// 			}
+// 			sb.append("\n");
+// 		}
+// 		ArtToMusicLogger.getInstance().info(sb.toString());
+     }
+    
     public static Vector<Note> generate(String path)
     {
     	ArtToMusicLogger.getInstance().info("Generating " + path);

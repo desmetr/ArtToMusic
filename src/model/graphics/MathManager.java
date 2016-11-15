@@ -3,7 +3,9 @@ package model.graphics;
 import org.rosuda.JRI.Rengine;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
+import model.music.MusicData;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
@@ -13,29 +15,31 @@ import utilities.Globals;
 public class MathManager
 {
 	private Rengine engine;
-	private ObservableList<ObservableList<Double>> edgeMatrix;
+	private ObservableList<ObservableList<Double>> sourceEdgeMatrix = FXCollections.observableArrayList();
 	
-	private ObservableList<ObservableList<Double>> convertToObservableMatrix(double[][] source)
+	private void convertToObservableMatrix(double[][] source)
 	{
-		ObservableList<ObservableList<Double>> destination = FXCollections.<ObservableList<Double>>observableArrayList();
-		
 		for (int i = 0; i < source.length; i++)
         {
 			final ObservableList<Double> row = FXCollections.<Double> observableArrayList();
-			destination.add(i, row);
-			
+					
         	for (int j = 0; j < source[i].length; j++)
         	{ 
         		row.add(source[i][j]);
         	}
+        	
+        	sourceEdgeMatrix.add(row);
         }
-		return destination;
 	}
 	
     public void edgeDetection(String algorithm)
     {
     	ArtToMusicLogger.getInstance().info("Performing the " + algorithm + " filter."); 
-        
+    	sourceEdgeMatrix.addListener((Change<? extends ObservableList<Double>> change) -> 
+    	{
+    		MusicData.destinationEdgeMatrix.setAll(change.getList());
+        });   
+    	 
         engine.eval("library('OpenImageR')");
 		engine.eval("im = readImage('" + Globals.getInstance().pathToImages + "picasso.jpg')");
         engine.eval("imGray = rgb_2gray(im)");
@@ -43,18 +47,24 @@ public class MathManager
                 
         // Retrieve matrix of image.
         double[][] imEdgeMatrix = engine.eval("imEdge").asDoubleMatrix();
-        edgeMatrix = convertToObservableMatrix(imEdgeMatrix);
+        convertToObservableMatrix(imEdgeMatrix);
         
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < edgeMatrix.size(); i++)
-        {
-        	for (int j = 0; j < edgeMatrix.get(i).size(); j++)
-        	{
-        		sb.append(String.valueOf(edgeMatrix.get(i).get(j)) + " ");
-        	}
-        	sb.append("\n");
-        }
-        ArtToMusicLogger.getInstance().info(sb.toString());
+        ArtToMusicLogger.getInstance().info("MathManager: logging sourceEdgeMatrix");
+        ArtToMusicLogger.getInstance().info(String.valueOf(sourceEdgeMatrix.size()));
+        ArtToMusicLogger.getInstance().info(String.valueOf(sourceEdgeMatrix.get(0).size()));
+        
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < sourceEdgeMatrix.size(); i++)
+//        {
+//        	for (int j = 0; j < sourceEdgeMatrix.get(i).size(); j++)
+//        	{
+//        		sb.append(String.valueOf(sourceEdgeMatrix.get(i).get(j)) + " ");
+//        	}
+//        	sb.append("\n");
+//        }
+//        ArtToMusicLogger.getInstance().info(sb.toString());
+        
+        MusicData.printEdgeMatrix();
         
         engine.end();
     }

@@ -104,7 +104,7 @@ public class ArtToMusicView extends Application
     public static void main(String[] args)
 	{
     	ArtToMusicLogger.getInstance().info("In constructor of Main.");
-        new ArtToMusicController();
 		launch(args);
+		new ArtToMusicController();
 	}
 }
