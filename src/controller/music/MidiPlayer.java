@@ -14,12 +14,28 @@ public class MidiPlayer
     private Synthesizer synth = MidiSystem.getSynthesizer();
     final MidiChannel[] midiChannels = synth.getChannels();
     Instrument[] instruments = synth.getDefaultSoundbank().getInstruments();
+    
+    private int currentChannel = 0;
 
     public MidiPlayer() throws MidiUnavailableException
     {
         synth.open();
-        synth.loadInstrument(instruments[80]);
-        midiChannels[0].programChange(0, 80);
+        synth.loadInstrument(instruments[0]);
+        midiChannels[currentChannel].programChange(0, 0);
+    }
+    
+    public void setMidiChannel(int channel)
+    {
+    	currentChannel = channel;
+    	synth.loadInstrument(instruments[0]);
+        midiChannels[currentChannel].programChange(0, 0);
+    }
+    
+    public void chooseDrums()
+    {
+    	currentChannel = 9;
+    	synth.loadInstrument(instruments[35]);
+        midiChannels[currentChannel].programChange(0, 35);
     }
 
     public void playNotes(int bpm, Vector<Note> notes) throws InterruptedException
@@ -30,9 +46,9 @@ public class MidiPlayer
         {
             double time = (note.getOffset() * (60 /(double) bpm));
 
-            midiChannels[0].noteOn(note.getPitch(), 600);
+            midiChannels[currentChannel].noteOn(note.getPitch(), 600);
             Thread.sleep((long) (time * 1000));
-            midiChannels[0].noteOff(note.getPitch());
+            midiChannels[currentChannel].noteOff(note.getPitch());
         }
     }
 }

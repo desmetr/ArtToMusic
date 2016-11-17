@@ -1,6 +1,7 @@
 package model.music;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,70 +28,28 @@ public class MusicData
 {
 	public static ObservableList<ObservableList<Double>> destinationEdgeMatrix = FXCollections.observableArrayList();
 
-	private static Map<Globals.NoteLength, Double> getNoteOffsets()
+    public static void printEdgeMatrix()
     {
-        Map<Globals.NoteLength, Double> noteOffsets = new HashMap<Globals.NoteLength, Double>();
-        
-		try 
+		ArtToMusicLogger.getInstance().info("MusicData: destinationEdgeMatrix change notified");
+		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.size()));
+		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.get(0).size()));
+	
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < destinationEdgeMatrix.size(); i++)
 		{
-			SAXBuilder parser = new SAXBuilder();
-			Document document = parser.build(Globals.getInstance().pathToMusic + "NoteOffsets.xml");
-			
-			XPathExpression<Element> xpath = XPathFactory.instance().compile("//note", Filters.element());
-			List<Element> noteValues = xpath.evaluate(document);
-			for (Element value : noteValues)
+			for (int j = 0; j < destinationEdgeMatrix.get(i).size(); j++)
 			{
-				if (value.getAttributeValue("length").equalsIgnoreCase("whole"))
-					noteOffsets.put(Globals.NoteLength.WHOLE, Double.parseDouble(value.getAttributeValue("offset")));
-				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("half"))
-					noteOffsets.put(Globals.NoteLength.HALF, Double.parseDouble(value.getAttributeValue("offset")));
-				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("quarter"))
-					noteOffsets.put(Globals.NoteLength.QUARTER, Double.parseDouble(value.getAttributeValue("offset")));
-				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("quarter-dotted"))
-					noteOffsets.put(Globals.NoteLength.QUARTER_DOTTED, Double.parseDouble(value.getAttributeValue("offset")));
-				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("eighth"))
-					noteOffsets.put(Globals.NoteLength.EIGHTH, Double.parseDouble(value.getAttributeValue("offset")));
-				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("sixteenth"))
-					noteOffsets.put(Globals.NoteLength.SIXTEENTH, Double.parseDouble(value.getAttributeValue("offset")));
-				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("thirty-second"))
-					noteOffsets.put(Globals.NoteLength.THIRTY_SECOND, Double.parseDouble(value.getAttributeValue("offset")));
+				sb.append(String.valueOf(Globals.decimalFormat.format(destinationEdgeMatrix.get(i).get(j))) + " ");
 			}
+			sb.append("\n");
 		}
-		catch (JDOMException e) {	e.printStackTrace();	} 
-		catch (IOException e) 	{	e.printStackTrace();	}
-
-        return noteOffsets;
+		ArtToMusicLogger.getInstance().info(sb.toString());
     }
-
-     public static void printEdgeMatrix()
-     {
- 		ArtToMusicLogger.getInstance().info("MusicData: destinationEdgeMatrix change notified");
- 		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.size()));
- 		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.get(0).size()));
- 		
-// 		StringBuilder sb = new StringBuilder();
-// 		for (int i = 0; i < destinationEdgeMatrix.size(); i++)
-// 		{
-// 			for (int j = 0; j < destinationEdgeMatrix.get(i).size(); j++)
-// 			{
-// 				sb.append(String.valueOf(destinationEdgeMatrix.get(i).get(j)) + " ");
-// 			}
-// 			sb.append("\n");
-// 		}
-// 		ArtToMusicLogger.getInstance().info(sb.toString());
-     }
     
     public static Vector<Note> generate(String path)
     {
     	ArtToMusicLogger.getInstance().info("Generating " + path);
     	
-        Map<Globals.NoteLength, Double> noteOffsets = getNoteOffsets();
         Vector<Note> notes = new Vector<Note>();
         
 		try 
@@ -101,28 +60,36 @@ public class MusicData
 			XPathExpression<Element> xpath = XPathFactory.instance().compile("//note", Filters.element());
 			List<Element> notesXML = xpath.evaluate(document);
 			
+			Double offset = 0.0;
+			String noteName = "";
+			Integer midiValue = 0;
+			
 			for (Element value : notesXML)
 			{
-				if (value.getAttributeValue("length").equalsIgnoreCase("whole"))
-					notes.add(new Note(Globals.NoteLength.WHOLE, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.WHOLE)));
+				offset = Double.parseDouble(value.getChild("duration").getText());
+				noteName = value.getChild("pitch").getChildText("step") + value.getChild("pitch").getChildText("octave");
+				midiValue = Globals.midiNoteNumbers.get(noteName);
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("half"))
-					notes.add(new Note(Globals.NoteLength.HALF, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.HALF)));
+				if (value.getChild("type").getText().equalsIgnoreCase("whole"))
+					notes.add(new Note(Globals.NoteLength.WHOLE, midiValue, offset));
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("quarter"))
-					notes.add(new Note(Globals.NoteLength.QUARTER, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.QUARTER)));
+				else if (value.getChild("type").getText().equalsIgnoreCase("half"))
+					notes.add(new Note(Globals.NoteLength.HALF, midiValue, offset));
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("quarter-dotted"))
-					notes.add(new Note(Globals.NoteLength.QUARTER_DOTTED, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.QUARTER_DOTTED)));
+				else if (value.getChild("type").getText().equalsIgnoreCase("quarter"))
+					notes.add(new Note(Globals.NoteLength.QUARTER, midiValue, offset));
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("eighth"))
-					notes.add(new Note(Globals.NoteLength.EIGHTH, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.EIGHTH)));
+				else if (value.getChild("type").getText().equalsIgnoreCase("quarter-dotted"))
+					notes.add(new Note(Globals.NoteLength.QUARTER_DOTTED, midiValue, offset));
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("sixteenth"))
-					notes.add(new Note(Globals.NoteLength.SIXTEENTH, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.SIXTEENTH)));
+				else if (value.getChild("type").getText().equalsIgnoreCase("eighth"))
+					notes.add(new Note(Globals.NoteLength.EIGHTH, midiValue, offset));
 				
-				else if (value.getAttributeValue("length").equalsIgnoreCase("thirty-second"))
-					notes.add(new Note(Globals.NoteLength.THIRTY_SECOND, Integer.parseInt(value.getAttributeValue("midivalue")), noteOffsets.get(Globals.NoteLength.THIRTY_SECOND)));
+				else if (value.getChild("type").getText().equalsIgnoreCase("sixteenth"))
+					notes.add(new Note(Globals.NoteLength.SIXTEENTH, midiValue, offset));
+				
+				else if (value.getChild("type").getText().equalsIgnoreCase("thirty-second"))
+					notes.add(new Note(Globals.NoteLength.THIRTY_SECOND, midiValue, offset));
 			}
 		} 
 		catch (JDOMException e)	{	e.printStackTrace();	}

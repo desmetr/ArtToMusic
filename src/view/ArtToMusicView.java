@@ -82,7 +82,9 @@ public class ArtToMusicView extends Application
 		        midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "MelodySample.xml"));
 		        break;
 			case "Rhythm Sample":
+				midiPlayer.chooseDrums();
 				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "RhythmSample.xml"));
+				midiPlayer.setMidiChannel(0);
 				break;
 			case "Combined Sample":
 				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "CombinedSample.xml"));

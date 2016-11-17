@@ -1,8 +1,55 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<notes>
-	<note length="quarter" midivalue="60"/>
-	<note length="eighth" midivalue="64"/>
-	<note length="eighth" midivalue="67"/>
-	<note length="quarter-dotted" midivalue="71"/>
-	<note length="eighth" midivalue="72"/>
-</notes>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<score-partwise version="3.0">
+	<part id="P1">
+		<measure number="1">
+	    	<note>
+		    	<pitch>
+		        	<step>C</step>
+		        	<octave>4</octave>
+		        </pitch>
+		        <duration>1.0</duration>
+		    	<type>quarter</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>E</step>
+		        	<octave>4</octave>
+		        </pitch>
+		        <duration>0.5</duration>
+		        <type>eighth</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>G</step>
+		        	<octave>4</octave>
+		        </pitch>
+		        <duration>0.5</duration>
+		        <type>eighth</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>B</step>
+		        	<octave>4</octave>
+		        </pitch>
+		        <duration>0.5</duration>
+		        <type>eighth</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>C</step>
+		        	<octave>5</octave>
+		        </pitch>
+		        <duration>0.5</duration>
+		        <type>eighth</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>C</step>
+		        	<octave>5</octave>
+		        </pitch>
+		        <duration>1.0</duration>
+		        <type>quarter</type>
+		    </note>
+		</measure>
+	</part>
+</score-partwise>

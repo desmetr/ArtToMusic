@@ -1,5 +1,7 @@
 package model.graphics;
 
+import java.text.DecimalFormat;
+
 import org.rosuda.JRI.Rengine;
 
 import javafx.collections.FXCollections;
@@ -53,16 +55,16 @@ public class MathManager
         ArtToMusicLogger.getInstance().info(String.valueOf(sourceEdgeMatrix.size()));
         ArtToMusicLogger.getInstance().info(String.valueOf(sourceEdgeMatrix.get(0).size()));
         
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < sourceEdgeMatrix.size(); i++)
-//        {
-//        	for (int j = 0; j < sourceEdgeMatrix.get(i).size(); j++)
-//        	{
-//        		sb.append(String.valueOf(sourceEdgeMatrix.get(i).get(j)) + " ");
-//        	}
-//        	sb.append("\n");
-//        }
-//        ArtToMusicLogger.getInstance().info(sb.toString());
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < sourceEdgeMatrix.size(); i++)
+        {
+        	for (int j = 0; j < sourceEdgeMatrix.get(i).size(); j++)
+        	{
+        		sb.append(String.valueOf(Globals.decimalFormat.format(sourceEdgeMatrix.get(i).get(j))) + " ");
+        	}
+        	sb.append("\n");
+        }
+        ArtToMusicLogger.getInstance().info(sb.toString());
         
         MusicData.printEdgeMatrix();
         

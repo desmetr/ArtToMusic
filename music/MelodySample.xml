@@ -1,7 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<notes>
-	<note length="quarter" midivalue="60"/>
-	<note length="quarter" midivalue="64"/>
-	<note length="quarter" midivalue="67"/>
-	<note length="quarter" midivalue="72"/>
-</notes>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<score-partwise version="3.0">
+	<part id="P1">
+		<measure number="1">
+			<note>
+		    	<pitch>
+		        	<step>C</step>
+		        	<octave>4</octave>
+		        </pitch>
+		        <duration>1.0</duration>
+		    	<type>quarter</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>E</step>
+		        	<octave>4</octave>
+		        </pitch>
+		        <duration>1.0</duration>
+		    	<type>quarter</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>G</step>
+		        	<octave>4</octave>
+		        </pitch>
+		        <duration>1.0</duration>
+		    	<type>quarter</type>
+		    </note>
+		    <note>
+		    	<pitch>
+		        	<step>C</step>
+		        	<octave>5</octave>
+		        </pitch>
+		        <duration>1.0</duration>
+		    	<type>quarter</type>
+		    </note>
+		</measure>
+	</part>
+</score-partwise>
