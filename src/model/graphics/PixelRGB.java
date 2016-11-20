@@ -9,11 +9,11 @@ public class PixelRGB
     private int green;
     private int blue;
 
-    public PixelRGB(int red, int green, int blue)
+    public PixelRGB(double rValues, double gValues, double bValues)
     {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        this.red = (int) rValues;
+        this.green = (int) gValues;
+        this.blue = (int) bValues;
     }
 
     public int getRed()     {   return red;     }
@@ -27,5 +27,10 @@ public class PixelRGB
     public void print()
     {
         System.out.println(red + ", " + green + ", " + blue);
+    }
+    
+    public String toString()
+    {
+    	return "(" + String.valueOf(red) + ", " + String.valueOf(green) + ", " + String.valueOf(blue) + ")";
     }
 }

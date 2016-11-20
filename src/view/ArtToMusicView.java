@@ -18,7 +18,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.graphics.MathManager;
+import model.graphics.RManager;
 import model.music.MusicData;
 import model.music.Note;
 import utilities.ArtToMusicLogger;
@@ -30,7 +30,7 @@ import utilities.Globals;
 public class ArtToMusicView extends Application
 {
 	private Scene scene;
-	private MathManager mathManager;
+	private RManager rManager;
 	private MidiPlayer midiPlayer;
 	
 	@FXML private ToggleGroup graphicsGroup;
@@ -41,7 +41,7 @@ public class ArtToMusicView extends Application
 	{
 		try 
 		{
-			mathManager = new MathManager();
+			rManager = new RManager();
 			midiPlayer = new MidiPlayer();
 		} 
 		catch (InterruptedException e) 		{	e.printStackTrace();	} 
@@ -58,13 +58,16 @@ public class ArtToMusicView extends Application
 		switch (radioButtonText)
 		{
 			case "Frei Chen":
-				mathManager.edgeDetection("Frei_chen");
+				rManager.edgeDetection("Frei_chen");
 				break;
 			case "Roberts Cross":
-				mathManager.edgeDetection("Roberts_cross");
+				rManager.edgeDetection("Roberts_cross");
+				break;
+			case "Only RGB":
+				rManager.rgbAnalysis();
 				break;
 			default:
-				mathManager.edgeDetection(radioButtonText);
+				rManager.edgeDetection(radioButtonText);
 				break;
 		}
 	}

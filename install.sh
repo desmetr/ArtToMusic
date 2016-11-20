@@ -3,5 +3,5 @@
 # R packages
 sudo apt-get install libtiff5-dev
 
-# In R
 install.packages('OpenImageR')
+library(jpeg)

@@ -1,10 +1,7 @@
 package model.music;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 import org.jdom2.Document;
@@ -17,7 +14,7 @@ import org.jdom2.xpath.XPathFactory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener.Change;
+import model.graphics.PixelRGB;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
@@ -27,6 +24,7 @@ import utilities.Globals;
 public class MusicData
 {
 	public static ObservableList<ObservableList<Double>> destinationEdgeMatrix = FXCollections.observableArrayList();
+	public static ObservableList<ObservableList<PixelRGB>> destinationRGBValuesMatrix = FXCollections.observableArrayList();
 
     public static void printEdgeMatrix()
     {
@@ -44,6 +42,12 @@ public class MusicData
 			sb.append("\n");
 		}
 		ArtToMusicLogger.getInstance().info(sb.toString());
+    }
+    
+    public static void checkBinding()
+    {
+    	System.out.println(destinationRGBValuesMatrix.size());
+    	System.out.println(destinationRGBValuesMatrix.get(0).size());
     }
     
     public static Vector<Note> generate(String path)
