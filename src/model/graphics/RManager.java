@@ -1,7 +1,5 @@
 package model.graphics;
 
-import java.text.DecimalFormat;
-
 import org.rosuda.JRI.Rengine;
 
 import javafx.collections.FXCollections;
@@ -18,7 +16,6 @@ public class RManager
 {
 	private Rengine engine;
 	private ObservableList<ObservableList<Double>> sourceEdgeMatrix = FXCollections.observableArrayList();
-	
 	private ObservableList<ObservableList<PixelRGB>> sourceRGBValues= FXCollections.observableArrayList();
 	
 	private void convertToObservableMatrix(double[][] source, ObservableList<ObservableList<Double>> destination)

@@ -26,6 +26,9 @@ public class MusicData
 	public static ObservableList<ObservableList<Double>> destinationEdgeMatrix = FXCollections.observableArrayList();
 	public static ObservableList<ObservableList<PixelRGB>> destinationRGBValuesMatrix = FXCollections.observableArrayList();
 
+	private static ObservableList<PixelRGB> grayList = FXCollections.observableArrayList();
+	private static ObservableList<PixelRGB> blackList = FXCollections.observableArrayList();
+	
     public static void printEdgeMatrix()
     {
 		ArtToMusicLogger.getInstance().info("MusicData: destinationEdgeMatrix change notified");
@@ -48,6 +51,23 @@ public class MusicData
     {
     	System.out.println(destinationRGBValuesMatrix.size());
     	System.out.println(destinationRGBValuesMatrix.get(0).size());
+    }
+    
+    public static void analyseRGB()
+    {
+    	for (ObservableList<PixelRGB> pixels : destinationRGBValuesMatrix)
+    	{
+    		for (PixelRGB pixel : pixels)
+    		{
+    			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
+    				grayList.add(pixel);
+    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40)) &&
+    					  abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
+    					  abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
+    					  abs((pixel.getRed() - pixel.getBlue())) <= 20)
+					blackList.add(pixel);
+    		}
+    	}
     }
     
     public static Vector<Note> generate(String path)
