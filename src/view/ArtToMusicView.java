@@ -65,6 +65,7 @@ public class ArtToMusicView extends Application
 				break;
 			case "Only RGB":
 				rManager.rgbAnalysis();
+				MusicData.analyseRGB();
 				break;
 			default:
 				rManager.edgeDetection(radioButtonText);

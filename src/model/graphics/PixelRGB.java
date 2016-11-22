@@ -33,4 +33,12 @@ public class PixelRGB
     {
     	return "(" + String.valueOf(red) + ", " + String.valueOf(green) + ", " + String.valueOf(blue) + ")";
     }
+    
+    public boolean equals(PixelRGB other) 
+    {
+    	if ((this.red == other.getRed()) && (this.green == other.getGreen()) && (this.blue == other.getBlue()))
+    		return true;
+    	else
+    		return false;
+    }
 }

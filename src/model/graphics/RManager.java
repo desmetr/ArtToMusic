@@ -100,18 +100,16 @@ public class RManager
     		sourceRGBValues.add(row);
     	}
     	
-    	StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < sourceRGBValues.size(); i++)
-        {
-        	for (int j = 0; j < sourceRGBValues.get(i).size(); j++)
-        	{
-        		sb.append(sourceRGBValues.get(i).get(j).toString() + " ");
-        	}
-        	sb.append("\n");
-        }
-        ArtToMusicLogger.getInstance().info(sb.toString());
-        
-        MusicData.checkBinding();
+//    	StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < sourceRGBValues.size(); i++)
+//        {
+//        	for (int j = 0; j < sourceRGBValues.get(i).size(); j++)
+//        	{
+//        		sb.append(sourceRGBValues.get(i).get(j).toString() + " ");
+//        	}
+//        	sb.append("\n");
+//        }
+//        ArtToMusicLogger.getInstance().info(sb.toString());
     }
     
     public RManager() throws InterruptedException

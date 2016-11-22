@@ -1,7 +1,9 @@
 package model.music;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.jdom2.Document;
@@ -28,6 +30,7 @@ public class MusicData
 
 	private static ObservableList<PixelRGB> grayList = FXCollections.observableArrayList();
 	private static ObservableList<PixelRGB> blackList = FXCollections.observableArrayList();
+	private static ObservableList<PixelRGB> whiteList = FXCollections.observableArrayList();
 	
     public static void printEdgeMatrix()
     {
@@ -46,13 +49,7 @@ public class MusicData
 		}
 		ArtToMusicLogger.getInstance().info(sb.toString());
     }
-    
-    public static void checkBinding()
-    {
-    	System.out.println(destinationRGBValuesMatrix.size());
-    	System.out.println(destinationRGBValuesMatrix.get(0).size());
-    }
-    
+        
     public static void analyseRGB()
     {
     	for (ObservableList<PixelRGB> pixels : destinationRGBValuesMatrix)
@@ -61,12 +58,48 @@ public class MusicData
     		{
     			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
     				grayList.add(pixel);
-    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40)) &&
-    					  abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
-    					  abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
-    					  abs((pixel.getRed() - pixel.getBlue())) <= 20)
+    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40) &&
+    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
+    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
+    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
 					blackList.add(pixel);
+    			else if ((pixel.getRed() > 245 && pixel.getGreen() > 245 && pixel.getBlue() > 245) &&
+    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
+    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
+    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
+    				whiteList.add(pixel);
     		}
+    	}
+    	
+    	ArtToMusicLogger.getInstance().info(String.valueOf(grayList.size()));
+    	ArtToMusicLogger.getInstance().info(String.valueOf(blackList.size()));
+    	ArtToMusicLogger.getInstance().info(String.valueOf(whiteList.size()));
+    	
+    	Map<PixelRGB, Integer> pixelCount = new HashMap<PixelRGB, Integer>();
+    	
+    	for (ObservableList<PixelRGB> pixels : destinationRGBValuesMatrix)
+    	{
+    		for (PixelRGB pixel : pixels)
+    		{
+    			PixelRGB temp = pixel;
+    			Integer count = 0;
+
+    			for (ObservableList<PixelRGB> pixelsInner : destinationRGBValuesMatrix)
+    			{
+    				for (PixelRGB pixelInner : pixelsInner)
+    				{
+    					if (temp.equals(pixelInner))
+    					{
+    						pixelCount.put(pixelInner, ++count);
+    					}
+    				}
+    			}
+    		}
+    	}
+    	
+    	for (PixelRGB pixel : pixelCount.keySet())
+    	{
+    		ArtToMusicLogger.getInstance().info("The pixel " + pixel.toString() + " was found " + String.valueOf(pixelCount.get(pixel)));	
     	}
     }
     
