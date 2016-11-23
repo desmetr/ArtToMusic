@@ -31,6 +31,9 @@ public class MusicData
 	private static ObservableList<PixelRGB> grayList = FXCollections.observableArrayList();
 	private static ObservableList<PixelRGB> blackList = FXCollections.observableArrayList();
 	private static ObservableList<PixelRGB> whiteList = FXCollections.observableArrayList();
+	private static ObservableList<PixelRGB> redList = FXCollections.observableArrayList();
+	private static ObservableList<PixelRGB> greenList = FXCollections.observableArrayList();
+	private static ObservableList<PixelRGB> blueList = FXCollections.observableArrayList();
 	
     public static void printEdgeMatrix()
     {
@@ -68,39 +71,21 @@ public class MusicData
     					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
     					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
     				whiteList.add(pixel);
+    			else if (pixel.getRed() >= 200)
+    				redList.add(pixel);
+    			else if (pixel.getGreen() >= 200)
+    				greenList.add(pixel);
+    			else if (pixel.getBlue() >= 200)
+    				blueList.add(pixel);
     		}
     	}
     	
-    	ArtToMusicLogger.getInstance().info(String.valueOf(grayList.size()));
-    	ArtToMusicLogger.getInstance().info(String.valueOf(blackList.size()));
-    	ArtToMusicLogger.getInstance().info(String.valueOf(whiteList.size()));
-    	
-    	Map<PixelRGB, Integer> pixelCount = new HashMap<PixelRGB, Integer>();
-    	
-    	for (ObservableList<PixelRGB> pixels : destinationRGBValuesMatrix)
-    	{
-    		for (PixelRGB pixel : pixels)
-    		{
-    			PixelRGB temp = pixel;
-    			Integer count = 0;
-
-    			for (ObservableList<PixelRGB> pixelsInner : destinationRGBValuesMatrix)
-    			{
-    				for (PixelRGB pixelInner : pixelsInner)
-    				{
-    					if (temp.equals(pixelInner))
-    					{
-    						pixelCount.put(pixelInner, ++count);
-    					}
-    				}
-    			}
-    		}
-    	}
-    	
-    	for (PixelRGB pixel : pixelCount.keySet())
-    	{
-    		ArtToMusicLogger.getInstance().info("The pixel " + pixel.toString() + " was found " + String.valueOf(pixelCount.get(pixel)));	
-    	}
+    	ArtToMusicLogger.getInstance().info("Gray " + String.valueOf(grayList.size()));
+    	ArtToMusicLogger.getInstance().info("Black " + String.valueOf(blackList.size()));
+    	ArtToMusicLogger.getInstance().info("White " + String.valueOf(whiteList.size()));
+    	ArtToMusicLogger.getInstance().info("Red " + String.valueOf(redList.size()));
+    	ArtToMusicLogger.getInstance().info("Green " + String.valueOf(greenList.size()));
+    	ArtToMusicLogger.getInstance().info("Blue " + String.valueOf(blueList.size()));
     }
     
     public static Vector<Note> generate(String path)

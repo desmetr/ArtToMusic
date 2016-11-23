@@ -21,6 +21,7 @@ public class Globals
 	
 	public static String pathToImages;
 	public static String pathToMusic;
+	public static String imageName;
 	public static DecimalFormat decimalFormat = new DecimalFormat("0.000");
 	
 	public static Globals getInstance() 

@@ -72,14 +72,14 @@ public class RManager
 
     public void rgbAnalysis()
     {
-    	ArtToMusicLogger.getInstance().info("Getting RGB values from image.");
+    	ArtToMusicLogger.getInstance().info("Getting RGB values from image " + Globals.imageName + ".");
     	sourceRGBValues.addListener((Change<? extends ObservableList<PixelRGB>> change) -> 
     	{
     		MusicData.destinationRGBValuesMatrix.setAll(change.getList());
         });
     	
     	engine.eval("library(jpeg)");
-    	engine.eval("img <- readJPEG('" + Globals.getInstance().pathToImages + "picasso.jpg')");
+    	engine.eval("img <- readJPEG('" + Globals.getInstance().pathToImages + Globals.imageName + "')");
     	
     	int length = engine.eval("dim(img)[1]").asInt();
     	int width = engine.eval("dim(img)[2]").asInt();

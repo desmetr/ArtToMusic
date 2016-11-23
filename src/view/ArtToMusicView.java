@@ -1,26 +1,23 @@
 package view;
 
-import java.util.Vector;
+import java.io.File;
 
 import javax.sound.midi.MidiUnavailableException;
 
 import controller.ArtToMusicController;
 import controller.music.MidiPlayer;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import model.graphics.RManager;
 import model.music.MusicData;
-import model.music.Note;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
@@ -101,6 +98,13 @@ public class ArtToMusicView extends Application
     {
     	BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/view/ArtToMusicView.fxml"));
     	scene = new Scene(root);
+    	
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Open Image");
+    	fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg"));
+    	File selectedFile = fileChooser.showOpenDialog(primaryStage);
+    	if (selectedFile != null) 
+    	    Globals.imageName = selectedFile.getName();
     
         primaryStage.setTitle("MidiPlayer");
         primaryStage.setScene(scene);
