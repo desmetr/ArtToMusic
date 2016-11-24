@@ -21,6 +21,8 @@ public class Globals
 	
 	public static String pathToImages;
 	public static String pathToMusic;
+	public static String pathToSamples;
+	
 	public static String imageName;
 	public static DecimalFormat decimalFormat = new DecimalFormat("0.000");
 	
@@ -41,6 +43,7 @@ public class Globals
 		
 		XPathExpression<Element> xpathImages = XPathFactory.instance().compile("//path-to-images", Filters.element());
 		XPathExpression<Element> xpathMusic = XPathFactory.instance().compile("//path-to-music", Filters.element());
+		XPathExpression<Element> xpathSamples = XPathFactory.instance().compile("//path-to-samples", Filters.element());
 
 		Element pathToImagesElement = xpathImages.evaluateFirst(document);
 		if (pathToImagesElement != null)
@@ -49,6 +52,11 @@ public class Globals
 		Element pathToMusicElement = xpathMusic.evaluateFirst(document);
 		if (pathToMusicElement != null)
 		    pathToMusic = pathToMusicElement.getValue();
+
+		Element pathToSamplesElement = xpathSamples.evaluateFirst(document);
+		if (pathToSamplesElement != null)
+		    pathToSamples = pathToSamplesElement.getValue();
+
 	}
 	
 	// Graphics
