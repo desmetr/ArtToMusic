@@ -60,9 +60,9 @@ public class ArtToMusicView extends Application
 			case "Roberts Cross":
 				rManager.edgeDetection("Roberts_cross");
 				break;
-			case "Only RGB":
-				rManager.rgbAnalysis();
-				MusicData.analyseRGB();
+			case "Color Analysis":
+				rManager.colorAnalysis();
+//				MusicData.analyseRGB();
 				break;
 			default:
 				rManager.edgeDetection(radioButtonText);

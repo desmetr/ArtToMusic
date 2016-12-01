@@ -16,7 +16,7 @@ public class RManager
 {
 	private Rengine engine;
 	private ObservableList<ObservableList<Double>> sourceEdgeMatrix = FXCollections.observableArrayList();
-	private ObservableList<ObservableList<PixelRGB>> sourceRGBValues= FXCollections.observableArrayList();
+	private ObservableList<ObservableList<Pixel>> sourceRGBValues= FXCollections.observableArrayList();
 	
 	private void convertToObservableMatrix(double[][] source, ObservableList<ObservableList<Double>> destination)
 	{
@@ -70,10 +70,10 @@ public class RManager
 //        engine.end();
     }
 
-    public void rgbAnalysis()
+    public void colorAnalysis()
     {
     	ArtToMusicLogger.getInstance().info("Getting RGB values from image " + Globals.imageName + ".");
-    	sourceRGBValues.addListener((Change<? extends ObservableList<PixelRGB>> change) -> 
+    	sourceRGBValues.addListener((Change<? extends ObservableList<Pixel>> change) -> 
     	{
     		MusicData.destinationRGBValuesMatrix.setAll(change.getList());
         });
@@ -90,26 +90,26 @@ public class RManager
     	
     	for (int i = 0; i < length; i++)
     	{
-    		final ObservableList<PixelRGB> row = FXCollections.<PixelRGB> observableArrayList();
+    		final ObservableList<Pixel> row = FXCollections.<Pixel> observableArrayList();
     		
     		for (int j = 0; j < width; j++)
     		{
-    			row.add(new PixelRGB(rValues[i][j], gValues[i][j], bValues[i][j]));
+    			row.add(new Pixel(rValues[i][j], gValues[i][j], bValues[i][j]));
     		}
     		
     		sourceRGBValues.add(row);
     	}
     	
-//    	StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < sourceRGBValues.size(); i++)
-//        {
-//        	for (int j = 0; j < sourceRGBValues.get(i).size(); j++)
-//        	{
-//        		sb.append(sourceRGBValues.get(i).get(j).toString() + " ");
-//        	}
-//        	sb.append("\n");
-//        }
-//        ArtToMusicLogger.getInstance().info(sb.toString());
+    	StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < sourceRGBValues.size(); i++)
+        {
+        	for (int j = 0; j < sourceRGBValues.get(i).size(); j++)
+        	{
+        		sb.append(sourceRGBValues.get(i).get(j).toString() + " ");
+        	}
+        	sb.append("\n");
+        }
+        ArtToMusicLogger.getInstance().info(sb.toString());
     }
     
     public RManager() throws InterruptedException

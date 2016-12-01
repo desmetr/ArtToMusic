@@ -16,7 +16,7 @@ import org.jdom2.xpath.XPathFactory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.graphics.PixelRGB;
+import model.graphics.Pixel;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
@@ -26,14 +26,14 @@ import utilities.Globals;
 public class MusicData
 {
 	public static ObservableList<ObservableList<Double>> destinationEdgeMatrix = FXCollections.observableArrayList();
-	public static ObservableList<ObservableList<PixelRGB>> destinationRGBValuesMatrix = FXCollections.observableArrayList();
+	public static ObservableList<ObservableList<Pixel>> destinationRGBValuesMatrix = FXCollections.observableArrayList();
 
-	private static ObservableList<PixelRGB> grayList = FXCollections.observableArrayList();
-	private static ObservableList<PixelRGB> blackList = FXCollections.observableArrayList();
-	private static ObservableList<PixelRGB> whiteList = FXCollections.observableArrayList();
-	private static ObservableList<PixelRGB> redList = FXCollections.observableArrayList();
-	private static ObservableList<PixelRGB> greenList = FXCollections.observableArrayList();
-	private static ObservableList<PixelRGB> blueList = FXCollections.observableArrayList();
+	private static ObservableList<Pixel> grayList = FXCollections.observableArrayList();
+	private static ObservableList<Pixel> blackList = FXCollections.observableArrayList();
+	private static ObservableList<Pixel> whiteList = FXCollections.observableArrayList();
+	private static ObservableList<Pixel> redList = FXCollections.observableArrayList();
+	private static ObservableList<Pixel> greenList = FXCollections.observableArrayList();
+	private static ObservableList<Pixel> blueList = FXCollections.observableArrayList();
 	
     public static void printEdgeMatrix()
     {
@@ -55,9 +55,9 @@ public class MusicData
         
     public static void analyseRGB()
     {
-    	for (ObservableList<PixelRGB> pixels : destinationRGBValuesMatrix)
+    	for (ObservableList<Pixel> pixels : destinationRGBValuesMatrix)
     	{
-    		for (PixelRGB pixel : pixels)
+    		for (Pixel pixel : pixels)
     		{
     			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
     				grayList.add(pixel);
