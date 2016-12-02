@@ -18,6 +18,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import model.graphics.RManager;
 import model.music.MusicData;
+import net.beadsproject.beads.core.AudioContext;
+import net.beadsproject.beads.data.Pitch;
+import net.beadsproject.beads.ugens.Gain;
+import net.beadsproject.beads.ugens.Noise;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
@@ -98,6 +102,16 @@ public class ArtToMusicView extends Application
     {
     	BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/view/ArtToMusicView.fxml"));
     	scene = new Scene(root);
+    	
+		AudioContext ac;
+		ac = new AudioContext();
+		Noise n = new Noise(ac);
+		Gain g = new Gain(ac, 1, 0.1f);
+		g.addInput(n);
+		ac.out.addInput(g);
+		ac.start();
+		
+		System.out.println(Pitch.mixolydian[2]);
     	
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Image");
