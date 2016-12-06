@@ -1,0 +1,106 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\begin{document}
+\title{List of algoritms used in graphical analysis}
+\date{December 06, 2016}
+\author{Rafael De Smet}
+
+\maketitle
+
+\section{Algorithms}
+\subsection{Edge Detection}
+
+Edge detection algorithms all use what are called convolution kernels. Listed below are six of the best and most used algorithms.
+
+\begin{itemize}
+	\item Sobel 
+	\item Frei-Chen
+	\item LoG
+	\item Prewitt
+	\item Roberts Cross
+	\item Scharr
+\end{itemize}
+
+\subsubsection{Convolution kernel}
+Since all the algorithms are based on the mathematical principle of convolution, some explanation of these convolution kernels is in order. 
+
+Convolution is the technique of mutiplying together two arrays of different size but of the same dimensionality. One of the two arrays used in the calculation is the numerical representation of the image (pixels) on which we want to perform the edge detection algorithm. The second array is called the kernel and is usually much smaller (but in the same dimensionality).
+
+Each pixel of the image is added to its local neighbours, weighted by the kernel. This produces a new image. If the kernel is chosen wisely, we get all the edges found in the image.
+
+Mathematically we can write the convolution as follows, with $O$ the output image, $I$ the input image and $K$ the kernel:
+
+\begin{equation}
+O(i, j) =  \sum\limits_{k=1}^m\sum\limits_{l=1}^n I(i + k - 1, j + l - 1)K(k,l)
+\end{equation}
+
+\subsubsection{Sobel}
+ This algorithm performs a 2D spatial gradient measurement and finds regions of 'high spatial frequency' or edges. It uses two 3x3 kernels, one kernel is used for the vertical edges and the other for the horizontal edges in the image. These two kernels can be applied seperately and the afterwards combined together to find the absolute magintude of the gradient.
+ \newline
+ \newline
+ The two kernels: 
+ $\begin{vmatrix}
+	-1 & 0 & +1\\
+	-2 & 0 & +2\\
+	-1 & 0 & +1\\
+\end{vmatrix}$
+and
+$\begin{vmatrix}
+	+1 & +2 & +1\\
+	0 & 0 & 0\\
+	-1 & -2 & -1\\
+\end{vmatrix}$
+
+\subsubsection{Frei-Chen}
+ The Frei-Chen algorithm also uses 3x3 kernels, but this time there are nine different convolution kernels. The four first matrices, G1, G2, G3, G4, are used for edges, the next four are used for lines and the last is used to compute averages. 
+\newline
+\newline
+ $G_1$ = $\frac{1}{2\sqrt2}$ $\begin{vmatrix}
+	1 & \sqrt2 & 1\\
+	0 & 0 & 0\\
+	-1 & -\sqrt2 & -1\\
+\end{vmatrix}$\hspace{5mm}
+$G_2$ = $\frac{1}{2\sqrt2}$$\begin{vmatrix}
+	1 & 0 & -1\\
+	\sqrt2 & 0 & -\sqrt2\\
+	1 & 0 & -1\\
+\end{vmatrix}$\hspace{5mm}
+$G_3$ = $\frac{1}{2\sqrt2}$$\begin{vmatrix}
+	0 & -1 & \sqrt2\\
+	1 & 0 & -1\\
+	-\sqrt2 & 1 & 0\\
+\end{vmatrix}$\hspace{5mm}
+\newline
+$G_4$ = $\frac{1}{2\sqrt2}$$\begin{vmatrix}
+	\sqrt2 & -1 & 0\\
+	-1 & 0 & 1\\
+	0 & 1 & -\sqrt2\\
+\end{vmatrix}$\hspace{5mm}
+$G_5$ = $\frac{1}{2}$$\begin{vmatrix}
+	0 & 1 & 0\\
+	-1 & 0 & -1\\
+	0 & 1 & 0\\
+\end{vmatrix}$\hspace{10mm}
+$G_6$ = $\frac{1}{2}$$\begin{vmatrix}
+	-1 & 0 & 1\\
+	0 & 0 & 0\\
+	1 & 0 & -1\\
+\end{vmatrix}$\hspace{5mm}
+\newline
+$G_7$ = $\frac{1}{6}$$\begin{vmatrix}
+	1 & -2 & 1\\
+	-2 & 4 & -2\\
+	1 & -2 & 1\\
+\end{vmatrix}$\hspace{13mm}
+$G_8$ = $\frac{1}{6}$$\begin{vmatrix}
+	-2 & 1 & -2\\
+	1 & 4 & 1\\
+	-2 & 1 & -2\\
+\end{vmatrix}$\hspace{11mm}
+$G_9$ = $\frac{1}{3}$$\begin{vmatrix}
+	1 & 1 & 1\\
+	1 & 1 & 1\\
+	1 & 1 & 1\\
+\end{vmatrix}$\hspace{5mm}
+\end{document}
