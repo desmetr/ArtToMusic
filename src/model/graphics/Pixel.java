@@ -3,7 +3,11 @@ package model.graphics;
 import utilities.Globals;
 
 /**
- * Created by rafael on 15.10.16.
+ * This class contains all information about a pixel.
+ * 
+ * @author rafael
+ * @version 1
+ * @since 2016.10.15.
  */
 public class Pixel
 {
@@ -20,8 +24,15 @@ public class Pixel
     private double cyan;
     private double magenta;
     private double yellow;
-    private double blackKey;
+    private double key;
 
+    /**
+     * Constructor of this class.
+     *     
+     * @param rValues
+     * @param gValues
+     * @param bValues
+     */
 	public Pixel(double rValues, double gValues, double bValues)
     {
         red = (int) rValues;
@@ -33,33 +44,104 @@ public class Pixel
     	rgb2cmyk();
     }
 
+	/**
+	 * Getter for the red attribute.
+	 * 
+	 * @return red
+	 */
     public int getRed()     				{   return red;    		}
+    
+	/**
+	 * Getter for the green attribute.
+	 * 
+	 * @return green
+	 */
     public int getGreen()   				{   return green;  	 	}
+    
+	/**
+	 * Getter for the blue attribute.
+	 * 
+	 * @return blue
+	 */
     public int getBlue()    				{   return blue;   	 	}
     
+    /**
+     * Getter for the hex representation attribute.
+     * 
+     * @return hex
+     */
     public String getHexRepresentation() 	{	return hex;			}
 
+	/**
+	 * Getter for the hue attribute.
+	 * 
+	 * @return hue
+	 */
     public double getHue() 					{	return hue;			}
+    
+	/**
+	 * Getter for the saturation attribute.
+	 * 
+	 * @return saturation
+	 */
 	public double getSaturation() 			{	return saturation;	}
+	
+	/**
+	 * Getter for the green attribute.
+	 * 
+	 * @return green
+	 */
 	public double getValue() 				{	return value;		}
 	
+	/**
+	 * Getter for the cyan attribute.
+	 * 
+	 * @return cyan
+	 */
 	public double getCyan() 				{	return cyan;		}
+	
+	/**
+	 * Getter for the magenta attribute.
+	 * 
+	 * @return magenta
+	 */
 	public double getMagenta() 				{	return magenta;		}
+	
+	/**
+	 * Getter for the yellow attribute.
+	 * 
+	 * @return yellow
+	 */
 	public double getYellow() 				{	return yellow;		}
-	public double getBlackKey() 			{	return blackKey;	}
+	
+	/**
+	 * Getter for the key attribute.
+	 * 
+	 * @return key
+	 */
+	public double getKey() 					{	return key;			}
 
 	public void print()
     {
         System.out.println(red + ", " + green + ", " + blue);
     }
     
+	/**
+	 * ToString of all the info in this class.
+	 */
     public String toString()
     {
     	return "RGB(" + Globals.decimalFormat.format(red) + ", " + Globals.decimalFormat.format(green) + ", " + Globals.decimalFormat.format(blue) + ") - "
     			+ "HSV(" + Globals.decimalFormat.format(hue) + ", " + Globals.decimalFormat.format(saturation) + ", " + Globals.decimalFormat.format(value) + ")) - "
-    			+ "CMYK(" + Globals.decimalFormat.format(cyan) + ", " + Globals.decimalFormat.format(magenta) + ", " + Globals.decimalFormat.format(yellow) + ", " + Globals.decimalFormat.format(blackKey) + ")\n";
+    			+ "CMYK(" + Globals.decimalFormat.format(cyan) + ", " + Globals.decimalFormat.format(magenta) + ", " + Globals.decimalFormat.format(yellow) + ", " + Globals.decimalFormat.format(key) + ")\n";
     }
     
+    /**
+     * Checks if two pixels are the same.
+     * 
+     * @param other		the other pixel to compare with
+     * @return boolean
+     */
     public boolean equals(Pixel other) 
     {
     	if ((this.red == other.getRed()) && (this.green == other.getGreen()) && (this.blue == other.getBlue()))
@@ -68,6 +150,9 @@ public class Pixel
     		return false;
     }
     
+    /**
+     * Converts the RGB model to an hexadecimal representation.
+     */
     private void rgb2hex()
     {
     	String hexR = Integer.toHexString(red);
@@ -84,6 +169,9 @@ public class Pixel
     }
     
     // Based on formulas here: http://www.rapidtables.com/convert/color/rgb-to-hsv.htm
+    /**
+     * Converts the RGB model to the HSV model.
+     */
     private void rgb2hsv()
     {
         double min, max, delta;
@@ -130,6 +218,9 @@ public class Pixel
     }
     
     // Based on formulas here: http://www.rapidtables.com/convert/color/rgb-to-cmyk.htm
+    /**
+     * Converts the RGB model to the CMYK model.
+     */
     private void rgb2cmyk()
     {
     	double red_ = red / 255.0;
@@ -139,10 +230,10 @@ public class Pixel
     	double max = red_ > green_ ? red_ : green_;
         max = max  > blue_ ? max  : blue_;
     	
-        blackKey = 1.0 - max;
+        key = 1.0 - max;
         
-        cyan = (1.0 - red_ - blackKey) / (1.0 - blackKey);
-        magenta = (1.0 - green_ - blackKey) / (1.0 - blackKey);
-        yellow = (1.0 - blue_ - blackKey) / (1.0 - blackKey);
+        cyan = (1.0 - red_ - key) / (1.0 - key);
+        magenta = (1.0 - green_ - key) / (1.0 - key);
+        yellow = (1.0 - blue_ - key) / (1.0 - key);
     }
 }

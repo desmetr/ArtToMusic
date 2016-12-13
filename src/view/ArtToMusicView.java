@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import model.graphics.RManager;
+import model.music.BeadsManager;
 import model.music.MusicData;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Pitch;
@@ -26,17 +27,26 @@ import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
 /**
- * Created by rafael on 22.10.16.
+ * The start of the ArtToMusic JavaFX application.
+ * 
+ * @author rafael
+ * @version 1.0
+ * @since 2016.11.01.
  */
 public class ArtToMusicView extends Application
 {
 	private Scene scene;
 	private RManager rManager;
 	private MidiPlayer midiPlayer;
+	private BeadsManager beadsManager;
 	
 	@FXML private ToggleGroup graphicsGroup;
 	@FXML private ToggleGroup musicGroup;
 	
+	/**
+	 * Initializes all the private objects of this class.
+	 * FXML annotation.
+	 */
 	@FXML 
 	private void initialize()
 	{
@@ -44,11 +54,18 @@ public class ArtToMusicView extends Application
 		{
 			rManager = new RManager();
 			midiPlayer = new MidiPlayer();
+			beadsManager = new BeadsManager();
 		} 
 		catch (InterruptedException e) 		{	e.printStackTrace();	} 
 		catch (MidiUnavailableException e) 	{	e.printStackTrace();	}
 	}
 	
+	/**
+	 * Triggers the right edge detection algorithm, chosen by the user.
+	 * FXML annotation.
+	 * 
+	 * @throws InterruptedException
+	 */
 	@FXML
 	protected void onGraphicalAnalysisClicked() throws InterruptedException
 	{
@@ -74,6 +91,13 @@ public class ArtToMusicView extends Application
 		}
 	}
 	
+	/**
+	 * PLays the chosen music by the user.
+	 * FXML annotation.
+	 *  
+	 * @throws MidiUnavailableException
+	 * @throws InterruptedException
+	 */
 	@FXML
 	protected void onMusicGenerationClicked() throws MidiUnavailableException, InterruptedException
 	{
@@ -94,24 +118,24 @@ public class ArtToMusicView extends Application
 			case "Combined Sample":
 				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "CombinedSample.xml"));
 				break;
+			case "Beads Example":
+				beadsManager.play(120);
+				break;
+			default:
+				break;
 		}
 	}
 	
+	/**
+	 * Start method of the JavaFX application.
+	 * 
+	 * @param primaryStage	the stage to build application on
+	 */
     @Override
     public void start(Stage primaryStage) throws Exception
     {
     	BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/view/ArtToMusicView.fxml"));
     	scene = new Scene(root);
-    	
-		AudioContext ac;
-		ac = new AudioContext();
-		Noise n = new Noise(ac);
-		Gain g = new Gain(ac, 1, 0.1f);
-		g.addInput(n);
-		ac.out.addInput(g);
-		ac.start();
-		
-		System.out.println(Pitch.mixolydian[2]);
     	
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Image");
@@ -125,6 +149,11 @@ public class ArtToMusicView extends Application
         primaryStage.show();
     }
     
+    /**
+     * Main method.
+     * 
+     * @param args	default arguments
+     */
     public static void main(String[] args)
 	{
     	ArtToMusicLogger.getInstance().info("In constructor of Main.");

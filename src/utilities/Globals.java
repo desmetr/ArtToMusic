@@ -13,7 +13,11 @@ import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
 /**
- * Created by rafael on 22.10.16.
+ * All the global variables used. Singleton class.
+ * 
+ * @author rafael
+ * @version 1.0
+ * @since 2016.10.22.
  */
 public class Globals
 {	
@@ -26,6 +30,11 @@ public class Globals
 	public static String imageName;
 	public static DecimalFormat decimalFormat = new DecimalFormat("0.000");
 	
+	/**
+	 * Returns a Globals instance, creates a new one if it doesn't exists already.
+	 * 
+	 * @return instance		Globals instance
+	 */
 	public static Globals getInstance() 
     {
        if (instance == null) 
@@ -36,6 +45,13 @@ public class Globals
     }
 		
 	// Paths
+	
+	/**
+	 * Reads the user specified paths from the configuration file, config.xml.
+	 * 
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	private void getPaths() throws JDOMException, IOException
 	{
 		SAXBuilder parser = new SAXBuilder();
@@ -63,10 +79,13 @@ public class Globals
 	
 	// Music
     public static LinkedHashMap<String, Integer> midiNoteNumbers = new LinkedHashMap<String, Integer>();
+    public static LinkedHashMap<Integer, Integer> bpmToMilliSec = new LinkedHashMap<Integer, Integer>();
 
     public enum NoteLength {WHOLE, HALF, QUARTER, QUARTER_DOTTED, EIGHTH, SIXTEENTH, THIRTY_SECOND}
     
-    // Initialize
+    /**
+     * Constructor of the class. Private because it's a singleton.
+     */
     private Globals()
 	{
 		try
@@ -223,7 +242,152 @@ public class Globals
 			midiNoteNumbers.put("E9", 124);
 			midiNoteNumbers.put("F9", 125);
 			midiNoteNumbers.put("F9", 126);
-			midiNoteNumbers.put("G9", 127);			
+			midiNoteNumbers.put("G9", 127);	
+			
+			// 60-69
+			bpmToMilliSec.put(60, 1000);
+			bpmToMilliSec.put(61, 984);
+			bpmToMilliSec.put(62, 968);
+			bpmToMilliSec.put(63, 952);
+			bpmToMilliSec.put(64, 938);
+			bpmToMilliSec.put(65, 923);
+			bpmToMilliSec.put(66, 909);
+			bpmToMilliSec.put(67, 896);
+			bpmToMilliSec.put(68, 882);
+			bpmToMilliSec.put(69, 870);
+			
+			// 70-79
+			bpmToMilliSec.put(70, 857);
+			bpmToMilliSec.put(71, 845);
+			bpmToMilliSec.put(72, 833);
+			bpmToMilliSec.put(73, 822);
+			bpmToMilliSec.put(74, 811);
+			bpmToMilliSec.put(75, 800);
+			bpmToMilliSec.put(76, 789);
+			bpmToMilliSec.put(77, 779);
+			bpmToMilliSec.put(78, 769);
+			bpmToMilliSec.put(79, 759);
+			
+			// 80-89
+			bpmToMilliSec.put(80, 750);
+			bpmToMilliSec.put(81, 741);
+			bpmToMilliSec.put(82, 732);
+			bpmToMilliSec.put(83, 723);
+			bpmToMilliSec.put(84, 714);
+			bpmToMilliSec.put(85, 706);
+			bpmToMilliSec.put(86, 698);
+			bpmToMilliSec.put(87, 690);
+			bpmToMilliSec.put(88, 682);
+			bpmToMilliSec.put(89, 674);
+			
+			// 90-99
+			bpmToMilliSec.put(90, 667);
+			bpmToMilliSec.put(91, 659);
+			bpmToMilliSec.put(92, 652);
+			bpmToMilliSec.put(93, 645);
+			bpmToMilliSec.put(94, 638);
+			bpmToMilliSec.put(95, 632);
+			bpmToMilliSec.put(96, 625);
+			bpmToMilliSec.put(97, 619);
+			bpmToMilliSec.put(98, 612);
+			bpmToMilliSec.put(99, 606);
+			
+			// 100-109
+			bpmToMilliSec.put(100, 600);
+			bpmToMilliSec.put(101, 594);
+			bpmToMilliSec.put(102, 588);
+			bpmToMilliSec.put(103, 583);
+			bpmToMilliSec.put(104, 577);
+			bpmToMilliSec.put(105, 571);
+			bpmToMilliSec.put(106, 566);
+			bpmToMilliSec.put(107, 561);
+			bpmToMilliSec.put(108, 556);
+			bpmToMilliSec.put(109, 550);
+			
+			// 110-119
+			bpmToMilliSec.put(110, 545);
+			bpmToMilliSec.put(111, 541);
+			bpmToMilliSec.put(112, 536);
+			bpmToMilliSec.put(113, 531);
+			bpmToMilliSec.put(114, 526);
+			bpmToMilliSec.put(115, 522);
+			bpmToMilliSec.put(116, 517);
+			bpmToMilliSec.put(117, 513);
+			bpmToMilliSec.put(118, 508);
+			bpmToMilliSec.put(119, 504);
+			
+			// 120-129
+			bpmToMilliSec.put(120, 500);
+			bpmToMilliSec.put(121, 496);
+			bpmToMilliSec.put(122, 492);
+			bpmToMilliSec.put(123, 488);
+			bpmToMilliSec.put(124, 484);
+			bpmToMilliSec.put(125, 480);
+			bpmToMilliSec.put(126, 476);
+			bpmToMilliSec.put(127, 472);
+			bpmToMilliSec.put(128, 469);
+			bpmToMilliSec.put(129, 465);
+			
+			// 130-139
+			bpmToMilliSec.put(130, 462);
+			bpmToMilliSec.put(131, 458);
+			bpmToMilliSec.put(132, 455);
+			bpmToMilliSec.put(133, 451);
+			bpmToMilliSec.put(134, 448);
+			bpmToMilliSec.put(135, 444);
+			bpmToMilliSec.put(136, 441);
+			bpmToMilliSec.put(137, 438);
+			bpmToMilliSec.put(138, 435);
+			bpmToMilliSec.put(139, 432);
+			
+			// 140-149
+			bpmToMilliSec.put(140, 429);
+			bpmToMilliSec.put(141, 426);
+			bpmToMilliSec.put(142, 423);
+			bpmToMilliSec.put(143, 420);
+			bpmToMilliSec.put(144, 417);
+			bpmToMilliSec.put(145, 414);
+			bpmToMilliSec.put(146, 411);
+			bpmToMilliSec.put(147, 408);
+			bpmToMilliSec.put(148, 405);
+			bpmToMilliSec.put(149, 403);
+			
+			// 150-159
+			bpmToMilliSec.put(150, 400);
+			bpmToMilliSec.put(151, 397);
+			bpmToMilliSec.put(152, 395);
+			bpmToMilliSec.put(153, 392);
+			bpmToMilliSec.put(154, 390);
+			bpmToMilliSec.put(155, 387);
+			bpmToMilliSec.put(156, 385);
+			bpmToMilliSec.put(157, 382);
+			bpmToMilliSec.put(158, 380);
+			bpmToMilliSec.put(159, 377);
+			
+			// 160-169
+			bpmToMilliSec.put(160, 375);
+			bpmToMilliSec.put(161, 373);
+			bpmToMilliSec.put(162, 370);
+			bpmToMilliSec.put(163, 368);
+			bpmToMilliSec.put(164, 366);
+			bpmToMilliSec.put(165, 364);
+			bpmToMilliSec.put(166, 361);
+			bpmToMilliSec.put(167, 359);
+			bpmToMilliSec.put(168, 357);
+			bpmToMilliSec.put(169, 355);
+			
+			// 170-180
+			bpmToMilliSec.put(170, 353);
+			bpmToMilliSec.put(171, 351);
+			bpmToMilliSec.put(172, 349);
+			bpmToMilliSec.put(173, 347);
+			bpmToMilliSec.put(174, 345);
+			bpmToMilliSec.put(175, 343);
+			bpmToMilliSec.put(176, 341);
+			bpmToMilliSec.put(177, 339);
+			bpmToMilliSec.put(178, 337);
+			bpmToMilliSec.put(179, 335);
+			bpmToMilliSec.put(180, 333);
 		}
 		catch (JDOMException e) {	e.printStackTrace();	} 
 		catch (IOException e) 	{	e.printStackTrace();	}

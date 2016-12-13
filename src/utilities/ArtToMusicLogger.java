@@ -3,6 +3,15 @@ package utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The logger class, derived from the SLF4j logger.
+ * Can show info, debug, warn and error messages.
+ * 
+ * @author rafael
+ * @version 1.0
+ * @since 2016.11.01.
+ */
+
 public class ArtToMusicLogger 
 {
 	private static ArtToMusicLogger instance = null;

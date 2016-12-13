@@ -10,7 +10,11 @@ import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
 /**
- * Created by rafael on 26.10.16.
+ * This class controls all interaction with the mathematical software R.
+ * 
+ * @author rafael
+ * @version 1
+ * @since 2016.10.16.
  */
 public class RManager
 {
@@ -18,6 +22,12 @@ public class RManager
 	private ObservableList<ObservableList<Double>> sourceEdgeMatrix = FXCollections.observableArrayList();
 	private ObservableList<ObservableList<Pixel>> sourceRGBValues= FXCollections.observableArrayList();
 	
+	/**
+	 * Converts a two dimensional array of doubles into an observable list of observable lists.
+	 * 
+	 * @param source	the 2D array of doubles
+	 * @param destination	the observable list of observable lists
+	 */
 	private void convertToObservableMatrix(double[][] source, ObservableList<ObservableList<Double>> destination)
 	{
 		for (int i = 0; i < source.length; i++)
@@ -33,6 +43,11 @@ public class RManager
         }
 	}
 	
+	/**
+	 * Tells R to perform a certain edge detection algorithm.
+	 * 
+	 * @param algorithm		the edge detection algorithm to perform
+	 */
     public void edgeDetection(String algorithm)
     {
     	ArtToMusicLogger.getInstance().info("Performing the " + algorithm + " filter."); 
@@ -66,10 +81,11 @@ public class RManager
         ArtToMusicLogger.getInstance().info(sb.toString());
         
         MusicData.printEdgeMatrix();
-        
-//        engine.end();
     }
 
+    /**
+     * Tells R to give information about the pixels of the image.
+     */
     public void colorAnalysis()
     {
     	ArtToMusicLogger.getInstance().info("Getting RGB values from image " + Globals.imageName + ".");
@@ -88,6 +104,16 @@ public class RManager
     	double[][] gValues = engine.eval("img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255").asDoubleMatrix();
     	double[][] bValues = engine.eval("img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255").asDoubleMatrix();
     	
+    	// TODO: MEAN
+    	// mean(r)
+    	// mean(g)
+    	// mean(b)
+
+    	// TODO: MEDIAN
+    	// median(r)
+    	// median(g)
+    	// median(b)
+
     	for (int i = 0; i < length; i++)
     	{
     		final ObservableList<Pixel> row = FXCollections.<Pixel> observableArrayList();
@@ -112,6 +138,10 @@ public class RManager
         ArtToMusicLogger.getInstance().info(sb.toString());
     }
     
+    /**
+     * Constructor of this class.
+     * @throws InterruptedException
+     */
     public RManager() throws InterruptedException
     {
     	// Start Rengine.

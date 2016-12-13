@@ -21,7 +21,11 @@ import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
 /**
- * Created by rafael on 22.10.16.
+ * This class contains all information needed to create a musical pattern.
+ * 
+ * @author rafael
+ * @version 1
+ * @since 2016.10.22.
  */
 public class MusicData
 {
@@ -35,6 +39,9 @@ public class MusicData
 	private static ObservableList<Pixel> greenList = FXCollections.observableArrayList();
 	private static ObservableList<Pixel> blueList = FXCollections.observableArrayList();
 	
+	/**
+	 * Prints the matrix containing the information retrieved by the edge detection algorithm.
+	 */
     public static void printEdgeMatrix()
     {
 		ArtToMusicLogger.getInstance().info("MusicData: destinationEdgeMatrix change notified");
@@ -53,6 +60,9 @@ public class MusicData
 		ArtToMusicLogger.getInstance().info(sb.toString());
     }
         
+    /**
+     * Counts the number of different pixels in an image, based on the matrix of pixels.
+     */
     public static void analyseRGB()
     {
     	for (ObservableList<Pixel> pixels : destinationRGBValuesMatrix)
@@ -88,6 +98,12 @@ public class MusicData
     	ArtToMusicLogger.getInstance().info("Blue " + String.valueOf(blueList.size()));
     }
     
+    /**
+     * Generates the vector notes, containing all the information about the different kind of notes.
+     * 
+     * @param path
+     * @return notes	vector of notes
+     */
     public static Vector<Note> generate(String path)
     {
     	ArtToMusicLogger.getInstance().info("Generating " + path);

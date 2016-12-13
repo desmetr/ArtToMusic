@@ -6,8 +6,14 @@ import utilities.ArtToMusicLogger;
 import javax.sound.midi.*;
 import java.util.Vector;
 
+// TODO mag weg?
+
 /**
- * Created by rafael on 12.10.16.
+ * Plays music via the Java midi player.
+ * 
+ * @author rafael
+ * @version 1
+ * @since 2016.10.12.
  */
 public class MidiPlayer
 {
