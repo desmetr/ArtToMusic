@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import model.Data;
 import model.graphics.RManager;
 import model.music.BeadsManager;
 import model.music.MusicData;
@@ -119,7 +120,7 @@ public class ArtToMusicView extends Application
 				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "CombinedSample.xml"));
 				break;
 			case "Beads Example":
-				beadsManager.play(120);
+				beadsManager.playChord(120, Globals.Chords.C_MAJOR);
 				break;
 			default:
 				break;
@@ -157,6 +158,7 @@ public class ArtToMusicView extends Application
     public static void main(String[] args)
 	{
     	ArtToMusicLogger.getInstance().info("In constructor of Main.");
+    	
 		launch(args);
 		new ArtToMusicController();
 	}

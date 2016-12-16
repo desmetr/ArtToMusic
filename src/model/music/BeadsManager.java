@@ -9,6 +9,7 @@ import net.beadsproject.beads.ugens.Clock;
 import net.beadsproject.beads.ugens.Envelope;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.WavePlayer;
+import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
 /**
@@ -26,7 +27,6 @@ public class BeadsManager
 	 */
 	public BeadsManager()
 	{
-		
 	}
 	
 	/**
@@ -34,41 +34,82 @@ public class BeadsManager
 	 * 
 	 * @param bpm	the beats-per-minute
 	 */
-	public void play(int bpm)
+	public void playChord(int bpm, Globals.Chords chord)
 	{	
-		AudioContext ac = new AudioContext();
-		Clock clock = new Clock(ac, Globals.getInstance().bpmToMilliSec.get(bpm));
+		final AudioContext ac;
+		ac = new AudioContext();
 		
-		clock.addMessageListener
-		(
-			// this is the on-the-fly bead
-			new Bead() 
+		WavePlayer tonic; 
+		WavePlayer third;
+		WavePlayer fifth;
+		
+		switch (chord)
+		{
+		case C_MAJOR:
+			tonic = new WavePlayer(ac, (float) 523.25, Buffer.SINE);
+			tonic = new WavePlayer(ac, (float) 523.25, Buffer.SINE);
+			tonic = new WavePlayer(ac, (float) 523.25, Buffer.SINE);
+			break;
+		case C_SHARP_MAJOR:
+			break;
+		case D_MAJOR:
+			break;
+		case D_SHARP_MAJOR:
+			break;
+		case E_MAJOR:
+			break;
+		case F_MAJOR:
+			break;
+		case F_SHARP_MAJOR:
+			break;
+		case G_MAJOR:
+			break;
+		case G_SHARP_MAJOR:
+			break;
+		case A_MAJOR:
+			break;
+		case A_SHARP_MAJOR:
+			break;
+		case B_MAJOR:
+			break;
+		}
+		
+		
+		
+		Clock clock = new Clock(ac, Globals.getInstance().bpmToMilliSec.get(bpm));
+		clock.addMessageListener(
+			//this is the on-the-fly bead
+			new Bead()
 			{
-				// this is the method that we override to make the Bead do something
+				//this is the method that we override to make the Bead do something
 			    int pitch;
 			    public void messageReceived(Bead message) 
 			    {
-			    	Clock c = (Clock)message;
+			    	Clock c = (Clock) message;
 			    	
 			    	if (c.isBeat()) 
 			    	{
-			          //choose some nice frequencies
-			          if (random(1) < 0.50) 
-			        	  return;
-			          
-			          pitch = Pitch.forceToScale((int)random(12), Pitch.mixolydian);
-			          
-			          float freq = Pitch.mtof(pitch + (int)random(5) * 12 + 32);
-			          
-			          WavePlayer wp = new WavePlayer(ac, freq, Buffer.SINE);
-			          Gain g = new Gain(ac, 1, new Envelope(ac, 0));
-			          
-			          g.addInput(wp);
-			          ac.out.addInput(g);
-			          
-			          ((Envelope)g.getGainUGen()).addSegment(0.1f, random(200));
-			          ((Envelope)g.getGainUGen()).addSegment(0, random(7000), new KillTrigger(g));
-			        }
+			    		//choose some nice frequencies
+			    		if (random(1) < 0.50) 
+			    			return;
+			    		
+			    		pitch = Pitch.forceToScale((int) random(12), Pitch.mixolydian);
+			    		
+			    		float freq = Pitch.mtof(pitch + (int) random(5) * 12 + 32);
+			    		
+			    		ArtToMusicLogger.getInstance().info(String.valueOf(pitch));
+			    		ArtToMusicLogger.getInstance().info(String.valueOf(freq));
+			    		ArtToMusicLogger.getInstance().info("-");
+			    		
+			    		WavePlayer wp1 = new WavePlayer(ac, (float) 523.25, Buffer.SINE);
+			    		WavePlayer wp2 = new WavePlayer(ac, (float) 783.99, Buffer.SINE);
+			    		Gain g = new Gain(ac, 1, new Envelope(ac, 0));
+				        g.addInput(wp1);
+				        g.addInput(wp2);
+				        ac.out.addInput(g);
+				        ((Envelope)g.getGainUGen()).addSegment(0.1f, random(200));
+				        ((Envelope)g.getGainUGen()).addSegment(0, random(7000), new KillTrigger(g));
+			    	}
 			    }
 			}
 		);

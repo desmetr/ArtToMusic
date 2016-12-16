@@ -12,6 +12,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
+import model.Data;
+
 /**
  * All the global variables used. Singleton class.
  * 
@@ -26,6 +28,7 @@ public class Globals
 	public static String pathToImages;
 	public static String pathToMusic;
 	public static String pathToSamples;
+	public static String pathToData;
 	
 	public static String imageName;
 	public static DecimalFormat decimalFormat = new DecimalFormat("0.000");
@@ -60,6 +63,7 @@ public class Globals
 		XPathExpression<Element> xpathImages = XPathFactory.instance().compile("//path-to-images", Filters.element());
 		XPathExpression<Element> xpathMusic = XPathFactory.instance().compile("//path-to-music", Filters.element());
 		XPathExpression<Element> xpathSamples = XPathFactory.instance().compile("//path-to-samples", Filters.element());
+		XPathExpression<Element> xpathData = XPathFactory.instance().compile("//path-to-data", Filters.element());
 
 		Element pathToImagesElement = xpathImages.evaluateFirst(document);
 		if (pathToImagesElement != null)
@@ -72,7 +76,10 @@ public class Globals
 		Element pathToSamplesElement = xpathSamples.evaluateFirst(document);
 		if (pathToSamplesElement != null)
 		    pathToSamples = pathToSamplesElement.getValue();
-
+		
+		Element pathToDataElement = xpathData.evaluateFirst(document);
+		if (pathToDataElement != null)
+		    pathToData = pathToDataElement.getValue();
 	}
 	
 	// Graphics
@@ -80,8 +87,10 @@ public class Globals
 	// Music
     public static LinkedHashMap<String, Integer> midiNoteNumbers = new LinkedHashMap<String, Integer>();
     public static LinkedHashMap<Integer, Integer> bpmToMilliSec = new LinkedHashMap<Integer, Integer>();
+    public static LinkedHashMap<String, Integer> noteFrequencies = new LinkedHashMap<String, Integer>();
 
     public enum NoteLength {WHOLE, HALF, QUARTER, QUARTER_DOTTED, EIGHTH, SIXTEENTH, THIRTY_SECOND}
+    public enum Chords {C_MAJOR, C_SHARP_MAJOR, D_MAJOR, D_SHARP_MAJOR, E_MAJOR, F_MAJOR, F_SHARP_MAJOR, G_MAJOR, G_SHARP_MAJOR, A_MAJOR, A_SHARP_MAJOR, B_MAJOR}
     
     /**
      * Constructor of the class. Private because it's a singleton.
@@ -92,6 +101,10 @@ public class Globals
 		{
 			getPaths();
 			
+			Data.readMidiNoteNumbers();
+			Data.readBPMToMillisec();
+			Data.readNoteFrequencies();
+			/*
 			// Put values in dict.
 			
 			// Octave -1
@@ -387,7 +400,7 @@ public class Globals
 			bpmToMilliSec.put(177, 339);
 			bpmToMilliSec.put(178, 337);
 			bpmToMilliSec.put(179, 335);
-			bpmToMilliSec.put(180, 333);
+			bpmToMilliSec.put(180, 333);*/
 		}
 		catch (JDOMException e) {	e.printStackTrace();	} 
 		catch (IOException e) 	{	e.printStackTrace();	}
