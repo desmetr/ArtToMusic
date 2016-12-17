@@ -87,11 +87,36 @@ public class Globals
 	// Music
     public static LinkedHashMap<String, Integer> midiNoteNumbers = new LinkedHashMap<String, Integer>();
     public static LinkedHashMap<Integer, Integer> bpmToMilliSec = new LinkedHashMap<Integer, Integer>();
-    public static LinkedHashMap<String, Integer> noteFrequencies = new LinkedHashMap<String, Integer>();
+    public static LinkedHashMap<String, Float> noteFrequencies = new LinkedHashMap<String, Float>();
 
     public enum NoteLength {WHOLE, HALF, QUARTER, QUARTER_DOTTED, EIGHTH, SIXTEENTH, THIRTY_SECOND}
-    public enum Chords {C_MAJOR, C_SHARP_MAJOR, D_MAJOR, D_SHARP_MAJOR, E_MAJOR, F_MAJOR, F_SHARP_MAJOR, G_MAJOR, G_SHARP_MAJOR, A_MAJOR, A_SHARP_MAJOR, B_MAJOR}
-    
+    public enum Chords {
+    	C_MAJOR,
+    	C_SHARP_MAJOR,
+    	D_MAJOR,
+    	D_SHARP_MAJOR,
+    	E_MAJOR,
+    	F_MAJOR,
+    	F_SHARP_MAJOR,
+    	G_MAJOR,
+    	G_SHARP_MAJOR,
+    	A_MAJOR,
+    	A_SHARP_MAJOR,
+    	B_MAJOR,
+    	C_MINOR,
+    	C_SHARP_MINOR,
+    	D_MINOR,
+    	D_SHARP_MINOR,
+    	E_MINOR,
+    	F_MINOR,
+    	F_SHARP_MINOR,
+    	G_MINOR,
+    	G_SHARP_MINOR,
+    	A_MINOR,
+    	A_SHARP_MINOR,
+    	B_MINOR
+    }
+
     /**
      * Constructor of the class. Private because it's a singleton.
      */
@@ -101,9 +126,6 @@ public class Globals
 		{
 			getPaths();
 			
-			Data.readMidiNoteNumbers();
-			Data.readBPMToMillisec();
-			Data.readNoteFrequencies();
 			/*
 			// Put values in dict.
 			

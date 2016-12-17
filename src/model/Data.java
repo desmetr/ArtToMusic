@@ -6,11 +6,8 @@ import java.io.IOException;
 
 import utilities.Globals;
 
-public class Data {
-// TODO: read midiNoteNumbers.csv
-// TODO: read bpmToMillisec.csv
-// TODO: read noteFrequencies.csv
-	
+public class Data 
+{	
 	public static void readMidiNoteNumbers()
 	{
 		String csvFile = Globals.getInstance().pathToData + "midiNoteNumbers.csv";
@@ -23,8 +20,7 @@ public class Data {
             {
                 // use comma as separator
                 String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().midiNoteNumbers.put(result[0], Integer.getInteger(result[1]));
-                System.out.println(result[0] + "," + result[1]);
+                Globals.getInstance().midiNoteNumbers.put(result[0], Integer.parseInt(result[1]));
             }
         } 
         catch (IOException e) {	e.printStackTrace();	}
@@ -32,7 +28,7 @@ public class Data {
 	
 	public static void readBPMToMillisec()
 	{
-		String csvFile = Globals.getInstance().pathToData + "bpmToMillisec.csv";
+		String csvFile = Globals.getInstance().pathToData + "bpmToMilliSec.csv";
         String line = "";
         String cvsSplitBy = ",";
 
@@ -42,8 +38,7 @@ public class Data {
             {
                 // use comma as separator
                 String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().bpmToMilliSec.put(Integer.getInteger(result[0]), Integer.getInteger(result[1]));
-                System.out.println(result[0] + "," + result[1]);
+                Globals.getInstance().bpmToMilliSec.put(Integer.parseInt(result[0]), Integer.parseInt(result[1]));
             }
         } 
         catch (IOException e) {	e.printStackTrace();	}
@@ -61,8 +56,7 @@ public class Data {
             {
                 // use comma as separator
                 String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().noteFrequencies.put(result[0], Integer.getInteger(result[1]));
-                System.out.println(result[0] + "," + result[1]);
+                Globals.getInstance().noteFrequencies.put(result[0], Float.parseFloat(result[1]));
             }
         } 
         catch (IOException e) {	e.printStackTrace();	}

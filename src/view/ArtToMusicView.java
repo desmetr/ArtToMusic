@@ -20,10 +20,7 @@ import model.Data;
 import model.graphics.RManager;
 import model.music.BeadsManager;
 import model.music.MusicData;
-import net.beadsproject.beads.core.AudioContext;
-import net.beadsproject.beads.data.Pitch;
-import net.beadsproject.beads.ugens.Gain;
-import net.beadsproject.beads.ugens.Noise;
+import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
@@ -56,6 +53,10 @@ public class ArtToMusicView extends Application
 			rManager = new RManager();
 			midiPlayer = new MidiPlayer();
 			beadsManager = new BeadsManager();
+			
+			Data.readMidiNoteNumbers();
+			Data.readBPMToMillisec();
+			Data.readNoteFrequencies();
 		} 
 		catch (InterruptedException e) 		{	e.printStackTrace();	} 
 		catch (MidiUnavailableException e) 	{	e.printStackTrace();	}
@@ -120,7 +121,7 @@ public class ArtToMusicView extends Application
 				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "CombinedSample.xml"));
 				break;
 			case "Beads Example":
-				beadsManager.playChord(120, Globals.Chords.C_MAJOR);
+				beadsManager.playChord(120, Globals.Chords.A_SHARP_MINOR, Buffer.SINE);
 				break;
 			default:
 				break;
@@ -134,7 +135,7 @@ public class ArtToMusicView extends Application
 	 */
     @Override
     public void start(Stage primaryStage) throws Exception
-    {
+    {   	
     	BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/view/ArtToMusicView.fxml"));
     	scene = new Scene(root);
     	
