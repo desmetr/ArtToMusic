@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -10,6 +11,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.collections.ObservableList?>
+<?import java.String?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ArtToMusicView">
    <center>
@@ -51,7 +55,36 @@
                   </RadioButton>
                   <RadioButton prefWidth="145.0" text="Rhythm Sample" toggleGroup="$musicGroup" />
                   <RadioButton prefWidth="145.0" text="Combined Sample" toggleGroup="$musicGroup" />
-                  <RadioButton prefWidth="145.0" text="Beads Example" toggleGroup="$musicGroup"/>
+                  <ComboBox fx:id="list" prefWidth="150.0" promptText="Chord" toggleGroup="$musicGroup">
+                  	<items>
+		            	<FXCollections fx:factory="observableArrayList">
+		                	<String fx:id="C" fx:value="C" />
+		                    <String fx:id="C#" fx:value="C#" />
+		                    <String fx:id="D" fx:value="D" />
+		                    <String fx:id="D#" fx:value="D#" />
+		                    <String fx:id="E" fx:value="E" />
+		                    <String fx:id="F" fx:value="F" />
+		                    <String fx:id="F#" fx:value="F#" />
+		                    <String fx:id="G" fx:value="G" />
+		                    <String fx:id="G#" fx:value="G#" />
+		                    <String fx:id="A" fx:value="A" />
+		                    <String fx:id="A#" fx:value="A#" />
+		                    <String fx:id="B" fx:value="B" />
+		                    <String fx:id="C#min" fx:value="Cmin" />
+		                    <String fx:id="C#min" fx:value="C#min" />
+		                    <String fx:id="Dmin" fx:value="Dmin" />
+		                    <String fx:id="D#min" fx:value="D#min" />
+		                    <String fx:id="Emin" fx:value="Emin" />
+		                    <String fx:id="Fmin" fx:value="Fmin" />
+		                    <String fx:id="F#min" fx:value="F#min" />
+		                    <String fx:id="Gmin" fx:value="Gmin" />
+		                    <String fx:id="G#min" fx:value="G#min" />
+		                    <String fx:id="Amin" fx:value="Amin" />
+		                    <String fx:id="A#min" fx:value="A#min" />
+		                    <String fx:id="Bmin" fx:value="Bmin" />
+		                </FXCollections>
+		            </items>
+		          </ComboBox>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
