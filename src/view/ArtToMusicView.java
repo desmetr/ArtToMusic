@@ -85,7 +85,7 @@ public class ArtToMusicView extends Application
 				break;
 			case "Color Analysis":
 				rManager.colorAnalysis();
-//				MusicData.analyseRGB();
+				MusicData.analyseRGB();
 				break;
 			default:
 				rManager.edgeDetection(radioButtonText);
@@ -120,7 +120,7 @@ public class ArtToMusicView extends Application
 			case "Combined Sample":
 				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "CombinedSample.xml"));
 				break;
-			case "Beads Example":
+			case "Play Chord":
 				beadsManager.playChord(120, Globals.Chords.A_SHARP_MINOR, Buffer.SINE);
 				break;
 			default:
@@ -146,7 +146,7 @@ public class ArtToMusicView extends Application
     	if (selectedFile != null) 
     	    Globals.imageName = selectedFile.getName();
     
-        primaryStage.setTitle("MidiPlayer");
+        primaryStage.setTitle("ArtToMusic");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

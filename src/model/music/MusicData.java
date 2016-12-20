@@ -12,11 +12,17 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.graphics.Pixel;
+import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
+import utilities.Globals.Chords;
 
 /**
  * This class contains all information needed to create a musical pattern.
@@ -36,6 +42,13 @@ public class MusicData
 	private static ObservableList<Pixel> redList = FXCollections.observableArrayList();
 	private static ObservableList<Pixel> greenList = FXCollections.observableArrayList();
 	private static ObservableList<Pixel> blueList = FXCollections.observableArrayList();
+	
+	public static DoubleProperty destinationMeanR = new SimpleDoubleProperty(0.0);
+	public static DoubleProperty destinationMeanG = new SimpleDoubleProperty(0.0);
+	public static DoubleProperty destinationMeanB = new SimpleDoubleProperty(0.0);
+	public static DoubleProperty destinationMedianR = new SimpleDoubleProperty(0.0);
+	public static DoubleProperty destinationMedianG = new SimpleDoubleProperty(0.0);
+	public static DoubleProperty destinationMedianB = new SimpleDoubleProperty(0.0);
 	
 	/**
 	 * Prints the matrix containing the information retrieved by the edge detection algorithm.
@@ -63,37 +76,78 @@ public class MusicData
      */
     public static void analyseRGB()
     {
-    	for (ObservableList<Pixel> pixels : destinationRGBValuesMatrix)
+//    	for (ObservableList<Pixel> pixels : destinationRGBValuesMatrix)
+//    	{
+//    		for (Pixel pixel : pixels)
+//    		{
+//    			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
+//    				grayList.add(pixel);
+//    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40) &&
+//    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
+//					blackList.add(pixel);
+//    			else if ((pixel.getRed() > 245 && pixel.getGreen() > 245 && pixel.getBlue() > 245) &&
+//    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
+//    				whiteList.add(pixel);
+//    			else if (pixel.getRed() >= 200)
+//    				redList.add(pixel);
+//    			else if (pixel.getGreen() >= 200)
+//    				greenList.add(pixel);
+//    			else if (pixel.getBlue() >= 200)
+//    				blueList.add(pixel);
+//    		}
+//    	}
+//    	
+//    	ArtToMusicLogger.getInstance().info("Gray " + String.valueOf(grayList.size()));
+//    	ArtToMusicLogger.getInstance().info("Black " + String.valueOf(blackList.size()));
+//    	ArtToMusicLogger.getInstance().info("White " + String.valueOf(whiteList.size()));
+//    	ArtToMusicLogger.getInstance().info("Red " + String.valueOf(redList.size()));
+//    	ArtToMusicLogger.getInstance().info("Green " + String.valueOf(greenList.size()));
+//    	ArtToMusicLogger.getInstance().info("Blue " + String.valueOf(blueList.size()));
+    	
+    	System.out.println("---");
+    	System.out.println(destinationMeanR.doubleValue());
+    	System.out.println(destinationMeanG.doubleValue());
+    	System.out.println(destinationMeanB.doubleValue());
+   
+    	int bpm;
+    	Globals.Chords chord;
+    	Buffer buffer;
+    	
+    	if (destinationMeanR.doubleValue() > destinationMeanG.doubleValue() || destinationMeanR.doubleValue() > destinationMeanB.doubleValue())
     	{
-    		for (Pixel pixel : pixels)
-    		{
-    			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
-    				grayList.add(pixel);
-    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40) &&
-    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
-					blackList.add(pixel);
-    			else if ((pixel.getRed() > 245 && pixel.getGreen() > 245 && pixel.getBlue() > 245) &&
-    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
-    				whiteList.add(pixel);
-    			else if (pixel.getRed() >= 200)
-    				redList.add(pixel);
-    			else if (pixel.getGreen() >= 200)
-    				greenList.add(pixel);
-    			else if (pixel.getBlue() >= 200)
-    				blueList.add(pixel);
-    		}
+    		System.out.println("More R -> 140, E, Triangle");
+    		bpm = 140;
+    		chord = Globals.Chords.E_MAJOR;
+    		buffer = Buffer.TRIANGLE;
+    	}
+    	else if (destinationMeanG.doubleValue() > destinationMeanR.doubleValue() || destinationMeanG.doubleValue() > destinationMeanB.doubleValue())
+    	{
+    		System.out.println("More G -> 80, Bmin, Saw");
+    		bpm = 80;
+    		chord = Globals.Chords.B_MINOR;
+    		buffer = Buffer.SAW;
+    	}
+    	else if (destinationMeanB.doubleValue() > destinationMeanR.doubleValue() || destinationMeanB.doubleValue() > destinationMeanR.doubleValue())
+    	{
+    		System.out.println("More B -> 160, Amin, Square");
+    		bpm = 160;
+    		chord = Globals.Chords.A_MINOR;
+    		buffer = Buffer.SQUARE; 
+    	}
+    	else
+    	{
+    		System.out.println("Else -> 120, C, Sine");
+    		bpm = 120;
+        	chord = Chords.C_MAJOR;
+        	buffer = Buffer.SINE;
     	}
     	
-    	ArtToMusicLogger.getInstance().info("Gray " + String.valueOf(grayList.size()));
-    	ArtToMusicLogger.getInstance().info("Black " + String.valueOf(blackList.size()));
-    	ArtToMusicLogger.getInstance().info("White " + String.valueOf(whiteList.size()));
-    	ArtToMusicLogger.getInstance().info("Red " + String.valueOf(redList.size()));
-    	ArtToMusicLogger.getInstance().info("Green " + String.valueOf(greenList.size()));
-    	ArtToMusicLogger.getInstance().info("Blue " + String.valueOf(blueList.size()));
+    	BeadsManager beadsManager = new BeadsManager();
+    	beadsManager.playChord(bpm, chord, buffer);
     }
     
     /**

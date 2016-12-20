@@ -2,6 +2,7 @@ package model.music;
 
 import java.util.Map.Entry;
 
+import javafx.beans.value.ObservableValue;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.Bead;
 import net.beadsproject.beads.data.Buffer;

@@ -2,6 +2,14 @@ package model.graphics;
 
 import org.rosuda.JRI.Rengine;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WritableDoubleValue;
+import javafx.beans.value.WritableIntegerValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
@@ -19,8 +27,16 @@ import utilities.Globals;
 public class RManager
 {
 	private Rengine engine;
+	
 	private ObservableList<ObservableList<Double>> sourceEdgeMatrix = FXCollections.observableArrayList();
 	private ObservableList<ObservableList<Pixel>> sourceRGBValues= FXCollections.observableArrayList();
+	
+	private DoubleProperty sourceMeanR = new SimpleDoubleProperty(0.0);
+	private DoubleProperty sourceMeanG = new SimpleDoubleProperty(0.0);
+	private DoubleProperty sourceMeanB = new SimpleDoubleProperty(0.0);
+	private DoubleProperty sourceMedianR = new SimpleDoubleProperty(0.0);
+	private DoubleProperty sourceMedianG = new SimpleDoubleProperty(0.0);
+	private DoubleProperty sourceMedianB = new SimpleDoubleProperty(0.0);
 	
 	/**
 	 * Converts a two dimensional array of doubles into an observable list of observable lists.
@@ -104,16 +120,84 @@ public class RManager
     	double[][] gValues = engine.eval("img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255").asDoubleMatrix();
     	double[][] bValues = engine.eval("img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255").asDoubleMatrix();
     	
-    	// TODO: MEAN
-    	// mean(r)
-    	// mean(g)
-    	// mean(b)
+    	final ChangeListener changeListenerMeanR = new ChangeListener()
+    	{
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("blabl1");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMeanR).set((double) newValue);
+			}
+    	};
+    	double meanR = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,1] * 255)").asDouble();
+    	sourceMeanR.addListener(changeListenerMeanR);
+    	sourceMeanR.set(meanR);
 
-    	// TODO: MEDIAN
-    	// median(r)
-    	// median(g)
-    	// median(b)
-
+    	final ChangeListener changeListenerMeanG = new ChangeListener()
+    	{
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("blabl2");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMeanG).set((double) newValue);
+			}
+    	};
+    	double meanG = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255)").asDouble();
+    	sourceMeanR.addListener(changeListenerMeanG);
+    	sourceMeanG.set(meanG);
+    	
+    	final ChangeListener changeListenerMeanB = new ChangeListener()
+    	{
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("blabl3");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMeanB).set((double) newValue);
+			}
+    	};
+    	double meanB = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255)").asDouble();
+    	sourceMeanR.addListener(changeListenerMeanB);
+    	sourceMeanB.set(meanB);
+    	
+    	final ChangeListener changeListenerMedianR = new ChangeListener()
+    	{
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
+			{
+				((WritableDoubleValue) MusicData.destinationMedianR).set((double) newValue);
+			}
+    	};
+    	double medianR = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,1] * 255)").asInt();
+    	sourceMeanR.addListener(changeListenerMedianR);
+    	sourceMedianR.set(medianR);
+    	
+    	final ChangeListener changeListenerMedianG = new ChangeListener()
+    	{
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
+			{
+				((WritableDoubleValue) MusicData.destinationMedianG).set((double) newValue);
+			}
+    	};
+    	sourceMeanR.addListener(changeListenerMedianG);
+    	double medianG = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255)").asInt();
+    	sourceMedianR.set(medianG);
+    	
+    	final ChangeListener changeListenerMedianB = new ChangeListener()
+    	{
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
+			{
+				((WritableDoubleValue) MusicData.destinationMedianB).set((double) newValue);
+			}
+    	};
+    	sourceMeanR.addListener(changeListenerMedianB);
+    	double medianB = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255)").asInt();
+      	sourceMedianR.set(medianB);
+          
     	for (int i = 0; i < length; i++)
     	{
     		final ObservableList<Pixel> row = FXCollections.<Pixel> observableArrayList();
@@ -126,16 +210,16 @@ public class RManager
     		sourceRGBValues.add(row);
     	}
     	
-    	StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < sourceRGBValues.size(); i++)
-        {
-        	for (int j = 0; j < sourceRGBValues.get(i).size(); j++)
-        	{
-        		sb.append(sourceRGBValues.get(i).get(j).toString() + " ");
-        	}
-        	sb.append("\n");
-        }
-        ArtToMusicLogger.getInstance().info(sb.toString());
+//    	StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < sourceRGBValues.size(); i++)
+//        {
+//        	for (int j = 0; j < sourceRGBValues.get(i).size(); j++)
+//        	{
+//        		sb.append(sourceRGBValues.get(i).get(j).toString() + " ");
+//        	}
+//        	sb.append("\n");
+//        }
+//        ArtToMusicLogger.getInstance().info(sb.toString());
     }
     
     /**
