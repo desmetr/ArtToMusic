@@ -2,10 +2,7 @@ package view;
 
 import java.io.File;
 
-import javax.sound.midi.MidiUnavailableException;
-
 import controller.ArtToMusicController;
-import controller.music.MidiPlayer;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +16,7 @@ import javafx.stage.Stage;
 import model.Data;
 import model.graphics.RManager;
 import model.music.BeadsManager;
+import model.music.Chord;
 import model.music.MusicData;
 import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
@@ -35,7 +33,6 @@ public class ArtToMusicView extends Application
 {
 	private Scene scene;
 	private RManager rManager;
-	private MidiPlayer midiPlayer;
 	private BeadsManager beadsManager;
 	
 	@FXML private ToggleGroup graphicsGroup;
@@ -51,15 +48,12 @@ public class ArtToMusicView extends Application
 		try 
 		{
 			rManager = new RManager();
-			midiPlayer = new MidiPlayer();
 			beadsManager = new BeadsManager();
 			
 			Data.readMidiNoteNumbers();
-			Data.readBPMToMillisec();
 			Data.readNoteFrequencies();
 		} 
 		catch (InterruptedException e) 		{	e.printStackTrace();	} 
-		catch (MidiUnavailableException e) 	{	e.printStackTrace();	}
 	}
 	
 	/**
@@ -97,11 +91,11 @@ public class ArtToMusicView extends Application
 	 * PLays the chosen music by the user.
 	 * FXML annotation.
 	 *  
-	 * @throws MidiUnavailableException
+	 * @throws 
 	 * @throws InterruptedException
 	 */
 	@FXML
-	protected void onMusicGenerationClicked() throws MidiUnavailableException, InterruptedException
+	protected void onMusicGenerationClicked() throws InterruptedException
 	{
 		ArtToMusicLogger.getInstance().info("Music Generation button clicked.");
 		
@@ -110,18 +104,16 @@ public class ArtToMusicView extends Application
 		switch (radioButtonText)
 		{
 			case "Melody Sample":
-		        midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "MelodySample.xml"));
+		        System.out.println("MAGWEG?");
 		        break;
 			case "Rhythm Sample":
-				midiPlayer.chooseDrums();
-				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "RhythmSample.xml"));
-				midiPlayer.setMidiChannel(0);
+				System.out.println("MAGWEG?");
 				break;
 			case "Combined Sample":
-				midiPlayer.playNotes(120, MusicData.generate(Globals.getInstance().pathToMusic + "CombinedSample.xml"));
+				System.out.println("MAGWEG?");
 				break;
 			case "Play Chord":
-				beadsManager.playChord(120, Globals.Chords.A_SHARP_MINOR, Buffer.SINE);
+				beadsManager.playChord(120, new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 6), Buffer.SINE);
 				break;
 			default:
 				break;

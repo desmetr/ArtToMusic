@@ -26,24 +26,6 @@ public class Data
         catch (IOException e) {	e.printStackTrace();	}
 	}
 	
-	public static void readBPMToMillisec()
-	{
-		String csvFile = Globals.getInstance().pathToData + "bpmToMilliSec.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().bpmToMilliSec.put(Integer.parseInt(result[0]), Integer.parseInt(result[1]));
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
 	public static void readNoteFrequencies()
 	{
 		String csvFile = Globals.getInstance().pathToData + "noteFrequencies.csv";
@@ -56,7 +38,7 @@ public class Data
             {
                 // use comma as separator
                 String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().noteFrequencies.put(result[0], Float.parseFloat(result[1]));
+                Globals.getInstance().noteFrequencies.add(Float.parseFloat(result[1]));
             }
         } 
         catch (IOException e) {	e.printStackTrace();	}

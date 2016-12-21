@@ -13,16 +13,13 @@ import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.graphics.Pixel;
 import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
-import utilities.Globals.Chords;
 
 /**
  * This class contains all information needed to create a musical pattern.
@@ -114,35 +111,35 @@ public class MusicData
     	System.out.println(destinationMeanB.doubleValue());
    
     	int bpm;
-    	Globals.Chords chord;
+    	Chord chord;
     	Buffer buffer;
     	
     	if (destinationMeanR.doubleValue() > destinationMeanG.doubleValue() || destinationMeanR.doubleValue() > destinationMeanB.doubleValue())
     	{
     		System.out.println("More R -> 140, E, Triangle");
     		bpm = 140;
-    		chord = Globals.Chords.E_MAJOR;
+    		chord = new Chord(Globals.ChordNames.E, Globals.ChordKeys.MAJOR, 4);
     		buffer = Buffer.TRIANGLE;
     	}
     	else if (destinationMeanG.doubleValue() > destinationMeanR.doubleValue() || destinationMeanG.doubleValue() > destinationMeanB.doubleValue())
     	{
     		System.out.println("More G -> 80, Bmin, Saw");
     		bpm = 80;
-    		chord = Globals.Chords.B_MINOR;
+    		chord = new Chord(Globals.ChordNames.G, Globals.ChordKeys.MAJOR, 5);
     		buffer = Buffer.SAW;
     	}
     	else if (destinationMeanB.doubleValue() > destinationMeanR.doubleValue() || destinationMeanB.doubleValue() > destinationMeanR.doubleValue())
     	{
     		System.out.println("More B -> 160, Amin, Square");
     		bpm = 160;
-    		chord = Globals.Chords.A_MINOR;
+    		chord = new Chord(Globals.ChordNames.A, Globals.ChordKeys.MINOR, 2);
     		buffer = Buffer.SQUARE; 
     	}
     	else
     	{
     		System.out.println("Else -> 120, C, Sine");
     		bpm = 120;
-        	chord = Chords.C_MAJOR;
+        	chord = new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 3);
         	buffer = Buffer.SINE;
     	}
     	

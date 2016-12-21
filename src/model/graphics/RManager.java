@@ -102,7 +102,8 @@ public class RManager
     /**
      * Tells R to give information about the pixels of the image.
      */
-    public void colorAnalysis()
+    @SuppressWarnings("unchecked")
+	public void colorAnalysis()
     {
     	ArtToMusicLogger.getInstance().info("Getting RGB values from image " + Globals.imageName + ".");
     	sourceRGBValues.addListener((Change<? extends ObservableList<Pixel>> change) -> 
@@ -120,84 +121,6 @@ public class RManager
     	double[][] gValues = engine.eval("img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255").asDoubleMatrix();
     	double[][] bValues = engine.eval("img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255").asDoubleMatrix();
     	
-    	final ChangeListener changeListenerMeanR = new ChangeListener()
-    	{
-			@Override
-			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
-			{
-				System.out.println("blabl1");
-				System.out.println((double) newValue);
-				((WritableDoubleValue) MusicData.destinationMeanR).set((double) newValue);
-			}
-    	};
-    	double meanR = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,1] * 255)").asDouble();
-    	sourceMeanR.addListener(changeListenerMeanR);
-    	sourceMeanR.set(meanR);
-
-    	final ChangeListener changeListenerMeanG = new ChangeListener()
-    	{
-			@Override
-			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
-			{
-				System.out.println("blabl2");
-				System.out.println((double) newValue);
-				((WritableDoubleValue) MusicData.destinationMeanG).set((double) newValue);
-			}
-    	};
-    	double meanG = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255)").asDouble();
-    	sourceMeanR.addListener(changeListenerMeanG);
-    	sourceMeanG.set(meanG);
-    	
-    	final ChangeListener changeListenerMeanB = new ChangeListener()
-    	{
-			@Override
-			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
-			{
-				System.out.println("blabl3");
-				System.out.println((double) newValue);
-				((WritableDoubleValue) MusicData.destinationMeanB).set((double) newValue);
-			}
-    	};
-    	double meanB = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255)").asDouble();
-    	sourceMeanR.addListener(changeListenerMeanB);
-    	sourceMeanB.set(meanB);
-    	
-    	final ChangeListener changeListenerMedianR = new ChangeListener()
-    	{
-			@Override
-			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
-			{
-				((WritableDoubleValue) MusicData.destinationMedianR).set((double) newValue);
-			}
-    	};
-    	double medianR = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,1] * 255)").asInt();
-    	sourceMeanR.addListener(changeListenerMedianR);
-    	sourceMedianR.set(medianR);
-    	
-    	final ChangeListener changeListenerMedianG = new ChangeListener()
-    	{
-			@Override
-			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
-			{
-				((WritableDoubleValue) MusicData.destinationMedianG).set((double) newValue);
-			}
-    	};
-    	sourceMeanR.addListener(changeListenerMedianG);
-    	double medianG = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255)").asInt();
-    	sourceMedianR.set(medianG);
-    	
-    	final ChangeListener changeListenerMedianB = new ChangeListener()
-    	{
-			@Override
-			public void changed(ObservableValue observable, Object oldValue, Object newValue) 
-			{
-				((WritableDoubleValue) MusicData.destinationMedianB).set((double) newValue);
-			}
-    	};
-    	sourceMeanR.addListener(changeListenerMedianB);
-    	double medianB = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255)").asInt();
-      	sourceMedianR.set(medianB);
-          
     	for (int i = 0; i < length; i++)
     	{
     		final ObservableList<Pixel> row = FXCollections.<Pixel> observableArrayList();
@@ -209,6 +132,94 @@ public class RManager
     		
     		sourceRGBValues.add(row);
     	}
+    	
+    	// -------------------------------------------------------------------
+    	
+    	// TODO bind
+    	
+    	ChangeListener<?> changeListenerMeanR = new ChangeListener<Object>()
+    	{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("listener meanR");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMeanR).set((double) newValue);
+			}
+    	};
+    	double meanR = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,1] * 255)").asDouble();
+    	sourceMeanR.addListener((ChangeListener<? super Number>) changeListenerMeanR);
+    	sourceMeanR.set(meanR);
+
+    	ChangeListener<?> changeListenerMeanG = new ChangeListener<Object>()
+    	{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("listener meanG");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMeanG).set((double) newValue);
+			}
+    	};
+    	double meanG = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255)").asDouble();
+    	sourceMeanG.addListener((ChangeListener<? super Number>) changeListenerMeanG);
+    	sourceMeanG.set(meanG);
+    	
+    	ChangeListener<?> changeListenerMeanB = new ChangeListener<Object>()
+    	{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("listener meanB");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMeanB).set((double) newValue);
+			}
+    	};
+    	double meanB = engine.eval("mean(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255)").asDouble();
+    	sourceMeanB.addListener((ChangeListener<? super Number>) changeListenerMeanB);
+    	sourceMeanB.set(meanB);
+    	
+    	ChangeListener<?> changeListenerMedianR = new ChangeListener<Object>()
+    	{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("listener medianR");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMedianR).set((double) newValue);
+			}
+    	};
+    	double medianR = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,1] * 255)").asInt();
+    	sourceMedianR.addListener((ChangeListener<? super Number>) changeListenerMedianR);
+    	sourceMedianR.set(medianR);
+    	
+    	ChangeListener<?> changeListenerMedianG = new ChangeListener<Object>()
+    	{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("listener medianG");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMedianG).set((double) newValue);
+			}
+    	};
+    	double medianG = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,2] * 255)").asInt();
+    	sourceMedianG.addListener((ChangeListener<? super Number>) changeListenerMedianG);
+    	sourceMedianG.set(medianG);
+    	
+    	ChangeListener<?> changeListenerMedianB = new ChangeListener<Object>()
+    	{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				System.out.println("listener medianB");
+				System.out.println((double) newValue);
+				((WritableDoubleValue) MusicData.destinationMedianB).set((double) newValue);
+			}
+    	};
+    	double medianB = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255)").asInt();
+    	sourceMedianB.addListener((ChangeListener<? super Number>) changeListenerMedianB);
+      	sourceMedianB.set(medianB);
     	
 //    	StringBuilder sb = new StringBuilder();
 //        for (int i = 0; i < sourceRGBValues.size(); i++)
