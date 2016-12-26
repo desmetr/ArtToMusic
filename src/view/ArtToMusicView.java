@@ -1,8 +1,12 @@
 package view;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import controller.ArtToMusicController;
+import controller.graphicalanalysis.GraphicalAnalysisPublisher;
+import controller.graphicalobserver.GraphicalAnalysisObserver;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,6 +84,14 @@ public class ArtToMusicView extends Application
 			case "Color Analysis":
 				rManager.colorAnalysis();
 				MusicData.analyseRGB();
+				break;
+			case "Thread Test":
+				GraphicalAnalysisObserver gaObserver = new GraphicalAnalysisObserver();
+				GraphicalAnalysisPublisher gaPublisher = new GraphicalAnalysisPublisher(gaObserver.getTarget());
+				
+				final ExecutorService service = Executors.newSingleThreadExecutor();
+				service.submit(gaPublisher);
+				
 				break;
 			default:
 				rManager.edgeDetection(radioButtonText);

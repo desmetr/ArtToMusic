@@ -83,22 +83,22 @@ public class MusicData
     		{
     			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
     				grayList.add(pixel);
-    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40) &&
-    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
-					blackList.add(pixel);
-    			else if ((pixel.getRed() > 245 && pixel.getGreen() > 245 && pixel.getBlue() > 245) &&
-    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
-    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
-    				whiteList.add(pixel);
-    			else if (pixel.getRed() >= 200)
-    				redList.add(pixel);
-    			else if (pixel.getGreen() >= 200)
-    				greenList.add(pixel);
-    			else if (pixel.getBlue() >= 200)
-    				blueList.add(pixel);
+//    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40) &&
+//    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
+//					blackList.add(pixel);
+//    			else if ((pixel.getRed() > 245 && pixel.getGreen() > 245 && pixel.getBlue() > 245) &&
+//    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
+//    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
+//    				whiteList.add(pixel);
+//    			else if (pixel.getRed() >= 200)
+//    				redList.add(pixel);
+//    			else if (pixel.getGreen() >= 200)
+//    				greenList.add(pixel);
+//    			else if (pixel.getBlue() >= 200)
+//    				blueList.add(pixel);
     			
     			numberOfPixels++;
     		}
