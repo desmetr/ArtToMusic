@@ -142,8 +142,6 @@ public class RManager
 			@Override
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
 			{
-				System.out.println("listener meanR");
-				System.out.println((double) newValue);
 				((WritableDoubleValue) MusicData.destinationMeanR).set((double) newValue);
 			}
     	};
@@ -156,8 +154,6 @@ public class RManager
 			@Override
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
 			{
-				System.out.println("listener meanG");
-				System.out.println((double) newValue);
 				((WritableDoubleValue) MusicData.destinationMeanG).set((double) newValue);
 			}
     	};
@@ -170,8 +166,6 @@ public class RManager
 			@Override
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
 			{
-				System.out.println("listener meanB");
-				System.out.println((double) newValue);
 				((WritableDoubleValue) MusicData.destinationMeanB).set((double) newValue);
 			}
     	};
@@ -184,8 +178,6 @@ public class RManager
 			@Override
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
 			{
-				System.out.println("listener medianR");
-				System.out.println((double) newValue);
 				((WritableDoubleValue) MusicData.destinationMedianR).set((double) newValue);
 			}
     	};
@@ -198,8 +190,6 @@ public class RManager
 			@Override
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
 			{
-				System.out.println("listener medianG");
-				System.out.println((double) newValue);
 				((WritableDoubleValue) MusicData.destinationMedianG).set((double) newValue);
 			}
     	};
@@ -212,8 +202,6 @@ public class RManager
 			@Override
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
 			{
-				System.out.println("listener medianB");
-				System.out.println((double) newValue);
 				((WritableDoubleValue) MusicData.destinationMedianB).set((double) newValue);
 			}
     	};

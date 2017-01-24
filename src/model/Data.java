@@ -43,4 +43,33 @@ public class Data
         } 
         catch (IOException e) {	e.printStackTrace();	}
 	}
+	
+	public static void readKeysOfDegrees()
+	{
+		String csvFile = Globals.getInstance().pathToData + "keysOfDegrees.csv";
+        String line = "";
+        String cvsSplitBy = ",";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
+        {
+            while ((line = br.readLine()) != null) 
+            {
+                // use comma as separator
+                String[] result = line.split(cvsSplitBy);
+                Globals.getInstance().keysOfDegrees.put(Integer.parseInt(result[0]), getChordKey(result[1]));
+            }
+        } 
+        catch (IOException e) {	e.printStackTrace();	}
+	}
+	
+	private static Globals.ChordKeys getChordKey(String key)
+	{
+		if (key.equalsIgnoreCase("major"))
+			return Globals.ChordKeys.MAJOR;
+		else if (key.equalsIgnoreCase("minor"))
+			return Globals.ChordKeys.MINOR;
+		else if (key.equalsIgnoreCase("diminished"))
+			return Globals.ChordKeys.DIMINISHED;
+		return null;
+	}
 }

@@ -106,43 +106,39 @@ public class MusicData
     	
     	int bpm;
     	Chord chord;
-    	Buffer buffer;
+    	Buffer buffer = Buffer.SINE;
     	
-    	if (grayList.size() >= numberOfPixels / 2)
-    	{
-    		System.out.println("More gray -> 100, F#m, Sine");
-    		bpm = 100;
-        	chord = new Chord(Globals.ChordNames.F_SHARP, Globals.ChordKeys.MINOR, 3);
-        	buffer = Buffer.SINE;
-    	}
+//    	if (grayList.size() >= numberOfPixels / 2)
+//    	{
+//    		System.out.println("More gray -> 100, F#m, Sine");
+//    		bpm = 100;
+//        	chord = new Chord(Globals.ChordNames.F_SHARP, Globals.ChordKeys.MINOR, 3);
+//        	buffer = Buffer.SINE;
+//    	}
     	
-    	else if (destinationMeanR.doubleValue() > destinationMeanG.doubleValue() && destinationMeanR.doubleValue() > destinationMeanB.doubleValue())
+    	if (destinationMeanR.doubleValue() > destinationMeanG.doubleValue() && destinationMeanR.doubleValue() > destinationMeanB.doubleValue())
     	{
-    		System.out.println("More R -> 140, E, Triangle");
+    		System.out.println("More R -> 140, E");
     		bpm = 140;
     		chord = new Chord(Globals.ChordNames.E, Globals.ChordKeys.MAJOR, 4);
-    		buffer = Buffer.TRIANGLE;
     	}
     	else if (destinationMeanG.doubleValue() > destinationMeanR.doubleValue() && destinationMeanG.doubleValue() > destinationMeanB.doubleValue())
     	{
-    		System.out.println("More G -> 80, Bmin, Saw");
+    		System.out.println("More G -> 80, Bmin");
     		bpm = 80;
-    		chord = new Chord(Globals.ChordNames.G, Globals.ChordKeys.MAJOR, 5);
-    		buffer = Buffer.SAW;
+    		chord = new Chord(Globals.ChordNames.G, Globals.ChordKeys.MAJOR, 4);
     	}
     	else if (destinationMeanB.doubleValue() > destinationMeanR.doubleValue() && destinationMeanB.doubleValue() > destinationMeanR.doubleValue())
     	{
-    		System.out.println("More B -> 160, Amin, Square");
+    		System.out.println("More B -> 160, Amin");
     		bpm = 160;
-    		chord = new Chord(Globals.ChordNames.A, Globals.ChordKeys.MINOR, 2);
-    		buffer = Buffer.SQUARE; 
+    		chord = new Chord(Globals.ChordNames.A, Globals.ChordKeys.MINOR, 4);
     	}
     	else
     	{
-    		System.out.println("Else -> 120, C, Sine");
+    		System.out.println("Else -> 120, C");
     		bpm = 120;
-        	chord = new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 3);
-        	buffer = Buffer.SINE;
+        	chord = new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 4);
     	}
     	
     	BeadsManager beadsManager = new BeadsManager();

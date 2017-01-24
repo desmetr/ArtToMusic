@@ -69,34 +69,45 @@ public class ArtToMusicView extends Application
 	@FXML
 	protected void onGraphicalAnalysisClicked() throws InterruptedException
 	{
-		ArtToMusicLogger.getInstance().info("Graphical Analysis button clicked.");
+		ArtToMusicLogger.getInstance().info("Start Graphical Analysis button clicked.");
 		
-		String radioButtonText = ((RadioButton) graphicsGroup.getSelectedToggle()).getText();
-				
-		switch (radioButtonText)
-		{
-			case "Frei Chen":
-				rManager.edgeDetection("Frei_chen");
-				break;
-			case "Roberts Cross":
-				rManager.edgeDetection("Roberts_cross");
-				break;
-			case "Color Analysis":
-				rManager.colorAnalysis();
-				MusicData.analyseRGB();
-				break;
-			case "Thread Test":
-				GraphicalAnalysisObserver gaObserver = new GraphicalAnalysisObserver();
-				GraphicalAnalysisPublisher gaPublisher = new GraphicalAnalysisPublisher(gaObserver.getTarget());
-				
-				final ExecutorService service = Executors.newSingleThreadExecutor();
-				service.submit(gaPublisher);
-				
-				break;
-			default:
-				rManager.edgeDetection(radioButtonText);
-				break;
-		}
+		rManager.colorAnalysis();
+		MusicData.analyseRGB();
+		
+//		String radioButtonText = ((RadioButton) graphicsGroup.getSelectedToggle()).getText();
+//				
+//		switch (radioButtonText)
+//		{
+//			case "Frei Chen":
+//				rManager.edgeDetection("Frei_chen");
+//				break;
+//			case "Roberts Cross":
+//				rManager.edgeDetection("Roberts_cross");
+//				break;
+//			case "Color Analysis":
+//				rManager.colorAnalysis();
+//				MusicData.analyseRGB();
+//				break;
+//			case "Thread Test":
+//				GraphicalAnalysisObserver gaObserver = new GraphicalAnalysisObserver();
+//				GraphicalAnalysisPublisher gaPublisher = new GraphicalAnalysisPublisher(gaObserver.getTarget());
+//				
+//				final ExecutorService service = Executors.newSingleThreadExecutor();
+//				service.submit(gaPublisher);
+//				
+//				break;
+//			default:
+//				rManager.edgeDetection(radioButtonText);
+//				break;
+//		}
+	}
+	
+	@FXML
+	protected void onChordsTestClicked()
+	{
+		BeadsManager beadsManager = new BeadsManager();
+		Chord chord = new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 4);
+		beadsManager.playChordProgression1251(120, chord, Buffer.SINE);
 	}
 	
 	/**
@@ -106,31 +117,31 @@ public class ArtToMusicView extends Application
 	 * @throws 
 	 * @throws InterruptedException
 	 */
-	@FXML
-	protected void onMusicGenerationClicked() throws InterruptedException
-	{
-		ArtToMusicLogger.getInstance().info("Music Generation button clicked.");
-		
-		String radioButtonText = ((RadioButton) musicGroup.getSelectedToggle()).getText();
-		
-		switch (radioButtonText)
-		{
-			case "Melody Sample":
-		        System.out.println("MAGWEG?");
-		        break;
-			case "Rhythm Sample":
-				System.out.println("MAGWEG?");
-				break;
-			case "Combined Sample":
-				System.out.println("MAGWEG?");
-				break;
-			case "Play Chord":
-				beadsManager.playChord(120, new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 6), Buffer.SINE);
-				break;
-			default:
-				break;
-		}
-	}
+//	@FXML
+//	protected void onMusicGenerationClicked() throws InterruptedException
+//	{
+//		ArtToMusicLogger.getInstance().info("Music Generation button clicked.");
+//		
+//		String radioButtonText = ((RadioButton) musicGroup.getSelectedToggle()).getText();
+//		
+//		switch (radioButtonText)
+//		{
+//			case "Melody Sample":
+//		        System.out.println("MAGWEG?");
+//		        break;
+//			case "Rhythm Sample":
+//				System.out.println("MAGWEG?");
+//				break;
+//			case "Combined Sample":
+//				System.out.println("MAGWEG?");
+//				break;
+//			case "Play Chord":
+//				beadsManager.playChord(120, new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 6), Buffer.SINE);
+//				break;
+//			default:
+//				break;
+//		}
+//	}
 	
 	/**
 	 * Start method of the JavaFX application.

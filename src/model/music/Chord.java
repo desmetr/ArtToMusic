@@ -11,6 +11,9 @@ public class Chord
 	private float thirdFrequency;
 	private float fifthFrequency;
 	
+	private Globals.ChordNames chordName;
+	private Globals.ChordKeys chordKey;
+	
 	public Chord(Globals.ChordNames chordName, Globals.ChordKeys chordKey, int pitch)
 	{	
 		int indexTonic = pitch * 12 + Arrays.asList(Globals.ChordNames.values()).indexOf(chordName);
@@ -28,9 +31,18 @@ public class Chord
 		tonicFrequency = Globals.getInstance().noteFrequencies.get(indexTonic);
 		thirdFrequency = Globals.getInstance().noteFrequencies.get(indexThird);
 		fifthFrequency = Globals.getInstance().noteFrequencies.get(indexFifth);
+		
+		this.chordName = chordName;
+		this.chordKey = chordKey;
 	}
 
-	public float getTonicFrequency() 	{	return tonicFrequency;	}
-	public float getThirdFrequency()	{	return thirdFrequency;	}
-	public float getFifthFrequency() 	{	return fifthFrequency;	}
+	public float getTonicFrequency() 			{	return tonicFrequency;	}
+	public float getThirdFrequency()			{	return thirdFrequency;	}
+	public float getFifthFrequency() 			{	return fifthFrequency;	}
+	public Globals.ChordNames getChordName()	{	return chordName;		}
+	
+	public String toString()
+	{
+		return chordName.name() + " ";
+	}
 }
