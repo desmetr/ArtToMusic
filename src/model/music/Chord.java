@@ -11,35 +11,48 @@ public class Chord
 	private float thirdFrequency;
 	private float fifthFrequency;
 	
-	private Globals.ChordNames chordName;
-	private Globals.ChordKeys chordKey;
+	private Globals.ChordName chordName;
+	private Globals.ChordType chordType;
+	private Globals.Chord chord;
 	
-	public Chord(Globals.ChordNames chordName, Globals.ChordKeys chordKey, int pitch)
+	public Chord(Globals.ChordName chordName, Globals.ChordType chordType, int pitch, Globals.Chord chord)
 	{	
-		int indexTonic = pitch * 12 + Arrays.asList(Globals.ChordNames.values()).indexOf(chordName);
-		
+		int indexTonic = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName);
 		int indexThird = 0;
-		if (chordKey == Globals.ChordKeys.MAJOR)
-			indexThird = pitch * 12 + Arrays.asList(Globals.ChordNames.values()).indexOf(chordName) + 4;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
-		else if (chordKey == Globals.ChordKeys.MINOR || chordKey == Globals.ChordKeys.DIMINISHED)
-			indexThird = pitch * 12 + Arrays.asList(Globals.ChordNames.values()).indexOf(chordName) + 3;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+		int indexFifth = 0;
 		
-		int indexFifth = pitch * 12 + Arrays.asList(Globals.ChordNames.values()).indexOf(chordName) + 7;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
-		if (chordKey == Globals.ChordKeys.DIMINISHED)
-			indexFifth = pitch * 12 + Arrays.asList(Globals.ChordNames.values()).indexOf(chordName) + 6;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+		// TODO: use vectors of tuples per chordtypes, zie BeadsManager.java
 		
+		switch (chordType)
+		{
+			case MAJOR:
+				indexThird = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName) + 4;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+				indexFifth = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName) + 7;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+				break;
+			case MINOR:
+				indexThird = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName) + 3;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+				indexFifth = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName) + 7;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+				break;
+			case DIMINISHED:
+				indexThird = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName) + 3;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+				indexFifth = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName) + 6;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
+				break;
+		}
+						
 		tonicFrequency = Globals.getInstance().noteFrequencies.get(indexTonic);
 		thirdFrequency = Globals.getInstance().noteFrequencies.get(indexThird);
 		fifthFrequency = Globals.getInstance().noteFrequencies.get(indexFifth);
 		
 		this.chordName = chordName;
-		this.chordKey = chordKey;
+		this.chordType = chordType;
+		this.chord = chord;
 	}
 
 	public float getTonicFrequency() 			{	return tonicFrequency;	}
 	public float getThirdFrequency()			{	return thirdFrequency;	}
 	public float getFifthFrequency() 			{	return fifthFrequency;	}
-	public Globals.ChordNames getChordName()	{	return chordName;		}
+	public Globals.ChordName getChordName()		{	return chordName;		}
+	public Globals.Chord getChord()				{	return chord;			}		
 	
 	public String toString()
 	{

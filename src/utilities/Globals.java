@@ -87,13 +87,38 @@ public class Globals
 	// Music
     public static LinkedHashMap<String, Integer> midiNoteNumbers = new LinkedHashMap<String, Integer>();
     public static List<Float> noteFrequencies = new ArrayList<Float>();
+
+    public static LinkedHashMap<Integer, ChordType> keysOfDegrees = new LinkedHashMap<Integer, ChordType>();
     
-    public static List<ChordNames> chordNamesAsList = new ArrayList<ChordNames>();
-    public static LinkedHashMap<Integer, ChordKeys> keysOfDegrees = new LinkedHashMap<Integer, ChordKeys>();
+    public static List<Pair> degree2minor = new ArrayList<Pair>();
+    public static List<Pair> degree2major = new ArrayList<Pair>();
+    public static List<Pair> degree3minor = new ArrayList<Pair>();
+    public static List<Pair> degree3major = new ArrayList<Pair>();
+    public static List<Pair> degree4minor = new ArrayList<Pair>();
+    public static List<Pair> degree4major = new ArrayList<Pair>();
+    public static List<Pair> degree5minor = new ArrayList<Pair>();
+    public static List<Pair> degree5major = new ArrayList<Pair>();
+    public static List<Pair> degree6minor = new ArrayList<Pair>();
+    public static List<Pair> degree6major = new ArrayList<Pair>();
+    public static List<Pair> degree7minor = new ArrayList<Pair>();
+    public static List<Pair> degree7major = new ArrayList<Pair>();
     
-    public enum ChordKeys	{MAJOR, MINOR, DIMINISHED}
+    public enum ChordType	{MAJOR, MINOR, DIMINISHED}
     public enum NoteLength 	{WHOLE, HALF, QUARTER, QUARTER_DOTTED, EIGHTH, SIXTEENTH, THIRTY_SECOND}
-    public enum ChordNames 	{C, C_SHARP, D, D_SHARP, E, F, F_SHARP, G, G_SHARP, A, A_SHARP, B}
+    public enum ChordName 	{C, C_SHARP, D, D_SHARP, E, F, F_SHARP, G, G_SHARP, A, A_SHARP, B}
+    public enum Chord		{C_MAJOR, C_MINOR, C_DIMINISHED,
+    						 C_SHARP_MAJOR, C_SHARP_MINOR, C_SHARP_DIMINISHED,
+    						 D_MAJOR, D_MINOR, D_DIMINISHED,
+    						 D_SHARP_MAJOR, D_SHARP_MINOR, D_SHARP_DIMINISHED,
+    						 E_MAJOR, E_MINOR, E_DIMINISHED,
+    						 F_MAJOR, F_MINOR, F_DIMINISHED,
+    						 F_SHARP_MAJOR, F_SHARP_MINOR, F_SHARP_DIMINISHED,
+    						 G_MAJOR, G_MINOR, G_DIMINISHED,
+    						 G_SHARP_MAJOR, G_SHARP_MINOR, G_SHARP_DIMINISHED,
+    						 A_MAJOR, A_MINOR, A_DIMINISHED,
+    						 A_SHARP_MAJOR, A_SHARP_MINOR, A_SHARP_DIMINISHED,
+    						 B_MAJOR, B_MINOR, B_DIMINISHED,
+    }
     
     /**
      * Constructor of the class. Private because it's a singleton.
@@ -103,19 +128,6 @@ public class Globals
 		try
 		{
 			getPaths();
-			
-			chordNamesAsList.add(ChordNames.C);
-			chordNamesAsList.add(ChordNames.C_SHARP);
-			chordNamesAsList.add(ChordNames.D);
-			chordNamesAsList.add(ChordNames.D_SHARP);
-			chordNamesAsList.add(ChordNames.E);
-			chordNamesAsList.add(ChordNames.F);
-			chordNamesAsList.add(ChordNames.F_SHARP);
-			chordNamesAsList.add(ChordNames.G);
-			chordNamesAsList.add(ChordNames.G_SHARP);
-			chordNamesAsList.add(ChordNames.A);
-			chordNamesAsList.add(ChordNames.A_SHARP);
-			chordNamesAsList.add(ChordNames.B);
 		}
 		catch (JDOMException e) {	e.printStackTrace();	} 
 		catch (IOException e) 	{	e.printStackTrace();	}

@@ -56,6 +56,7 @@ public class ArtToMusicView extends Application
 			
 			Data.readMidiNoteNumbers();
 			Data.readNoteFrequencies();
+			Data.readDegrees();
 		} 
 		catch (InterruptedException e) 		{	e.printStackTrace();	} 
 	}
@@ -106,7 +107,7 @@ public class ArtToMusicView extends Application
 	protected void onChordsTestClicked()
 	{
 		BeadsManager beadsManager = new BeadsManager();
-		Chord chord = new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 4);
+		Chord chord = new Chord(Globals.ChordName.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
 		beadsManager.playChordProgression1251(120, chord, Buffer.SINE);
 	}
 	

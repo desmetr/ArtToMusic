@@ -120,25 +120,25 @@ public class MusicData
     	{
     		System.out.println("More R -> 140, E");
     		bpm = 140;
-    		chord = new Chord(Globals.ChordNames.E, Globals.ChordKeys.MAJOR, 4);
+    		chord = new Chord(Globals.ChordName.E, Globals.ChordType.MAJOR, 4);
     	}
     	else if (destinationMeanG.doubleValue() > destinationMeanR.doubleValue() && destinationMeanG.doubleValue() > destinationMeanB.doubleValue())
     	{
     		System.out.println("More G -> 80, Bmin");
     		bpm = 80;
-    		chord = new Chord(Globals.ChordNames.G, Globals.ChordKeys.MAJOR, 4);
+    		chord = new Chord(Globals.ChordName.G, Globals.ChordType.MAJOR, 4);
     	}
     	else if (destinationMeanB.doubleValue() > destinationMeanR.doubleValue() && destinationMeanB.doubleValue() > destinationMeanR.doubleValue())
     	{
     		System.out.println("More B -> 160, Amin");
     		bpm = 160;
-    		chord = new Chord(Globals.ChordNames.A, Globals.ChordKeys.MINOR, 4);
+    		chord = new Chord(Globals.ChordName.A, Globals.ChordType.MINOR, 4);
     	}
     	else
     	{
     		System.out.println("Else -> 120, C");
     		bpm = 120;
-        	chord = new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 4);
+        	chord = new Chord(Globals.ChordName.C, Globals.ChordType.MAJOR, 4);
     	}
     	
     	BeadsManager beadsManager = new BeadsManager();

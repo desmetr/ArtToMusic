@@ -80,15 +80,15 @@ public class BeadsManager
 		ac.start();
 	}
 	
-	public void playChordProgression1251(int bpm, Chord baseChord, Buffer buffer)
+	public void playChordProgression1251(int bpm, Chord key, Buffer buffer)
 	{
 		System.out.println("JAJAJ");
 		ac = new AudioContext();
 		
 		// Chord I
-		tonic = new WavePlayer(ac, baseChord.getTonicFrequency(), buffer);
-		third = new WavePlayer(ac, baseChord.getThirdFrequency(), buffer);
-		fifth = new WavePlayer(ac, baseChord.getFifthFrequency(), buffer);
+		tonic = new WavePlayer(ac, key.getTonicFrequency(), buffer);
+		third = new WavePlayer(ac, key.getThirdFrequency(), buffer);
+		fifth = new WavePlayer(ac, key.getFifthFrequency(), buffer);
 		
 		Gain gI = new Gain(ac, 1, new Envelope(ac, 0));
 		gI.addInput(tonic);
@@ -101,7 +101,7 @@ public class BeadsManager
         ac.start();
         
         // Chord II
-        Chord chordII = getChord(baseChord, 2);
+        Chord chordII = getChord(key, 2);
         System.out.println(chordII.toString());
         tonic = new WavePlayer(ac, chordII.getTonicFrequency(), buffer);
 		third = new WavePlayer(ac, chordII.getThirdFrequency(), buffer);
@@ -118,7 +118,7 @@ public class BeadsManager
         ac.start();
         
         // Chord V
-        Chord chordV = getChord(baseChord, 5);
+        Chord chordV = getChord(key, 5);
         System.out.println(chordV.toString());
         tonic = new WavePlayer(ac, chordV.getTonicFrequency(), buffer);
 		third = new WavePlayer(ac, chordV.getThirdFrequency(), buffer);
@@ -135,9 +135,9 @@ public class BeadsManager
         ac.start();
         
         // Chord I
-        tonic = new WavePlayer(ac, baseChord.getTonicFrequency(), buffer);
-		third = new WavePlayer(ac, baseChord.getThirdFrequency(), buffer);
-		fifth = new WavePlayer(ac, baseChord.getFifthFrequency(), buffer);
+        tonic = new WavePlayer(ac, key.getTonicFrequency(), buffer);
+		third = new WavePlayer(ac, key.getThirdFrequency(), buffer);
+		fifth = new WavePlayer(ac, key.getFifthFrequency(), buffer);
 		
 		Gain gI_ = new Gain(ac, 1, new Envelope(ac, 0));
 		gI_.addInput(tonic);
@@ -171,51 +171,86 @@ public class BeadsManager
 		return (float)(Math.random() * x);
 	}
 	
-	public Chord getChord(Chord baseChord, int number)
-	{	
-		int currentIndex = Globals.chordNamesAsList.indexOf(baseChord.getChordName());
-		
-		int newIndex = 0;
-		
-		switch (number)
+	public Chord getChord(Chord key, int degree)
+	{			
+		switch (key.getChord())
 		{
 			// In case of MAJOR only for now TODO: also minor
-			case 3:
-				if (currentIndex < 8)
-					newIndex = currentIndex + 4;
-				else
-					newIndex = currentIndex - 8;
+			case C_MAJOR:
 				break;
-			case 4:
-				if (currentIndex < 7)
-					newIndex = currentIndex + 5;
-				else
-					newIndex = currentIndex - 7;
+			case C_MINOR:
 				break;
-			case 5:
-				if (currentIndex < 5)
-					newIndex = currentIndex + 7;
-				else
-					newIndex = currentIndex - 5;
+			case C_DIMINISHED:
 				break;
-			case 6:
-				if (currentIndex < 3)
-					newIndex = currentIndex + 9;
-				else
-					newIndex = currentIndex - 3;
+			case C_SHARP_MAJOR:
 				break;
-			case 7:
-				if (currentIndex < 1)
-					newIndex = currentIndex + 11;
-				else
-					newIndex = currentIndex - 1;
+			case C_SHARP_MINOR:
 				break;
-			default:
-				newIndex = currentIndex + number;
+			case C_SHARP_DIMINISHED:
+				break;
+			case D_MAJOR:
+				break;
+			case D_MINOR:
+				break;
+			case D_DIMINISHED:
+				break;
+			case D_SHARP_MAJOR:
+				break;
+			case D_SHARP_MINOR:
+				break;
+			case D_SHARP_DIMINISHED:
+				break;
+			case E_MAJOR:
+				break;
+			case E_MINOR:
+				break;
+			case E_DIMINISHED:
+				break;
+			case F_MAJOR:
+				break;
+			case F_MINOR:
+				break;
+			case F_DIMINISHED:
+				break;
+			case F_SHARP_MAJOR:
+				break;
+			case F_SHARP_MINOR:
+				break;
+			case F_SHARP_DIMINISHED:
+				break;
+			case G_MAJOR:
+				break;
+			case G_MINOR:
+				break;
+			case G_DIMINISHED:
+				break;
+			case G_SHARP_MAJOR:
+				break;
+			case G_SHARP_MINOR:
+				break;
+			case G_SHARP_DIMINISHED:
+				break;
+			case A_MAJOR:
+				break;
+			case A_MINOR:
+				break;
+			case A_DIMINISHED:
+				break;
+			case A_SHARP_MAJOR:
+				break;
+			case A_SHARP_MINOR:
+				break;
+			case A_SHARP_DIMINISHED:
+				break;
+			case B_MAJOR:
+				break;
+			case B_MINOR:
+				break;
+			case B_DIMINISHED:
 				break;
 		}
 		
-		Chord chord = new Chord(Globals.chordNamesAsList.get(newIndex), Globals.keysOfDegrees.get(number), 4);
+		Chord chord = new Chord(Globals.chordNamesAsList.get(newIndex), Globals.keysOfDegrees.get(degree), 4);
 		return chord;
 	}
 }

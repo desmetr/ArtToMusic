@@ -12,3 +12,16 @@ IV	= major
 V 	= major
 VI 	= minor
 VII = diminished
+
+degree 2 minor
+degree 2 major
+degree 3 minor
+degree 3 major
+degree 4 minor
+degree 4 major
+degree 5 minor
+degree 5 major
+degree 6 minor
+degree 6 major
+degree 7 minor
+degree 7 major
