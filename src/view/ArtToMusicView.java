@@ -107,7 +107,7 @@ public class ArtToMusicView extends Application
 	protected void onChordsTestClicked()
 	{
 		BeadsManager beadsManager = new BeadsManager();
-		Chord chord = new Chord(Globals.ChordName.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
+		Chord chord = new Chord(Globals.ChordName.C, Globals.ChordKey.MAJOR, 4, Globals.Chord.C_MAJOR);
 		beadsManager.playChordProgression1251(120, chord, Buffer.SINE);
 	}
 	

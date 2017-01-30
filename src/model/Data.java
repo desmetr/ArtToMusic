@@ -320,14 +320,14 @@ public class Data
         catch (IOException e) {	e.printStackTrace();	}
 	}
 	
-	private static Globals.ChordType getChordKey(String key)
+	private static Globals.ChordKey getChordKey(String key)
 	{
 		if (key.equalsIgnoreCase("major"))
-			return Globals.ChordType.MAJOR;
+			return Globals.ChordKey.MAJOR;
 		else if (key.equalsIgnoreCase("minor"))
-			return Globals.ChordType.MINOR;
+			return Globals.ChordKey.MINOR;
 		else if (key.equalsIgnoreCase("diminished"))
-			return Globals.ChordType.DIMINISHED;
+			return Globals.ChordKey.DIMINISHED;
 		return null;
 	}
 	

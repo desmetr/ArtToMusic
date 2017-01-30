@@ -12,10 +12,10 @@ public class Chord
 	private float fifthFrequency;
 	
 	private Globals.ChordName chordName;
-	private Globals.ChordType chordType;
+	private Globals.ChordKey chordKey;
 	private Globals.Chord chord;
 	
-	public Chord(Globals.ChordName chordName, Globals.ChordType chordType, int pitch, Globals.Chord chord)
+	public Chord(Globals.ChordName chordName, Globals.ChordKey chordKey, int pitch, Globals.Chord chord)
 	{	
 		int indexTonic = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName);
 		int indexThird = 0;
@@ -23,7 +23,7 @@ public class Chord
 		
 		// TODO: use vectors of tuples per chordtypes, zie BeadsManager.java
 		
-		switch (chordType)
+		switch (chordKey)
 		{
 			case MAJOR:
 				indexThird = pitch * 12 + Arrays.asList(Globals.ChordName.values()).indexOf(chordName) + 4;	// We beginnen te tellen vanaf de eerstvolgende noot en niet de tonic.
@@ -44,7 +44,7 @@ public class Chord
 		fifthFrequency = Globals.getInstance().noteFrequencies.get(indexFifth);
 		
 		this.chordName = chordName;
-		this.chordType = chordType;
+		this.chordKey = chordKey;
 		this.chord = chord;
 	}
 
