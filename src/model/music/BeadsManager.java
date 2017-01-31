@@ -32,6 +32,7 @@ public class BeadsManager
 	private WavePlayer fifth;
 
 	private AudioContext ac;
+	private Gain masterGain;
 	
 	/**
 	 * Constructor of this class.
@@ -92,64 +93,73 @@ public class BeadsManager
 		third = new WavePlayer(ac, key.getThirdFrequency(), buffer);
 		fifth = new WavePlayer(ac, key.getFifthFrequency(), buffer);
 		
-		Gain gI = new Gain(ac, 1, new Envelope(ac, 0));
+		Envelope eI = new Envelope(ac, (float) 0.0);
+		Gain gI = new Gain(ac, 1, eI);
 		gI.addInput(tonic);
 		gI.addInput(third);
 		gI.addInput(fifth);
         ac.out.addInput(gI);
-        ((Envelope)gI.getGainUGen()).addSegment(0.1f, bpmToMilliSec(bpm) * 4);
-        ((Envelope)gI.getGainUGen()).addSegment(0, bpmToMilliSec(bpm) * 4, new KillTrigger(gI));
         
-        ac.start();
+        eI.addSegment(0.5f, 10 + bpmToMilliSec(bpm));
+        eI.addSegment(0.4f, 10 + bpmToMilliSec(bpm));
+        eI.addSegment(0.0f, 10 + bpmToMilliSec(bpm));
+        
+        eI.addSegment(0, 10 + bpmToMilliSec(bpm), new KillTrigger(gI));
+        
+//        ac.start();
         
         // Chord II
         Chord chordII = getChord(key, 2);
-        System.out.println(chordII.toString());
         tonic = new WavePlayer(ac, chordII.getTonicFrequency(), buffer);
 		third = new WavePlayer(ac, chordII.getThirdFrequency(), buffer);
 		fifth = new WavePlayer(ac, chordII.getFifthFrequency(), buffer);
 		
-		Gain gII = new Gain(ac, 1, new Envelope(ac, 0));
+		Envelope eII = new Envelope(ac, (float) 0.0);
+		Gain gII = new Gain(ac, 1, eII);
 		gII.addInput(tonic);
 		gII.addInput(third);
 		gII.addInput(fifth);
         ac.out.addInput(gII);
-        ((Envelope)gII.getGainUGen()).addSegment(0.1f, bpmToMilliSec(bpm) * 8);
-        ((Envelope)gII.getGainUGen()).addSegment(0, bpmToMilliSec(bpm) * 8, new KillTrigger(gII));
+        
+        eII.addSegment(0.5f, 10 + bpmToMilliSec(bpm));
+        eII.addSegment(0.4f, 10 + bpmToMilliSec(bpm));
+        eII.addSegment(0.0f, 10 + bpmToMilliSec(bpm));
+        
+        eII.addSegment(0, 10 + bpmToMilliSec(bpm), new KillTrigger(gII));
         
         ac.start();
         
         // Chord V
-        Chord chordV = getChord(key, 5);
-        System.out.println(chordV.toString());
-        tonic = new WavePlayer(ac, chordV.getTonicFrequency(), buffer);
-		third = new WavePlayer(ac, chordV.getThirdFrequency(), buffer);
-		fifth = new WavePlayer(ac, chordV.getFifthFrequency(), buffer);
-		
-		Gain gV = new Gain(ac, 1, new Envelope(ac, 0));
-		gV.addInput(tonic);
-		gV.addInput(third);
-		gV.addInput(fifth);
-        ac.out.addInput(gV);
-        ((Envelope)gV.getGainUGen()).addSegment(0.1f, bpmToMilliSec(bpm) * 16);
-        ((Envelope)gV.getGainUGen()).addSegment(0, bpmToMilliSec(bpm) * 16, new KillTrigger(gV));
-        
-        ac.start();
-        
-        // Chord I
-        tonic = new WavePlayer(ac, key.getTonicFrequency(), buffer);
-		third = new WavePlayer(ac, key.getThirdFrequency(), buffer);
-		fifth = new WavePlayer(ac, key.getFifthFrequency(), buffer);
-		
-		Gain gI_ = new Gain(ac, 1, new Envelope(ac, 0));
-		gI_.addInput(tonic);
-		gI_.addInput(third);
-		gI_.addInput(fifth);
-        ac.out.addInput(gI_);
-        ((Envelope)gI_.getGainUGen()).addSegment(0.1f, bpmToMilliSec(bpm) * 32);
-        ((Envelope)gI_.getGainUGen()).addSegment(0, bpmToMilliSec(bpm) * 32, new KillTrigger(gI_));
-        
-		ac.start();
+//        Chord chordV = getChord(key, 5);
+//        System.out.println(chordV.toString());
+//        tonic = new WavePlayer(ac, chordV.getTonicFrequency(), buffer);
+//		third = new WavePlayer(ac, chordV.getThirdFrequency(), buffer);
+//		fifth = new WavePlayer(ac, chordV.getFifthFrequency(), buffer);
+//		
+//		Gain gV = new Gain(ac, 1, new Envelope(ac, 0));
+//		gV.addInput(tonic);
+//		gV.addInput(third);
+//		gV.addInput(fifth);
+//        ac.out.addInput(gV);
+//        ((Envelope)gV.getGainUGen()).addSegment(0.1f, bpmToMilliSec(bpm) * 16);
+//        ((Envelope)gV.getGainUGen()).addSegment(0, bpmToMilliSec(bpm) * 16, new KillTrigger(gV));
+//        
+//        ac.start();
+//        
+//        // Chord I
+//        tonic = new WavePlayer(ac, key.getTonicFrequency(), buffer);
+//		third = new WavePlayer(ac, key.getThirdFrequency(), buffer);
+//		fifth = new WavePlayer(ac, key.getFifthFrequency(), buffer);
+//		
+//		Gain gI_ = new Gain(ac, 1, new Envelope(ac, 0));
+//		gI_.addInput(tonic);
+//		gI_.addInput(third);
+//		gI_.addInput(fifth);
+//        ac.out.addInput(gI_);
+//        ((Envelope)gI_.getGainUGen()).addSegment(0.1f, bpmToMilliSec(bpm) * 32);
+//        ((Envelope)gI_.getGainUGen()).addSegment(0, bpmToMilliSec(bpm) * 32, new KillTrigger(gI_));
+//        
+//		ac.start();
 	}
 	
 	/**
@@ -175,198 +185,87 @@ public class BeadsManager
 	
 	public Chord getChord(Chord key, int degree)
 	{			
-		Globals.ChordKey chordKey = null;
-		Globals.ChordName chordName = null;
-		Globals.Chord chord = null;
-		
+		System.out.println("getChord");
 		switch (key.getChord())
 		{
 			case C_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.C, Globals.ChordKey.MAJOR, degree);
 			case C_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.C, Globals.ChordKey.MINOR, degree);
 			case C_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.C, Globals.ChordKey.DIMINISHED, degree);
 			case C_SHARP_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.C_SHARP, Globals.ChordKey.MAJOR, degree);
 			case C_SHARP_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.C_SHARP, Globals.ChordKey.MINOR, degree);
 			case C_SHARP_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.C_SHARP, Globals.ChordKey.DIMINISHED, degree);
 			case D_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.D, Globals.ChordKey.MAJOR, degree);
 			case D_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.D, Globals.ChordKey.MINOR, degree);
 			case D_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.D, Globals.ChordKey.DIMINISHED, degree);
 			case D_SHARP_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.D_SHARP, Globals.ChordKey.MAJOR, degree);
 			case D_SHARP_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.D_SHARP, Globals.ChordKey.MINOR, degree);
 			case D_SHARP_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.D_SHARP, Globals.ChordKey.DIMINISHED, degree);
 			case E_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.E, Globals.ChordKey.MAJOR, degree);
 			case E_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.E, Globals.ChordKey.MINOR, degree);
 			case E_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.E, Globals.ChordKey.DIMINISHED, degree);
 			case F_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.F, Globals.ChordKey.MAJOR, degree);
 			case F_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.F, Globals.ChordKey.MINOR, degree);
 			case F_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.F, Globals.ChordKey.DIMINISHED, degree);
 			case F_SHARP_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.F_SHARP, Globals.ChordKey.MAJOR, degree);
 			case F_SHARP_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.F_SHARP, Globals.ChordKey.MINOR, degree);
 			case F_SHARP_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.F_SHARP, Globals.ChordKey.DIMINISHED, degree);
 			case G_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.G, Globals.ChordKey.MAJOR, degree);
 			case G_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.G, Globals.ChordKey.MINOR, degree);
 			case G_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.G, Globals.ChordKey.DIMINISHED, degree);
 			case G_SHARP_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.G_SHARP, Globals.ChordKey.MAJOR, degree);
 			case G_SHARP_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.G_SHARP, Globals.ChordKey.MINOR, degree);
 			case G_SHARP_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.G_SHARP, Globals.ChordKey.DIMINISHED, degree);
 			case A_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.A, Globals.ChordKey.MAJOR, degree);
 			case A_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.A, Globals.ChordKey.MINOR, degree);
 			case A_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.A, Globals.ChordKey.DIMINISHED, degree);
 			case A_SHARP_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.A_SHARP, Globals.ChordKey.MAJOR, degree);
 			case A_SHARP_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.A_SHARP, Globals.ChordKey.MINOR, degree);
 			case A_SHARP_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.A_SHARP, Globals.ChordKey.DIMINISHED, degree);
 			case B_MAJOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.B, Globals.ChordKey.MAJOR, degree);
 			case B_MINOR:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.B, Globals.ChordKey.MINOR, degree);
 			case B_DIMINISHED:
-				chordKey = null;
-				chordName = null;
-				chord = null;
-				break;
+				return getNextChord(Globals.ChordName.B, Globals.ChordKey.DIMINISHED, degree);
 		}
 		
-		return new Chord(chordName, chordKey, 4, chord);
+		return null;
 	}
 	
-	private Chord getDegree(Globals.ChordName chordName, Globals.ChordKey chordKey, int degree)
+	private Chord getNextChord(Globals.ChordName chordName, Globals.ChordKey chordKey, int degree)
 	{
 		Globals.ChordName newChordName = null;
 		switch (degree)
