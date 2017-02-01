@@ -21,8 +21,8 @@ import javafx.collections.ObservableList;
 import model.graphics.Pixel;
 import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
-import utilities.Globals.ChordName;
 import utilities.Globals.ChordKey;
+import utilities.Globals.ChordType;
 import utilities.Globals;
 
 /**
@@ -122,25 +122,25 @@ public class MusicData
     	{
     		System.out.println("More R -> 140, E");
     		bpm = 140;
-    		chord = new Chord(Globals.ChordName.E, Globals.ChordKey.MAJOR, 4, utilities.Globals.Chord.E_MAJOR);
+    		chord = new Chord(Globals.ChordKey.E, Globals.ChordType.MAJOR, 4, utilities.Globals.Chord.E_MAJOR);
     	}
     	else if (destinationMeanG.doubleValue() > destinationMeanR.doubleValue() && destinationMeanG.doubleValue() > destinationMeanB.doubleValue())
     	{
     		System.out.println("More G -> 80, Bmin");
     		bpm = 80;
-    		chord = new Chord(Globals.ChordName.G, Globals.ChordKey.MAJOR, 4, utilities.Globals.Chord.G_MAJOR);
+    		chord = new Chord(Globals.ChordKey.G, Globals.ChordType.MAJOR, 4, utilities.Globals.Chord.G_MAJOR);
     	}
     	else if (destinationMeanB.doubleValue() > destinationMeanR.doubleValue() && destinationMeanB.doubleValue() > destinationMeanR.doubleValue())
     	{
     		System.out.println("More B -> 160, Amin");
     		bpm = 160;
-    		chord = new Chord(Globals.ChordName.A, Globals.ChordKey.MINOR, 4, utilities.Globals.Chord.A_MINOR);
+    		chord = new Chord(Globals.ChordKey.A, Globals.ChordType.MINOR, 4, utilities.Globals.Chord.A_MINOR);
     	}
     	else
     	{
     		System.out.println("Else -> 120, C");
     		bpm = 120;
-        	chord = new Chord(Globals.ChordName.C, Globals.ChordKey.MAJOR, 4, utilities.Globals.Chord.C_MAJOR);
+        	chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, utilities.Globals.Chord.C_MAJOR);
     	}
     	
     	BeadsManager beadsManager = new BeadsManager();

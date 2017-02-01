@@ -1,19 +1,24 @@
 package utilities;
 
 import utilities.Globals.Chord;
-import utilities.Globals.ChordName;
+import utilities.Globals.ChordKey;
 
 public class Pair 
 {
-	private ChordName key;
-	private ChordName degree; 
+	private ChordKey key;
+	private ChordKey degree; 
 	
-	public Pair(ChordName key, ChordName degree)
+	public Pair(ChordKey key, ChordKey degree)
 	{
 		this.key = key;
 		this.degree = degree;
 	}
 	
-	public ChordName getKey() 		{	return key;		}
-	public ChordName getDegree() 	{	return degree;	}
+	public ChordKey getKey() 		{	return key;		}
+	public ChordKey getDegree() 	{	return degree;	}
+	
+	public String toString()
+	{
+		return key.name() + "-" + degree.name();
+	}
 }

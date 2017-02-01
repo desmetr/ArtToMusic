@@ -1,6 +1,8 @@
 package view;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,6 +27,7 @@ import model.music.MusicData;
 import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
+import utilities.Pair;
 
 /**
  * The start of the ArtToMusic JavaFX application.
@@ -107,7 +110,7 @@ public class ArtToMusicView extends Application
 	protected void onChordsTestClicked()
 	{
 		BeadsManager beadsManager = new BeadsManager();
-		Chord chord = new Chord(Globals.ChordName.C, Globals.ChordKey.MAJOR, 4, Globals.Chord.C_MAJOR);
+		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
 		beadsManager.playChordProgression1251(120, chord, Buffer.SINE);
 	}
 	

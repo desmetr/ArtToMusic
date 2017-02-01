@@ -3,9 +3,14 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import utilities.Globals;
-import utilities.Globals.ChordName;
+import utilities.Globals.ChordKey;
 import utilities.Pair;
 
 public class Data 
@@ -65,298 +70,77 @@ public class Data
 	}
 	
 	public static void readDegrees()
-	{
-		readDegree2Minor();
-		readDegree2Major();
-		readDegree3Minor();
-		readDegree3Major();
-		readDegree4Minor();
-		readDegree4Major();
-		readDegree5Minor();
-		readDegree5Major();
-		readDegree6Minor();
-		readDegree6Major();
-		readDegree7Minor();
-		readDegree7Major();
-	}
+	{		
+		String csvFile = Globals.getInstance().pathToData + "degrees.csv";
+        String name = "";
+        List<Pair> list = new ArrayList<Pair>();
+        String[] result;
 
-	public static void readDegree2Minor()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree2minor.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
+        try 
         {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree2minor.add(new Pair(key, degree));
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
+			List<String> lines = Files.readAllLines(Paths.get(csvFile));
+			
+			for (int i = 0; i < lines.size(); i++)
+			{
+				switch (i % 13)
+				{
+					case 0:
+						name = lines.get(i).split(" ")[1];
+						break;
+					case 12:
+						result = lines.get(i).split(",");
+	                    list.add(new Pair(getChordName(result[0]), getChordName(result[1])));
+	                    
+	                    Globals.getInstance().degrees.putIfAbsent(name, list);
+						list = new ArrayList<Pair>();
+						break;
+					default:
+						result = lines.get(i).split(",");
+	                    list.add(new Pair(getChordName(result[0]), getChordName(result[1])));
+	                    break;
+				}
+			}
+		}
+        catch (IOException e) 	{	e.printStackTrace();	}
 	}
-	
-	public static void readDegree2Major()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree2major.csv";
-        String line = "";
-        String cvsSplitBy = ",";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree2major.add(new Pair(key, degree));            
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree3Minor()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree3minor.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree3minor.add(new Pair(key, degree));
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree3Major()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree3major.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree3major.add(new Pair(key, degree)); 
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree4Minor()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree4minor.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree4minor.add(new Pair(key, degree));  
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree4Major()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree4major.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree4major.add(new Pair(key, degree));
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree5Minor()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree5minor.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree5minor.add(new Pair(key, degree));  
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree5Major()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree5major.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree5major.add(new Pair(key, degree));            
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree6Minor()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree6minor.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree6minor.add(new Pair(key, degree));  
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree6Major()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree6major.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree6major.add(new Pair(key, degree));   
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree7Minor()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree7minor.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree7minor.add(new Pair(key, degree)); 
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	public static void readDegree7Major()
-	{
-		String csvFile = Globals.getInstance().pathToData + "degree7major.csv";
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-        {
-            while ((line = br.readLine()) != null) 
-            {
-                // use comma as separator
-                String[] result = line.split(cvsSplitBy);
-                Globals.ChordName key = getChordName(result[0]);
-                Globals.ChordName degree = getChordName(result[1]);
-                Globals.getInstance().degree7major.add(new Pair(key, degree));   
-            }
-        } 
-        catch (IOException e) {	e.printStackTrace();	}
-	}
-	
-	private static Globals.ChordKey getChordKey(String key)
+	private static Globals.ChordType getChordKey(String key)
 	{
 		if (key.equalsIgnoreCase("major"))
-			return Globals.ChordKey.MAJOR;
+			return Globals.ChordType.MAJOR;
 		else if (key.equalsIgnoreCase("minor"))
-			return Globals.ChordKey.MINOR;
+			return Globals.ChordType.MINOR;
 		else if (key.equalsIgnoreCase("diminished"))
-			return Globals.ChordKey.DIMINISHED;
+			return Globals.ChordType.DIMINISHED;
 		return null;
 	}
 	
-	private static Globals.ChordName getChordName(String name)
+	private static Globals.ChordKey getChordName(String name)
 	{
 		if (name.equals("C"))
-			return ChordName.C;
+			return ChordKey.C;
 		else if (name.equals("C#"))
-			return ChordName.C_SHARP;
+			return ChordKey.C_SHARP;
 		else if (name.equals("D"))
-			return ChordName.D;
+			return ChordKey.D;
 		else if (name.equals("D#"))
-			return ChordName.D_SHARP;
+			return ChordKey.D_SHARP;
 		else if (name.equals("E"))
-			return ChordName.E;
+			return ChordKey.E;
 		else if (name.equals("F"))
-			return ChordName.F;
+			return ChordKey.F;
 		else if (name.equals("F#"))
-			return ChordName.F_SHARP;
+			return ChordKey.F_SHARP;
 		else if (name.equals("G"))
-			return ChordName.G;
+			return ChordKey.G;
 		else if (name.equals("G#"))
-			return ChordName.G_SHARP;
+			return ChordKey.G_SHARP;
 		else if (name.equals("A"))
-			return ChordName.A;
+			return ChordKey.A;
 		else if (name.equals("A#"))
-			return ChordName.A_SHARP;
+			return ChordKey.A_SHARP;
 		else if (name.equals("B"))
-			return ChordName.B;
+			return ChordKey.B;
 		
 		return null;
 	}

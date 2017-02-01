@@ -88,24 +88,14 @@ public class Globals
     public static LinkedHashMap<String, Integer> midiNoteNumbers = new LinkedHashMap<String, Integer>();
     public static List<Float> noteFrequencies = new ArrayList<Float>();
 
-    public static LinkedHashMap<Integer, ChordKey> keysOfDegrees = new LinkedHashMap<Integer, ChordKey>();
+    public static LinkedHashMap<Integer, ChordType> keysOfDegrees = new LinkedHashMap<Integer, ChordType>();
     
-    public static List<Pair> degree2minor = new ArrayList<Pair>();
-    public static List<Pair> degree2major = new ArrayList<Pair>();
-    public static List<Pair> degree3minor = new ArrayList<Pair>();
-    public static List<Pair> degree3major = new ArrayList<Pair>();
-    public static List<Pair> degree4minor = new ArrayList<Pair>();
-    public static List<Pair> degree4major = new ArrayList<Pair>();
-    public static List<Pair> degree5minor = new ArrayList<Pair>();
-    public static List<Pair> degree5major = new ArrayList<Pair>();
-    public static List<Pair> degree6minor = new ArrayList<Pair>();
-    public static List<Pair> degree6major = new ArrayList<Pair>();
-    public static List<Pair> degree7minor = new ArrayList<Pair>();
-    public static List<Pair> degree7major = new ArrayList<Pair>();
+    public static LinkedHashMap<String, List<Pair>> degrees = new LinkedHashMap<String, List<Pair>>();
     
-    public enum ChordKey	{MAJOR, MINOR, DIMINISHED}
     public enum NoteLength 	{WHOLE, HALF, QUARTER, QUARTER_DOTTED, EIGHTH, SIXTEENTH, THIRTY_SECOND}
-    public enum ChordName 	{C, C_SHARP, D, D_SHARP, E, F, F_SHARP, G, G_SHARP, A, A_SHARP, B}
+    
+    public enum ChordType	{MAJOR, MINOR, DIMINISHED}
+    public enum ChordKey 	{C, C_SHARP, D, D_SHARP, E, F, F_SHARP, G, G_SHARP, A, A_SHARP, B}
     public enum Chord		{C_MAJOR, C_MINOR, C_DIMINISHED,
     						 C_SHARP_MAJOR, C_SHARP_MINOR, C_SHARP_DIMINISHED,
     						 D_MAJOR, D_MINOR, D_DIMINISHED,
