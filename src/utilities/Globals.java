@@ -92,6 +92,8 @@ public class Globals
     
     public static LinkedHashMap<String, List<Pair>> degrees = new LinkedHashMap<String, List<Pair>>();
     
+    public static LinkedHashMap<Globals.ChordKey, LinkedHashMap<Globals.ChordType, Globals.Chord>> chords = new LinkedHashMap<Globals.ChordKey, LinkedHashMap<Globals.ChordType, Globals.Chord>>();
+    
     public enum NoteLength 	{WHOLE, HALF, QUARTER, QUARTER_DOTTED, EIGHTH, SIXTEENTH, THIRTY_SECOND}
     
     public enum ChordType	{MAJOR, MINOR, DIMINISHED}
@@ -118,8 +120,85 @@ public class Globals
 		try
 		{
 			getPaths();
+			makeChords();
 		}
 		catch (JDOMException e) {	e.printStackTrace();	} 
 		catch (IOException e) 	{	e.printStackTrace();	}
 	}
+    
+    private void makeChords()
+    {
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> C = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	C.put(ChordType.MAJOR, Chord.C_MAJOR);
+    	C.put(ChordType.MINOR, Chord.C_MINOR);
+    	C.put(ChordType.DIMINISHED, Chord.C_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> C_sharp = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	C_sharp.put(ChordType.MAJOR, Chord.C_SHARP_MAJOR);
+    	C_sharp.put(ChordType.MINOR, Chord.C_SHARP_MINOR);
+    	C_sharp.put(ChordType.DIMINISHED, Chord.C_SHARP_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> D = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	D.put(ChordType.MAJOR, Chord.D_MAJOR);
+    	D.put(ChordType.MINOR, Chord.D_MINOR);
+    	D.put(ChordType.DIMINISHED, Chord.D_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> D_sharp = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	D_sharp.put(ChordType.MAJOR, Chord.D_SHARP_MAJOR);
+    	D_sharp.put(ChordType.MINOR, Chord.D_SHARP_MINOR);
+    	D_sharp.put(ChordType.DIMINISHED, Chord.D_SHARP_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> E = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	E.put(ChordType.MAJOR, Chord.E_MAJOR);
+    	E.put(ChordType.MINOR, Chord.E_MINOR);
+    	E.put(ChordType.DIMINISHED, Chord.E_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> F = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	F.put(ChordType.MAJOR, Chord.F_MAJOR);
+    	F.put(ChordType.MINOR, Chord.F_MINOR);
+    	F.put(ChordType.DIMINISHED, Chord.F_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> F_sharp = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	F_sharp.put(ChordType.MAJOR, Chord.F_SHARP_MAJOR);
+    	F_sharp.put(ChordType.MINOR, Chord.F_SHARP_MINOR);
+    	F_sharp.put(ChordType.DIMINISHED, Chord.F_SHARP_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> G = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	G.put(ChordType.MAJOR, Chord.G_MAJOR);
+    	G.put(ChordType.MINOR, Chord.G_MINOR);
+    	G.put(ChordType.DIMINISHED, Chord.G_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> G_sharp = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	G_sharp.put(ChordType.MAJOR, Chord.G_SHARP_MAJOR);
+    	G_sharp.put(ChordType.MINOR, Chord.G_SHARP_MINOR);
+    	G_sharp.put(ChordType.DIMINISHED, Chord.G_SHARP_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> A = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	A.put(ChordType.MAJOR, Chord.A_MAJOR);
+    	A.put(ChordType.MINOR, Chord.A_MINOR);
+    	A.put(ChordType.DIMINISHED, Chord.A_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> A_sharp = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	A_sharp.put(ChordType.MAJOR, Chord.A_SHARP_MAJOR);
+    	A_sharp.put(ChordType.MINOR, Chord.A_SHARP_MINOR);
+    	A_sharp.put(ChordType.DIMINISHED, Chord.A_SHARP_DIMINISHED);
+    	
+    	LinkedHashMap<Globals.ChordType, Globals.Chord> B = new LinkedHashMap<Globals.ChordType, Globals.Chord>();
+    	B.put(ChordType.MAJOR, Chord.B_MAJOR);
+    	B.put(ChordType.MINOR, Chord.B_MINOR);
+    	B.put(ChordType.DIMINISHED, Chord.B_DIMINISHED);
+    	
+    	chords.put(ChordKey.C, C);
+    	chords.put(ChordKey.C_SHARP, C_sharp);
+    	chords.put(ChordKey.D, D);
+    	chords.put(ChordKey.D_SHARP, D_sharp);
+    	chords.put(ChordKey.E, E);
+    	chords.put(ChordKey.F, F);
+    	chords.put(ChordKey.F_SHARP, F_sharp);
+    	chords.put(ChordKey.G, G);
+    	chords.put(ChordKey.G_SHARP, G_sharp);
+    	chords.put(ChordKey.A, A);
+    	chords.put(ChordKey.A_SHARP, A_sharp);
+    	chords.put(ChordKey.B, B);
+    }
 }

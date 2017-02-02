@@ -38,7 +38,7 @@ public class Player extends Task<Object>
 	{		
 		for (Chord chord : chords)
 		{
-			System.out.println("new chord play");
+			System.out.println("new chord " + chord.toString());
 			tonic = new WavePlayer(ac, chord.getTonicFrequency(), Buffer.SINE);
 			third = new WavePlayer(ac, chord.getThirdFrequency(), Buffer.SINE);
 			fifth = new WavePlayer(ac, chord.getFifthFrequency(), Buffer.SINE);

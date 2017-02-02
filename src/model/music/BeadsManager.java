@@ -123,7 +123,6 @@ public class BeadsManager
 	
 	public Chord getChord(Chord chord, int degree)
 	{			
-		System.out.println("getChord");
 		switch (chord.getChord())
 		{
 			case C_MAJOR:
@@ -209,47 +208,47 @@ public class BeadsManager
 		switch (degree)
 		{
 			case 1:
-				return new Chord(chordKey, chordType, 4, getChordEnumElement(chordKey, chordType));
+				return new Chord(chordKey, chordType, 4, Globals.getInstance().chords.get(chordKey).get(chordType));
 			case 2:
 				// The second degree is always a major step from the root for now, TODO: add minor second degree?
 				newChordKey = getFromList(Globals.degrees.get("degree2major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, getChordEnumElement(newChordKey, Globals.ChordType.MINOR));
+				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
 			case 3:
 				switch (chordType)
 				{
 				case MAJOR:
 					newChordKey = getFromList(Globals.degrees.get("degree3major"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, getChordEnumElement(newChordKey, Globals.ChordType.MINOR));
+					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
 				case MINOR:
 				case DIMINISHED:
 					newChordKey = getFromList(Globals.degrees.get("degree3minor"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, getChordEnumElement(newChordKey, Globals.ChordType.MINOR));
+					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
 				}
 				break;
 			case 4:
 				// TODO: add minor fourth degree?
 				newChordKey = getFromList(Globals.degrees.get("degree4major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, getChordEnumElement(newChordKey, Globals.ChordType.MAJOR));
+				return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MAJOR));
 			case 5:
 				switch (chordType)
 				{
 				case MAJOR:
 				case MINOR:
 					newChordKey = getFromList(Globals.degrees.get("degree5major"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, getChordEnumElement(newChordKey, Globals.ChordType.MAJOR));
+					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MAJOR));
 				case DIMINISHED:
 					newChordKey = getFromList(Globals.degrees.get("degree5minor"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, getChordEnumElement(newChordKey, Globals.ChordType.MAJOR));
+					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MAJOR));
 				}
 				break;
 			case 6:
 				// TODO: add minor sixth degree?
 				newChordKey = getFromList(Globals.degrees.get("degree6major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, getChordEnumElement(newChordKey, Globals.ChordType.MINOR));
+				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
 			case 7:
 				// TODO add major/minor seventh?
 				newChordKey = getFromList(Globals.degrees.get("degree7major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.DIMINISHED, 4, getChordEnumElement(newChordKey, Globals.ChordType.DIMINISHED));
+				return new Chord(newChordKey, Globals.ChordType.DIMINISHED, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.DIMINISHED));
 		}
 		return null;
 	}
@@ -262,146 +261,5 @@ public class BeadsManager
 				return chordPair.getDegree();
 		}
 		return null;	
-	}
-	
-	// TODO: hashmap<Globals.ChordName, Pair<Globals.ChordKey, Globals.Chord>> zo moeten we maar 1 switch gebruiken
-	private Globals.Chord getChordEnumElement(Globals.ChordKey chordKey, Globals.ChordType chordType)
-	{
-		switch (chordKey)
-		{
-			case C:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.C_MAJOR;
-					case MINOR:
-						return Globals.Chord.C_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.C_DIMINISHED;
-				}
-				break;
-			case C_SHARP:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.C_SHARP_MAJOR;
-					case MINOR:
-						return Globals.Chord.C_SHARP_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.C_SHARP_DIMINISHED;
-				}
-				break;
-			case D:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.D_MAJOR;
-					case MINOR:
-						return Globals.Chord.D_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.D_DIMINISHED;
-				}
-				break;
-			case D_SHARP:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.D_SHARP_MAJOR;
-					case MINOR:
-						return Globals.Chord.D_SHARP_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.D_SHARP_DIMINISHED;
-				}
-				break;
-			case E:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.E_MAJOR;
-					case MINOR:
-						return Globals.Chord.E_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.E_DIMINISHED;
-				}
-				break;
-			case F:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.F_MAJOR;
-					case MINOR:
-						return Globals.Chord.F_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.F_DIMINISHED;
-				}
-				break;
-			case F_SHARP:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.F_SHARP_MAJOR;
-					case MINOR:
-						return Globals.Chord.F_SHARP_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.F_SHARP_DIMINISHED;
-				}
-				break;
-			case G:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.G_MAJOR;
-					case MINOR:
-						return Globals.Chord.G_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.G_DIMINISHED;
-				}
-				break;
-			case G_SHARP:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.G_SHARP_MAJOR;
-					case MINOR:
-						return Globals.Chord.G_SHARP_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.G_SHARP_DIMINISHED;
-				}
-				break;
-			case A:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.A_MAJOR;
-					case MINOR:
-						return Globals.Chord.A_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.A_DIMINISHED;
-				}
-				break;
-			case A_SHARP:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.A_SHARP_MAJOR;
-					case MINOR:
-						return Globals.Chord.A_SHARP_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.A_SHARP_DIMINISHED;
-				}
-				break;
-			case B:
-				switch (chordType)
-				{
-					case MAJOR:
-						return Globals.Chord.B_MAJOR;
-					case MINOR:
-						return Globals.Chord.B_MINOR;
-					case DIMINISHED:
-						return Globals.Chord.B_DIMINISHED;
-				}
-				break;
-		}
-		return null;
 	}
 }

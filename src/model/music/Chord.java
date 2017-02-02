@@ -56,6 +56,6 @@ public class Chord
 	
 	public String toString()
 	{
-		return chord.name() + " ";
+		return chord.name();
 	}
 }
