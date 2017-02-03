@@ -43,82 +43,43 @@ public class BeadsManager
 	{
 	}
 	
-	/**
-	 * Plays a random piece of music, based on the information given by the parameters.
-	 * 
-	 * @param bpm	the beats-per-minute
-	 */
-	// TODO magweg
-	public void playChord(int bpm, Chord chord, Buffer buffer)
-	{	
-		ac = new AudioContext();
-				
-		tonic = new WavePlayer(ac, chord.getTonicFrequency(), buffer);
-		third = new WavePlayer(ac, chord.getThirdFrequency(), buffer);
-		fifth = new WavePlayer(ac, chord.getFifthFrequency(), buffer);
-		
-		Clock clock = new Clock(ac, bpmToMilliSec(bpm));
-		clock.addMessageListener(
-			new Bead()
-			{
-			    public void messageReceived(Bead message) 
-			    {
-			    	Clock c = (Clock) message;
-			    	
-			    	if (c.isBeat()) 
-			    	{
-			    		if (random(1) < 0.50) 
-			    			return;
-			    		
-			    		Gain g = new Gain(ac, 1, new Envelope(ac, 0));
-				        g.addInput(tonic);
-				        g.addInput(third);
-				        g.addInput(fifth);
-				        ac.out.addInput(g);
-				        ((Envelope)g.getGainUGen()).addSegment(0.1f, random(200));
-				        ((Envelope)g.getGainUGen()).addSegment(0, random(7000), new KillTrigger(g));
-			    	}
-			    }
-			}
-		);
-		
-		ac.out.addDependent(clock);
-		ac.start();
-	}
-	
-	public void playChordProgression1251(int bpm, Chord key, Buffer buffer)
+	public void playChordProgression1251(Globals.ChordProgression chordProgression, int bpm, Chord key, Buffer buffer)
 	{
 		List<Chord> chords = new ArrayList<Chord>();
-		chords.add(getChord(key, 1));
-		chords.add(getChord(key, 2));
-		chords.add(getChord(key, 5));
-		chords.add(getChord(key, 1));
+		
+		switch (chordProgression)
+		{
+			case I_II_V_I:
+				chords.add(getChord(key, 1));
+				chords.add(getChord(key, 2));
+				chords.add(getChord(key, 5));
+				chords.add(getChord(key, 1));
+				break;
+			case I_III_IV_VI:
+				chords.add(getChord(key, 1));
+				chords.add(getChord(key, 3));
+				chords.add(getChord(key, 4));
+				chords.add(getChord(key, 6));
+				break;
+			case I_III_VI_II_V:
+				chords.add(getChord(key, 1));
+				chords.add(getChord(key, 3));
+				chords.add(getChord(key, 6));
+				chords.add(getChord(key, 2));
+				chords.add(getChord(key, 5));
+				break;
+			case I_VI_II_IV:
+				chords.add(getChord(key, 1));
+				chords.add(getChord(key, 6));
+				chords.add(getChord(key, 2));
+				chords.add(getChord(key, 4));
+				break;
+		}
 		
 		player = new Player(chords, bpm);
 		
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		executor.execute(player);
-	}
-	
-	/**
-	 * Computes the number of milliseconds between beats, based on the BPM.
-	 * @param bpm
-	 * @return number of milliseconds
-	 */
-	public float bpmToMilliSec(int bpm)
-	{
-		return 60000 / bpm;
-	}
-	
-	/**
-	 * Generates a random number, in the range given by the parameter.
-	 * 
-	 * @param x
-	 * @return random number
-	 */
-	public static float random(double x)
-	{
-		return (float)(Math.random() * x);
 	}
 	
 	public Chord getChord(Chord chord, int degree)

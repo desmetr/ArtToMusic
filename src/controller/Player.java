@@ -52,14 +52,13 @@ public class Player extends Task<Object>
 	        
 			ac.out.addInput(masterGain);
 	        
-	        envelope.addSegment(0.5f, bpmInMilliSec);
-//	        envelope.addSegment(0.4f, 10 + bpmInMilliSec);
-//	        envelope.addSegment(0.0f, 10 + bpmInMilliSec);
+	        envelope.addSegment(0, bpmInMilliSec);
+//	        envelope.addSegment(0.4f, bpmInMilliSec);
+//	        envelope.addSegment(0.0f, bpmInMilliSec);
 	        
-	        envelope.addSegment(0, bpmInMilliSec, new KillTrigger(masterGain));
+	        envelope.addSegment(1, bpmInMilliSec, new KillTrigger(masterGain));
 	        
 	        ac.start();
-	        System.out.println(bpmInMilliSec);
 	        Thread.sleep((long) bpmInMilliSec);
 		}
 		return null;

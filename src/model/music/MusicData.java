@@ -144,7 +144,7 @@ public class MusicData
     	}
     	
     	BeadsManager beadsManager = new BeadsManager();
-    	beadsManager.playChord(bpm, chord, buffer);
+//    	beadsManager.playChord(bpm, chord, buffer);
     }
     
     /**

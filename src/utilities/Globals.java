@@ -112,6 +112,8 @@ public class Globals
     						 B_MAJOR, B_MINOR, B_DIMINISHED,
     }
     
+    public enum ChordProgression {I_II_V_I, I_III_IV_VI, I_VI_II_IV, I_III_VI_II_V} 
+    
     /**
      * Constructor of the class. Private because it's a singleton.
      */

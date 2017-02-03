@@ -107,45 +107,36 @@ public class ArtToMusicView extends Application
 	}
 	
 	@FXML
-	protected void onChordsTestClicked()
+	protected void on1251Clicked()
 	{
-		BeadsManager beadsManager = new BeadsManager();
+		beadsManager = new BeadsManager();
 		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
-		beadsManager.playChordProgression1251(120, chord, Buffer.SINE);
+		beadsManager.playChordProgression1251(Globals.ChordProgression.I_II_V_I, 120, chord, Buffer.SINE);
 	}
 	
-	/**
-	 * PLays the chosen music by the user.
-	 * FXML annotation.
-	 *  
-	 * @throws 
-	 * @throws InterruptedException
-	 */
-//	@FXML
-//	protected void onMusicGenerationClicked() throws InterruptedException
-//	{
-//		ArtToMusicLogger.getInstance().info("Music Generation button clicked.");
-//		
-//		String radioButtonText = ((RadioButton) musicGroup.getSelectedToggle()).getText();
-//		
-//		switch (radioButtonText)
-//		{
-//			case "Melody Sample":
-//		        System.out.println("MAGWEG?");
-//		        break;
-//			case "Rhythm Sample":
-//				System.out.println("MAGWEG?");
-//				break;
-//			case "Combined Sample":
-//				System.out.println("MAGWEG?");
-//				break;
-//			case "Play Chord":
-//				beadsManager.playChord(120, new Chord(Globals.ChordNames.C, Globals.ChordKeys.MAJOR, 6), Buffer.SINE);
-//				break;
-//			default:
-//				break;
-//		}
-//	}
+	@FXML 
+	protected void on1346Clicked()
+	{
+		beadsManager = new BeadsManager();
+		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
+		beadsManager.playChordProgression1251(Globals.ChordProgression.I_III_IV_VI, 120, chord, Buffer.SINE);
+	}
+	
+	@FXML 
+	protected void on1624Clicked()
+	{
+		beadsManager = new BeadsManager();
+		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
+		beadsManager.playChordProgression1251(Globals.ChordProgression.I_VI_II_IV, 120, chord, Buffer.SINE);
+	}
+
+	@FXML 
+	protected void on13625Clicked()
+	{
+		beadsManager = new BeadsManager();
+		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
+		beadsManager.playChordProgression1251(Globals.ChordProgression.I_III_VI_II_V, 120, chord, Buffer.SINE);
+	}
 	
 	/**
 	 * Start method of the JavaFX application.
