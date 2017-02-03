@@ -155,7 +155,7 @@ public class ArtToMusicView extends Application
     	File selectedFile = fileChooser.showOpenDialog(primaryStage);
     	if (selectedFile != null) 
     	    Globals.imageName = selectedFile.getName();
-    
+        	
         primaryStage.setTitle("ArtToMusic");
         primaryStage.setScene(scene);
         primaryStage.show();

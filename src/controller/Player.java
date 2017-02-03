@@ -39,9 +39,9 @@ public class Player extends Task<Object>
 		for (Chord chord : chords)
 		{
 			System.out.println("new chord " + chord.toString());
-			tonic = new WavePlayer(ac, chord.getTonicFrequency(), Buffer.SINE);
-			third = new WavePlayer(ac, chord.getThirdFrequency(), Buffer.SINE);
-			fifth = new WavePlayer(ac, chord.getFifthFrequency(), Buffer.SINE);
+			tonic = new WavePlayer(ac, chord.getTonicFrequency(), Buffer.SQUARE);
+			third = new WavePlayer(ac, chord.getThirdFrequency(), Buffer.SQUARE);
+			fifth = new WavePlayer(ac, chord.getFifthFrequency(), Buffer.SQUARE);
 			
 			envelope = new Envelope(ac, (float) 0.0);
 			masterGain = new Gain(ac, 1, envelope);
@@ -60,6 +60,7 @@ public class Player extends Task<Object>
 	        
 	        ac.start();
 	        Thread.sleep((long) bpmInMilliSec);
+	        ac.reset();
 		}
 		return null;
 	}

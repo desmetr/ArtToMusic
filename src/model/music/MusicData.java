@@ -51,6 +51,8 @@ public class MusicData
 	public static DoubleProperty destinationMedianG = new SimpleDoubleProperty(0.0);
 	public static DoubleProperty destinationMedianB = new SimpleDoubleProperty(0.0);
 	
+	private static BeadsManager beadsManager;
+	
 	/**
 	 * Prints the matrix containing the information retrieved by the edge detection algorithm.
 	 */
@@ -109,6 +111,14 @@ public class MusicData
     	int bpm;
     	Chord chord;
     	Buffer buffer = Buffer.SINE;
+    	Globals.ChordProgression chordProgression;
+    	
+    	System.out.println(Globals.imageName);
+    	System.out.println(destinationMeanR.doubleValue());
+    	System.out.println(destinationMeanG.doubleValue());
+    	System.out.println(destinationMeanB.doubleValue());
+    	
+    	beadsManager = new BeadsManager();
     	
 //    	if (grayList.size() >= numberOfPixels / 2)
 //    	{
@@ -118,33 +128,38 @@ public class MusicData
 //        	buffer = Buffer.SINE;
 //    	}
     	
-    	if (destinationMeanR.doubleValue() > destinationMeanG.doubleValue() && destinationMeanR.doubleValue() > destinationMeanB.doubleValue())
+    	if ((destinationMeanR.doubleValue() == destinationMeanG.doubleValue()) && (destinationMeanR.doubleValue() == destinationMeanB.doubleValue()))
     	{
-    		System.out.println("More R -> 140, E");
-    		bpm = 140;
-    		chord = new Chord(Globals.ChordKey.E, Globals.ChordType.MAJOR, 4, utilities.Globals.Chord.E_MAJOR);
+    		System.out.println("All equal -> I_III_VI_II_V");
+    		chordProgression = Globals.ChordProgression.I_III_VI_II_V;
+    		chord = new Chord(Globals.ChordKey.G, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
+    		
+    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
     	}
-    	else if (destinationMeanG.doubleValue() > destinationMeanR.doubleValue() && destinationMeanG.doubleValue() > destinationMeanB.doubleValue())
+    	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanR.doubleValue())
     	{
-    		System.out.println("More G -> 80, Bmin");
-    		bpm = 80;
-    		chord = new Chord(Globals.ChordKey.G, Globals.ChordType.MAJOR, 4, utilities.Globals.Chord.G_MAJOR);
+    		System.out.println("More R -> I_II_V_I");
+    		chordProgression = Globals.ChordProgression.I_II_V_I;
+    		chord = new Chord(Globals.ChordKey.C, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
+    		
+    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
     	}
-    	else if (destinationMeanB.doubleValue() > destinationMeanR.doubleValue() && destinationMeanB.doubleValue() > destinationMeanR.doubleValue())
+    	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanG.doubleValue())
     	{
-    		System.out.println("More B -> 160, Amin");
-    		bpm = 160;
-    		chord = new Chord(Globals.ChordKey.A, Globals.ChordType.MINOR, 4, utilities.Globals.Chord.A_MINOR);
+    		System.out.println("More G -> I_III_IV_VI");
+    		chordProgression = Globals.ChordProgression.I_III_IV_VI;
+    		chord = new Chord(Globals.ChordKey.E, Globals.ChordType.MINOR, 4, Globals.Chord.C_MAJOR);
+    		
+    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
     	}
-    	else
+    	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanB.doubleValue())
     	{
-    		System.out.println("Else -> 120, C");
-    		bpm = 120;
-        	chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, utilities.Globals.Chord.C_MAJOR);
+    		System.out.println("More B -> I_VI_II_IV");
+    		chordProgression = Globals.ChordProgression.I_VI_II_IV;
+    		chord = new Chord(Globals.ChordKey.A_SHARP, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
+    		
+    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
     	}
-    	
-    	BeadsManager beadsManager = new BeadsManager();
-//    	beadsManager.playChord(bpm, chord, buffer);
     }
     
     /**
