@@ -43,7 +43,7 @@ public class BeadsManager
 	{
 	}
 	
-	public void playChordProgression1251(Globals.ChordProgression chordProgression, int bpm, Chord key, Buffer buffer)
+	public void playChordProgression(Globals.ChordProgression chordProgression, int bpm, Chord key, Buffer buffer)
 	{
 		List<Chord> chords = new ArrayList<Chord>();
 		
@@ -77,6 +77,12 @@ public class BeadsManager
 		}
 		
 		player = new Player(chords, bpm);
+		
+		try 
+		{
+			Thread.sleep(1000);
+		} 
+		catch (InterruptedException e) {	e.printStackTrace();	}
 		
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		executor.execute(player);

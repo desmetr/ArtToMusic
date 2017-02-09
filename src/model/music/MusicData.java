@@ -12,8 +12,6 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
-import com.sun.glass.ui.Pixels;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
@@ -21,8 +19,6 @@ import javafx.collections.ObservableList;
 import model.graphics.Pixel;
 import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
-import utilities.Globals.ChordKey;
-import utilities.Globals.ChordType;
 import utilities.Globals;
 
 /**
@@ -38,11 +34,11 @@ public class MusicData
 	public static ObservableList<ObservableList<Pixel>> destinationRGBValuesMatrix = FXCollections.observableArrayList();
 
 	private static ObservableList<Pixel> grayList = FXCollections.observableArrayList();
-	private static ObservableList<Pixel> blackList = FXCollections.observableArrayList();
-	private static ObservableList<Pixel> whiteList = FXCollections.observableArrayList();
-	private static ObservableList<Pixel> redList = FXCollections.observableArrayList();
-	private static ObservableList<Pixel> greenList = FXCollections.observableArrayList();
-	private static ObservableList<Pixel> blueList = FXCollections.observableArrayList();
+//	private static ObservableList<Pixel> blackList = FXCollections.observableArrayList();
+//	private static ObservableList<Pixel> whiteList = FXCollections.observableArrayList();
+//	private static ObservableList<Pixel> redList = FXCollections.observableArrayList();
+//	private static ObservableList<Pixel> greenList = FXCollections.observableArrayList();
+//	private static ObservableList<Pixel> blueList = FXCollections.observableArrayList();
 	
 	public static DoubleProperty destinationMeanR = new SimpleDoubleProperty(0.0);
 	public static DoubleProperty destinationMeanG = new SimpleDoubleProperty(0.0);
@@ -53,11 +49,9 @@ public class MusicData
 	
 	private static BeadsManager beadsManager;
 	
-	/**
-	 * Prints the matrix containing the information retrieved by the edge detection algorithm.
-	 */
     public static void printEdgeMatrix()
     {
+    	ArtToMusicLogger.getInstance().info(Globals.imageName);
 		ArtToMusicLogger.getInstance().info("MusicData: destinationEdgeMatrix change notified");
 		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.size()));
 		ArtToMusicLogger.getInstance().info(String.valueOf(destinationEdgeMatrix.get(0).size()));
@@ -74,10 +68,12 @@ public class MusicData
 		ArtToMusicLogger.getInstance().info(sb.toString());
     }
         
-    /**
-     * Counts the number of different pixels in an image, based on the matrix of pixels.
-     */
-    public static void analyseRGB()
+    public static void setTempo()
+    {
+    	printEdgeMatrix();
+    }
+    
+    public static void analyseRGB() throws InterruptedException
     {
     	int numberOfPixels = 0;
     
@@ -87,22 +83,6 @@ public class MusicData
     		{
     			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
     				grayList.add(pixel);
-//    			else if ((pixel.getRed() < 40 && pixel.getGreen() < 40 && pixel.getBlue() < 40) &&
-//    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
-//    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
-//    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
-//					blackList.add(pixel);
-//    			else if ((pixel.getRed() > 245 && pixel.getGreen() > 245 && pixel.getBlue() > 245) &&
-//    					  Math.abs((pixel.getRed() - pixel.getGreen())) <= 20 &&
-//    					  Math.abs((pixel.getBlue() - pixel.getGreen())) <= 20 &&
-//    					  Math.abs((pixel.getRed() - pixel.getBlue())) <= 20)
-//    				whiteList.add(pixel);
-//    			else if (pixel.getRed() >= 200)
-//    				redList.add(pixel);
-//    			else if (pixel.getGreen() >= 200)
-//    				greenList.add(pixel);
-//    			else if (pixel.getBlue() >= 200)
-//    				blueList.add(pixel);
     			
     			numberOfPixels++;
     		}
@@ -118,15 +98,9 @@ public class MusicData
     	System.out.println(destinationMeanG.doubleValue());
     	System.out.println(destinationMeanB.doubleValue());
     	
-    	beadsManager = new BeadsManager();
+    	Thread.sleep(1000);
     	
-//    	if (grayList.size() >= numberOfPixels / 2)
-//    	{
-//    		System.out.println("More gray -> 100, F#m, Sine");
-//    		bpm = 100;
-//        	chord = new Chord(Globals.ChordNames.F_SHARP, Globals.ChordKeys.MINOR, 3);
-//        	buffer = Buffer.SINE;
-//    	}
+    	beadsManager = new BeadsManager();
     	
     	if ((destinationMeanR.doubleValue() == destinationMeanG.doubleValue()) && (destinationMeanR.doubleValue() == destinationMeanB.doubleValue()))
     	{
@@ -134,7 +108,7 @@ public class MusicData
     		chordProgression = Globals.ChordProgression.I_III_VI_II_V;
     		chord = new Chord(Globals.ChordKey.G, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
     		
-    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
+    		beadsManager.playChordProgression(chordProgression, 120, chord, Buffer.SINE);
     	}
     	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanR.doubleValue())
     	{
@@ -142,7 +116,7 @@ public class MusicData
     		chordProgression = Globals.ChordProgression.I_II_V_I;
     		chord = new Chord(Globals.ChordKey.C, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
     		
-    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
+    		beadsManager.playChordProgression(chordProgression, 120, chord, Buffer.SINE);
     	}
     	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanG.doubleValue())
     	{
@@ -150,7 +124,7 @@ public class MusicData
     		chordProgression = Globals.ChordProgression.I_III_IV_VI;
     		chord = new Chord(Globals.ChordKey.E, Globals.ChordType.MINOR, 4, Globals.Chord.C_MAJOR);
     		
-    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
+    		beadsManager.playChordProgression(chordProgression, 120, chord, Buffer.SINE);
     	}
     	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanB.doubleValue())
     	{
@@ -158,16 +132,10 @@ public class MusicData
     		chordProgression = Globals.ChordProgression.I_VI_II_IV;
     		chord = new Chord(Globals.ChordKey.A_SHARP, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
     		
-    		beadsManager.playChordProgression1251(chordProgression, 120, chord, Buffer.SINE);
+    		beadsManager.playChordProgression(chordProgression, 120, chord, Buffer.SINE);
     	}
     }
     
-    /**
-     * Generates the vector notes, containing all the information about the different kind of notes.
-     * 
-     * @param path
-     * @return notes	vector of notes
-     */
     public static Vector<Note> generate(String path)
     {
     	ArtToMusicLogger.getInstance().info("Generating " + path);

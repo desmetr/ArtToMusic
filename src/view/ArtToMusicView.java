@@ -40,7 +40,6 @@ public class ArtToMusicView extends Application
 {
 	private Scene scene;
 	private RManager rManager;
-	private BeadsManager beadsManager;
 	
 	@FXML private ToggleGroup graphicsGroup;
 	@FXML private ToggleGroup musicGroup;
@@ -55,8 +54,7 @@ public class ArtToMusicView extends Application
 		try 
 		{
 			rManager = new RManager();
-			beadsManager = new BeadsManager();
-			
+
 			Data.readMidiNoteNumbers();
 			Data.readNoteFrequencies();
 			Data.readDegrees();
@@ -75,8 +73,13 @@ public class ArtToMusicView extends Application
 	{
 		ArtToMusicLogger.getInstance().info("Start Graphical Analysis button clicked.");
 		
-		rManager.colorAnalysis();
-		MusicData.analyseRGB();
+		rManager.edgeDetection("Frei_chen");
+		MusicData.setTempo();
+		
+		Thread.sleep(1000);
+		
+//		rManager.colorAnalysis();
+//		MusicData.analyseRGB();
 		
 //		String radioButtonText = ((RadioButton) graphicsGroup.getSelectedToggle()).getText();
 //				
@@ -104,38 +107,6 @@ public class ArtToMusicView extends Application
 //				rManager.edgeDetection(radioButtonText);
 //				break;
 //		}
-	}
-	
-	@FXML
-	protected void on1251Clicked()
-	{
-		beadsManager = new BeadsManager();
-		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
-		beadsManager.playChordProgression1251(Globals.ChordProgression.I_II_V_I, 120, chord, Buffer.SINE);
-	}
-	
-	@FXML 
-	protected void on1346Clicked()
-	{
-		beadsManager = new BeadsManager();
-		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
-		beadsManager.playChordProgression1251(Globals.ChordProgression.I_III_IV_VI, 120, chord, Buffer.SINE);
-	}
-	
-	@FXML 
-	protected void on1624Clicked()
-	{
-		beadsManager = new BeadsManager();
-		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
-		beadsManager.playChordProgression1251(Globals.ChordProgression.I_VI_II_IV, 120, chord, Buffer.SINE);
-	}
-
-	@FXML 
-	protected void on13625Clicked()
-	{
-		beadsManager = new BeadsManager();
-		Chord chord = new Chord(Globals.ChordKey.C, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
-		beadsManager.playChordProgression1251(Globals.ChordProgression.I_III_VI_II_V, 120, chord, Buffer.SINE);
 	}
 	
 	/**

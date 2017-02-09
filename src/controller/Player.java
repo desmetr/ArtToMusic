@@ -18,6 +18,7 @@ public class Player extends Task<Object>
 	private WavePlayer tonic;
 	private WavePlayer third;
 	private WavePlayer fifth;
+	
 	private AudioContext ac;
 	private Gain masterGain;
 	private Envelope envelope;
@@ -39,9 +40,9 @@ public class Player extends Task<Object>
 		for (Chord chord : chords)
 		{
 			System.out.println("new chord " + chord.toString());
-			tonic = new WavePlayer(ac, chord.getTonicFrequency(), Buffer.SQUARE);
-			third = new WavePlayer(ac, chord.getThirdFrequency(), Buffer.SQUARE);
-			fifth = new WavePlayer(ac, chord.getFifthFrequency(), Buffer.SQUARE);
+			tonic = new WavePlayer(ac, chord.getTonicFrequency(), Buffer.SINE);
+			third = new WavePlayer(ac, chord.getThirdFrequency(), Buffer.SINE);
+			fifth = new WavePlayer(ac, chord.getFifthFrequency(), Buffer.SINE);
 			
 			envelope = new Envelope(ac, (float) 0.0);
 			masterGain = new Gain(ac, 1, envelope);
@@ -53,8 +54,7 @@ public class Player extends Task<Object>
 			ac.out.addInput(masterGain);
 	        
 	        envelope.addSegment(0, bpmInMilliSec);
-//	        envelope.addSegment(0.4f, bpmInMilliSec);
-//	        envelope.addSegment(0.0f, bpmInMilliSec);
+//	        envelope.addSegment(0.1f, bpmInMilliSec);
 	        
 	        envelope.addSegment(1, bpmInMilliSec, new KillTrigger(masterGain));
 	        
