@@ -73,7 +73,7 @@ public class RManager
         });   
     	 
         engine.eval("library('OpenImageR')");
-		engine.eval("im = readImage('" + Globals.getInstance().pathToImages + "picasso.jpg')");
+		engine.eval("im = readImage('" + Globals.getInstance().pathToImages + Globals.imageName + "')");
         engine.eval("imGray = rgb_2gray(im)");
         engine.eval("imEdge = edge_detection(imGray, method = '" + algorithm + "', conv_mode = 'same')");
                 
