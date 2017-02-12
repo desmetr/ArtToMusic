@@ -1,10 +1,10 @@
 package model.music;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.DoubleStream;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -69,27 +69,28 @@ public class MusicData
     {
 //    	printEdgeMatrix();
     	
-    	ArrayList<Double> differentValues = new ArrayList<>();
-    	System.out.println(differentValues.size());
+    	double[] differentValues = new double[1000];
+    	System.out.println(differentValues.length);
    	
-//    	breakLabel:
+    	int k = 0;
+    	
+    	long startTime = System.currentTimeMillis();
 		for (int i = 0; i < destinationEdgeMatrix.size(); i++)
 		{
 			for (int j = 0; j < destinationEdgeMatrix.get(i).size(); j++)
 			{
-				if (differentValues.size() >= 1000)
-					break;
-				else if (!differentValues.contains(destinationEdgeMatrix.get(i).get(j)))
-				{
-//					long startTime = System.currentTimeMillis();
-					differentValues.add(destinationEdgeMatrix.get(i).get(j));
-//					long endTime = System.currentTimeMillis();
-
-//					System.out.println("That took " + (endTime - startTime) + " milliseconds");
+				double temp = destinationEdgeMatrix.get(i).get(j);
+				if (!DoubleStream.of(differentValues).anyMatch(x -> x == temp))
+				{			
+					System.out.println(k);
+					differentValues[k] = temp;
+					k++;
 				}
 			}
 		}
 		
+		long endTime = System.currentTimeMillis();
+		System.out.println("That took " + (endTime - startTime) + " milliseconds");
 		
 		System.out.println("yep");
 		// TODO: write this down orderly: 
@@ -98,13 +99,13 @@ public class MusicData
 		// moderately number of edges: 150 <= differentValues.size() < 500 = [81bp, 120bpm]
 		// lot of edges: 500 <= differentValues.size() < 1000 = [121bpm, 150bpm]
 		
-		if ((0 <= differentValues.size()) && (differentValues.size() < 50))
+		if ((0 <= k) && (k < 50))
 			bpm = ThreadLocalRandom.current().nextInt(50, 60 + 1);
-		else if ((50 <= differentValues.size()) && (differentValues.size() < 150))
+		else if ((50 <= k) && (k < 150))
 			bpm = ThreadLocalRandom.current().nextInt(61, 80 + 1);
-		else if ((150 <= differentValues.size()) && (differentValues.size() < 500))
+		else if ((150 <= k) && (k < 500))
 			bpm = ThreadLocalRandom.current().nextInt(81, 120 + 1);
-		else if ((500 <= differentValues.size()) && (differentValues.size() < 1000)) 
+		else if ((500 <= k) && (k < 1000)) 
 			bpm = ThreadLocalRandom.current().nextInt(121, 150 + 1);
 		
 		System.out.println("BPM: " + bpm);
