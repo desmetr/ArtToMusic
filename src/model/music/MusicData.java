@@ -23,13 +23,6 @@ import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
-/**
- * This class contains all information needed to create a musical pattern.
- * 
- * @author rafael
- * @version 1
- * @since 2016.10.22.
- */
 public class MusicData
 {
 	public static ObservableList<ObservableList<Double>> destinationEdgeMatrix = FXCollections.observableArrayList();

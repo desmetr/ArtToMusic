@@ -17,14 +17,6 @@ import net.beadsproject.beads.ugens.WavePlayer;
 import utilities.Globals;
 import utilities.Pair;
 
-/**
- * This class controls all interaction with the Beads Project.
- * 
- * @author rafael
- * @version 1
- * @since 2016.12.13.
- */
-
 public class BeadsManager
 {
 	private WavePlayer tonic; 
@@ -36,9 +28,6 @@ public class BeadsManager
 	
 	private Player player;
 	
-	/**
-	 * Constructor of this class.
-	 */
 	public BeadsManager()
 	{
 	}

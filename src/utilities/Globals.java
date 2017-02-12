@@ -14,13 +14,6 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
-/**
- * All the global variables used. Singleton class.
- * 
- * @author rafael
- * @version 1.0
- * @since 2016.10.22.
- */
 public class Globals
 {	
 	private static Globals instance = null;
@@ -33,11 +26,6 @@ public class Globals
 	public static String imageName;
 	public static DecimalFormat decimalFormat = new DecimalFormat("0.000");
 	
-	/**
-	 * Returns a Globals instance, creates a new one if it doesn't exists already.
-	 * 
-	 * @return instance		Globals instance
-	 */
 	public static Globals getInstance() 
     {
        if (instance == null) 
@@ -49,12 +37,6 @@ public class Globals
 		
 	// Paths
 	
-	/**
-	 * Reads the user specified paths from the configuration file, config.xml.
-	 * 
-	 * @throws JDOMException
-	 * @throws IOException
-	 */
 	private void getPaths() throws JDOMException, IOException
 	{
 		SAXBuilder parser = new SAXBuilder();
@@ -114,9 +96,6 @@ public class Globals
     
     public enum ChordProgression {I_II_V_I, I_III_IV_VI, I_VI_II_IV, I_III_VI_II_V} 
     
-    /**
-     * Constructor of the class. Private because it's a singleton.
-     */
     private Globals()
 	{
 		try

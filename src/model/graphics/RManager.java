@@ -17,13 +17,6 @@ import model.music.MusicData;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
 
-/**
- * This class controls all interaction with the mathematical software R.
- * 
- * @author rafael
- * @version 1
- * @since 2016.10.16.
- */
 public class RManager
 {
 	private Rengine engine;
@@ -38,12 +31,6 @@ public class RManager
 	private DoubleProperty sourceMedianG = new SimpleDoubleProperty(0.0);
 	private DoubleProperty sourceMedianB = new SimpleDoubleProperty(0.0);
 	
-	/**
-	 * Converts a two dimensional array of doubles into an observable list of observable lists.
-	 * 
-	 * @param source	the 2D array of doubles
-	 * @param destination	the observable list of observable lists
-	 */
 	private void convertToObservableMatrix(double[][] source, ObservableList<ObservableList<Double>> destination)
 	{
 		for (int i = 0; i < source.length; i++)
@@ -59,11 +46,6 @@ public class RManager
         }
 	}
 	
-	/**
-	 * Tells R to perform a certain edge detection algorithm.
-	 * 
-	 * @param algorithm		the edge detection algorithm to perform
-	 */
     public void edgeDetection(String algorithm)
     {
     	ArtToMusicLogger.getInstance().info("Performing the " + algorithm + " filter."); 
@@ -99,9 +81,6 @@ public class RManager
         MusicData.printEdgeMatrix();
     }
 
-    /**
-     * Tells R to give information about the pixels of the image.
-     */
     @SuppressWarnings("unchecked")
 	public void colorAnalysis()
     {
@@ -221,10 +200,6 @@ public class RManager
 //        ArtToMusicLogger.getInstance().info(sb.toString());
     }
     
-    /**
-     * Constructor of this class.
-     * @throws InterruptedException
-     */
     public RManager() throws InterruptedException
     {
     	// Start Rengine.

@@ -29,13 +29,6 @@ import utilities.ArtToMusicLogger;
 import utilities.Globals;
 import utilities.Pair;
 
-/**
- * The start of the ArtToMusic JavaFX application.
- * 
- * @author rafael
- * @version 1.0
- * @since 2016.11.01.
- */
 public class ArtToMusicView extends Application
 {
 	private Scene scene;
@@ -44,10 +37,6 @@ public class ArtToMusicView extends Application
 	@FXML private ToggleGroup graphicsGroup;
 	@FXML private ToggleGroup musicGroup;
 	
-	/**
-	 * Initializes all the private objects of this class.
-	 * FXML annotation.
-	 */
 	@FXML 
 	private void initialize()
 	{
@@ -62,12 +51,6 @@ public class ArtToMusicView extends Application
 		catch (InterruptedException e) 		{	e.printStackTrace();	} 
 	}
 	
-	/**
-	 * Triggers the right edge detection algorithm, chosen by the user.
-	 * FXML annotation.
-	 * 
-	 * @throws InterruptedException
-	 */
 	@FXML
 	protected void onGraphicalAnalysisClicked() throws InterruptedException
 	{
@@ -109,11 +92,6 @@ public class ArtToMusicView extends Application
 //		}
 	}
 	
-	/**
-	 * Start method of the JavaFX application.
-	 * 
-	 * @param primaryStage	the stage to build application on
-	 */
     @Override
     public void start(Stage primaryStage) throws Exception
     {   	
@@ -132,11 +110,6 @@ public class ArtToMusicView extends Application
         primaryStage.show();
     }
     
-    /**
-     * Main method.
-     * 
-     * @param args	default arguments
-     */
     public static void main(String[] args)
 	{
     	ArtToMusicLogger.getInstance().info("In constructor of Main.");
