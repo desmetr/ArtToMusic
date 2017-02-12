@@ -70,18 +70,28 @@ public class MusicData
 //    	printEdgeMatrix();
     	
     	ArrayList<Double> differentValues = new ArrayList<>();
-    	
+    	System.out.println(differentValues.size());
+   	
+//    	breakLabel:
 		for (int i = 0; i < destinationEdgeMatrix.size(); i++)
 		{
 			for (int j = 0; j < destinationEdgeMatrix.get(i).size(); j++)
 			{
-				if (!differentValues.contains(destinationEdgeMatrix.get(i).get(j)))
+				if (differentValues.size() >= 1000)
+					break;
+				else if (!differentValues.contains(destinationEdgeMatrix.get(i).get(j)))
 				{
+//					long startTime = System.currentTimeMillis();
 					differentValues.add(destinationEdgeMatrix.get(i).get(j));
+//					long endTime = System.currentTimeMillis();
+
+//					System.out.println("That took " + (endTime - startTime) + " milliseconds");
 				}
 			}
 		}
 		
+		
+		System.out.println("yep");
 		// TODO: write this down orderly: 
 		// no edges: 0 <= differentValues.size() < 50 = [50bpm, 60bpm]
 		// few edges: 50 <= differentValues.size() < 150 = [61bpm, 80bpm]
@@ -96,6 +106,8 @@ public class MusicData
 			bpm = ThreadLocalRandom.current().nextInt(81, 120 + 1);
 		else if ((500 <= differentValues.size()) && (differentValues.size() < 1000)) 
 			bpm = ThreadLocalRandom.current().nextInt(121, 150 + 1);
+		
+		System.out.println("BPM: " + bpm);
     }
     
     public static void analyseRGB() throws InterruptedException
@@ -117,10 +129,9 @@ public class MusicData
     	Buffer buffer = Buffer.SINE;
     	Globals.ChordProgression chordProgression;
     	
-    	System.out.println(Globals.imageName);
-    	System.out.println(destinationMeanR.doubleValue());
-    	System.out.println(destinationMeanG.doubleValue());
-    	System.out.println(destinationMeanB.doubleValue());
+//    	System.out.println(destinationMeanR.doubleValue());
+//    	System.out.println(destinationMeanG.doubleValue());
+//    	System.out.println(destinationMeanB.doubleValue());
     	
     	Thread.sleep(1000);
     	

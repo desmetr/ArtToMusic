@@ -55,14 +55,15 @@ public class ArtToMusicView extends Application
 	protected void onGraphicalAnalysisClicked() throws InterruptedException
 	{
 		ArtToMusicLogger.getInstance().info("Start Graphical Analysis button clicked.");
+		System.out.println(Globals.imageName);
 		
 		rManager.edgeDetection("Frei_chen");
 		MusicData.setTempo();
 		
 		Thread.sleep(1000);
 		
-//		rManager.colorAnalysis();
-//		MusicData.analyseRGB();
+		rManager.colorAnalysis();
+		MusicData.analyseRGB();
 		
 //		String radioButtonText = ((RadioButton) graphicsGroup.getSelectedToggle()).getText();
 //				
