@@ -19,13 +19,6 @@ import utilities.Pair;
 
 public class BeadsManager
 {
-	private WavePlayer tonic; 
-	private WavePlayer third;
-	private WavePlayer fifth;
-
-	private AudioContext ac;
-	private Gain masterGain;
-	
 	private Player player;
 	
 	public BeadsManager()

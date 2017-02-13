@@ -45,6 +45,7 @@ public class MusicData
 	private static BeadsManager beadsManager;
 	
 	private static int bpm;
+	private static int size;
 	
     public static void printEdgeMatrix()
     {
@@ -67,45 +68,39 @@ public class MusicData
         
     public static void setTempo()
     {
-//    	printEdgeMatrix();
+    	size = 1000;
+    	double[] differentValues = new double[size];
     	
-    	double[] differentValues = new double[1000];
-    	System.out.println(differentValues.length);
-   	
-    	int k = 0;
+    	int counter = 0;
+    	boolean continueLoop = true;
     	
-    	long startTime = System.currentTimeMillis();
 		for (int i = 0; i < destinationEdgeMatrix.size(); i++)
 		{
-			for (int j = 0; j < destinationEdgeMatrix.get(i).size(); j++)
+			if (continueLoop)
 			{
-				double temp = destinationEdgeMatrix.get(i).get(j);
-				if (!DoubleStream.of(differentValues).anyMatch(x -> x == temp))
-				{			
-					System.out.println(k);
-					differentValues[k] = temp;
-					k++;
+				for (int j = 0; j < destinationEdgeMatrix.get(0).size(); j++)
+				{
+					double temp = destinationEdgeMatrix.get(i).get(j);
+					if (!DoubleStream.of(differentValues).anyMatch(x -> x == temp))
+					{			
+						if (counter == size - 1)
+							continueLoop = false;
+						else
+							differentValues[counter++] = temp;
+					}
 				}
 			}
+			else
+				break;
 		}
-		
-		long endTime = System.currentTimeMillis();
-		System.out.println("That took " + (endTime - startTime) + " milliseconds");
-		
-		System.out.println("yep");
-		// TODO: write this down orderly: 
-		// no edges: 0 <= differentValues.size() < 50 = [50bpm, 60bpm]
-		// few edges: 50 <= differentValues.size() < 150 = [61bpm, 80bpm]
-		// moderately number of edges: 150 <= differentValues.size() < 500 = [81bp, 120bpm]
-		// lot of edges: 500 <= differentValues.size() < 1000 = [121bpm, 150bpm]
-		
-		if ((0 <= k) && (k < 50))
+						
+		if ((0 <= counter) && (counter < 50))
 			bpm = ThreadLocalRandom.current().nextInt(50, 60 + 1);
-		else if ((50 <= k) && (k < 150))
+		else if ((50 <= counter) && (counter < 150))
 			bpm = ThreadLocalRandom.current().nextInt(61, 80 + 1);
-		else if ((150 <= k) && (k < 500))
+		else if ((150 <= counter) && (counter < 500))
 			bpm = ThreadLocalRandom.current().nextInt(81, 120 + 1);
-		else if ((500 <= k) && (k < 1000)) 
+		else if ((500 <= counter) && (counter < 1000)) 
 			bpm = ThreadLocalRandom.current().nextInt(121, 150 + 1);
 		
 		System.out.println("BPM: " + bpm);
@@ -113,63 +108,41 @@ public class MusicData
     
     public static void analyseRGB() throws InterruptedException
     {
-//    	int numberOfPixels = 0;
-//    
-//    	for (ObservableList<Pixel> pixels : destinationRGBValuesMatrix)
-//    	{
-//    		for (Pixel pixel : pixels)
-//    		{
-//    			if ((pixel.getRed() == pixel.getGreen()) && (pixel.getRed() == pixel.getBlue()))
-//    				grayList.add(pixel);
-//    			
-//    			numberOfPixels++;
-//    		}
-//    	}
-    	
-    	Chord chord;
+    	Chord chord = null;
     	Buffer buffer = Buffer.SINE;
-    	Globals.ChordProgression chordProgression;
-    	
-//    	System.out.println(destinationMeanR.doubleValue());
-//    	System.out.println(destinationMeanG.doubleValue());
-//    	System.out.println(destinationMeanB.doubleValue());
+    	Globals.ChordProgression chordProgression = null;
     	
     	Thread.sleep(1000);
     	
     	beadsManager = new BeadsManager();
+    	double max = Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue()));
     	
+    	// All colors are equal.
     	if ((destinationMeanR.doubleValue() == destinationMeanG.doubleValue()) && (destinationMeanR.doubleValue() == destinationMeanB.doubleValue()))
     	{
-    		System.out.println("All equal -> I_III_VI_II_V");
     		chordProgression = Globals.ChordProgression.I_III_VI_II_V;
     		chord = new Chord(Globals.ChordKey.G, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
-    		
-    		beadsManager.playChordProgression(chordProgression, bpm, chord, Buffer.SINE);
     	}
-    	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanR.doubleValue())
+    	// More red.
+    	else if (max == destinationMeanR.doubleValue())
     	{
-    		System.out.println("More R -> I_II_V_I");
     		chordProgression = Globals.ChordProgression.I_II_V_I;
     		chord = new Chord(Globals.ChordKey.C, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
-    		
-    		beadsManager.playChordProgression(chordProgression, bpm, chord, Buffer.SINE);
     	}
-    	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanG.doubleValue())
+    	// More green.
+    	else if (max == destinationMeanG.doubleValue())
     	{
-    		System.out.println("More G -> I_III_IV_VI");
     		chordProgression = Globals.ChordProgression.I_III_IV_VI;
     		chord = new Chord(Globals.ChordKey.E, Globals.ChordType.MINOR, 4, Globals.Chord.C_MAJOR);
-    		
-    		beadsManager.playChordProgression(chordProgression, bpm, chord, Buffer.SINE);
     	}
-    	else if (Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue())) == destinationMeanB.doubleValue())
+    	// More blue
+    	else if (max == destinationMeanB.doubleValue())
     	{
-    		System.out.println("More B -> I_VI_II_IV");
     		chordProgression = Globals.ChordProgression.I_VI_II_IV;
     		chord = new Chord(Globals.ChordKey.A_SHARP, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
-    		
-    		beadsManager.playChordProgression(chordProgression, bpm, chord, Buffer.SINE);
     	}
+    	
+    	beadsManager.playChordProgression(chordProgression, bpm, chord, Buffer.SINE);
     }
     
     public static Vector<Note> generate(String path)
