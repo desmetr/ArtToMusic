@@ -187,18 +187,15 @@ public class RManager
     	double medianB = engine.eval("median(img[0:" + String.valueOf(length) + ", 0:" + String.valueOf(width) + ",][,,3] * 255)").asInt();
     	sourceMedianB.addListener((ChangeListener<? super Number>) changeListenerMedianB);
       	sourceMedianB.set(medianB);
-    	
-//    	StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < sourceRGBValues.size(); i++)
-//        {
-//        	for (int j = 0; j < sourceRGBValues.get(i).size(); j++)
-//        	{
-//        		sb.append(sourceRGBValues.get(i).get(j).toString() + " ");
-//        	}
-//        	sb.append("\n");
-//        }
-//        ArtToMusicLogger.getInstance().info(sb.toString());
     }
+    
+    // TODO add hash analysis of image!
+    /*
+     * 	> im = readImage('img/bruegel.jpg')
+		> imGray = rgb_2gray(im)
+		> average_hash(imGray, hash_size = 8, MODE = "hash")
+		[1] "30a0021595a416b7"
+     */
     
     public RManager() throws InterruptedException
     {

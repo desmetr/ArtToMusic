@@ -12,6 +12,7 @@
             <VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0">
                <children>
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#onGraphicalAnalysisClicked" text="Start Graphical Analysis" />
+                  <Button mnemonicParsing="false" onAction="#onTestClicked" text="Test" />
                </children>
             </VBox>
          </children>

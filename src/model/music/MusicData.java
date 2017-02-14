@@ -93,7 +93,7 @@ public class MusicData
 			else
 				break;
 		}
-						
+
 		if ((0 <= counter) && (counter < 50))
 			bpm = ThreadLocalRandom.current().nextInt(50, 60 + 1);
 		else if ((50 <= counter) && (counter < 150))
@@ -109,7 +109,6 @@ public class MusicData
     public static void analyseRGB() throws InterruptedException
     {
     	Chord chord = null;
-    	Buffer buffer = Buffer.SINE;
     	Globals.ChordProgression chordProgression = null;
     	
     	Thread.sleep(1000);

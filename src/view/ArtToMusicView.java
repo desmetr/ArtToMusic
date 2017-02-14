@@ -64,33 +64,16 @@ public class ArtToMusicView extends Application
 		
 		rManager.colorAnalysis();
 		MusicData.analyseRGB();
+	}
+	
+	@FXML
+	protected void onTestClicked()
+	{
+		GraphicalAnalysisObserver observer = new GraphicalAnalysisObserver();
+		GraphicalAnalysisPublisher publisher = new GraphicalAnalysisPublisher(observer.getTargetInteger(), observer.getTargetBoolean());
 		
-//		String radioButtonText = ((RadioButton) graphicsGroup.getSelectedToggle()).getText();
-//				
-//		switch (radioButtonText)
-//		{
-//			case "Frei Chen":
-//				rManager.edgeDetection("Frei_chen");
-//				break;
-//			case "Roberts Cross":
-//				rManager.edgeDetection("Roberts_cross");
-//				break;
-//			case "Color Analysis":
-//				rManager.colorAnalysis();
-//				MusicData.analyseRGB();
-//				break;
-//			case "Thread Test":
-//				GraphicalAnalysisObserver gaObserver = new GraphicalAnalysisObserver();
-//				GraphicalAnalysisPublisher gaPublisher = new GraphicalAnalysisPublisher(gaObserver.getTarget());
-//				
-//				final ExecutorService service = Executors.newSingleThreadExecutor();
-//				service.submit(gaPublisher);
-//				
-//				break;
-//			default:
-//				rManager.edgeDetection(radioButtonText);
-//				break;
-//		}
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		executor.execute(publisher);
 	}
 	
     @Override
