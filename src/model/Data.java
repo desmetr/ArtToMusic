@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import utilities.Globals;
@@ -17,7 +16,8 @@ public class Data
 {	
 	public static void readMidiNoteNumbers()
 	{
-		String csvFile = Globals.getInstance().pathToData + "midiNoteNumbers.csv";
+		Globals.getInstance();
+		String csvFile = Globals.pathToData + "midiNoteNumbers.csv";
         String line = "";
         String cvsSplitBy = ",";
 
@@ -27,7 +27,7 @@ public class Data
             {
                 // use comma as separator
                 String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().midiNoteNumbers.put(result[0], Integer.parseInt(result[1]));
+				Globals.midiNoteNumbers.put(result[0], Integer.parseInt(result[1]));
             }
         } 
         catch (IOException e) {	e.printStackTrace();	}
@@ -35,7 +35,8 @@ public class Data
 	
 	public static void readNoteFrequencies()
 	{
-		String csvFile = Globals.getInstance().pathToData + "noteFrequencies.csv";
+		Globals.getInstance();
+		String csvFile = Globals.pathToData + "noteFrequencies.csv";
         String line = "";
         String cvsSplitBy = ",";
 
@@ -45,7 +46,7 @@ public class Data
             {
                 // use comma as separator
                 String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().noteFrequencies.add(Float.parseFloat(result[1]));
+                Globals.noteFrequencies.add(Float.parseFloat(result[1]));
             }
         } 
         catch (IOException e) {	e.printStackTrace();	}
@@ -53,7 +54,8 @@ public class Data
 	
 	public static void readKeysOfDegrees()
 	{
-		String csvFile = Globals.getInstance().pathToData + "keysOfDegrees.csv";
+		Globals.getInstance();
+		String csvFile = Globals.pathToData + "keysOfDegrees.csv";
         String line = "";
         String cvsSplitBy = ",";
 
@@ -63,7 +65,7 @@ public class Data
             {
                 // use comma as separator
                 String[] result = line.split(cvsSplitBy);
-                Globals.getInstance().keysOfDegrees.put(Integer.parseInt(result[0]), getChordKey(result[1]));
+				Globals.keysOfDegrees.put(Integer.parseInt(result[0]), getChordKey(result[1]));
             }
         } 
         catch (IOException e) {	e.printStackTrace();	}
@@ -71,7 +73,8 @@ public class Data
 	
 	public static void readDegrees()
 	{		
-		String csvFile = Globals.getInstance().pathToData + "degrees.csv";
+		Globals.getInstance();
+		String csvFile = Globals.pathToData + "degrees.csv";
         String name = "";
         List<Pair> list = new ArrayList<Pair>();
         String[] result;
@@ -91,7 +94,7 @@ public class Data
 						result = lines.get(i).split(",");
 	                    list.add(new Pair(getChordName(result[0]), getChordName(result[1])));
 	                    
-	                    Globals.getInstance().degrees.putIfAbsent(name, list);
+	                    Globals.degrees.putIfAbsent(name, list);
 						list = new ArrayList<Pair>();
 						break;
 					default:

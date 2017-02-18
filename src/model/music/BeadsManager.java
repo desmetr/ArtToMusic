@@ -6,14 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import controller.Player;
-import net.beadsproject.beads.core.AudioContext;
-import net.beadsproject.beads.core.Bead;
 import net.beadsproject.beads.data.Buffer;
-import net.beadsproject.beads.events.KillTrigger;
-import net.beadsproject.beads.ugens.Clock;
-import net.beadsproject.beads.ugens.Envelope;
-import net.beadsproject.beads.ugens.Gain;
-import net.beadsproject.beads.ugens.WavePlayer;
 import utilities.Globals;
 import utilities.Pair;
 
@@ -153,51 +146,52 @@ public class BeadsManager
 	
 	private Chord getNextChord(Globals.ChordKey chordKey, Globals.ChordType chordType, int degree)
 	{
+		Globals.getInstance();
 		Globals.ChordKey newChordKey = null;
 		switch (degree)
 		{
 			case 1:
-				return new Chord(chordKey, chordType, 4, Globals.getInstance().chords.get(chordKey).get(chordType));
+				return new Chord(chordKey, chordType, 4, Globals.chords.get(chordKey).get(chordType));
 			case 2:
 				// The second degree is always a major step from the root for now, TODO: add minor second degree?
 				newChordKey = getFromList(Globals.degrees.get("degree2major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
+				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
 			case 3:
 				switch (chordType)
 				{
 				case MAJOR:
 					newChordKey = getFromList(Globals.degrees.get("degree3major"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
+					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
 				case MINOR:
 				case DIMINISHED:
 					newChordKey = getFromList(Globals.degrees.get("degree3minor"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
+					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
 				}
 				break;
 			case 4:
 				// TODO: add minor fourth degree?
 				newChordKey = getFromList(Globals.degrees.get("degree4major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MAJOR));
+				return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR));
 			case 5:
 				switch (chordType)
 				{
 				case MAJOR:
 				case MINOR:
 					newChordKey = getFromList(Globals.degrees.get("degree5major"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MAJOR));
+					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR));
 				case DIMINISHED:
 					newChordKey = getFromList(Globals.degrees.get("degree5minor"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MAJOR));
+					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR));
 				}
 				break;
 			case 6:
 				// TODO: add minor sixth degree?
 				newChordKey = getFromList(Globals.degrees.get("degree6major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.MINOR));
+				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
 			case 7:
 				// TODO add major/minor seventh?
 				newChordKey = getFromList(Globals.degrees.get("degree7major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.DIMINISHED, 4, Globals.getInstance().chords.get(newChordKey).get(Globals.ChordType.DIMINISHED));
+				return new Chord(newChordKey, Globals.ChordType.DIMINISHED, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.DIMINISHED));
 		}
 		return null;
 	}

@@ -4,4 +4,7 @@
 sudo apt-get install libtiff5-dev
 
 install.packages('OpenImageR')
+install.packages('entropy')
 library(jpeg)
+library('OpenImageR')
+library('entropy')

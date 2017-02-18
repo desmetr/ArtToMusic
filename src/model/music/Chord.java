@@ -39,9 +39,10 @@ public class Chord
 				break;
 		}
 						
-		tonicFrequency = Globals.getInstance().noteFrequencies.get(indexTonic);
-		thirdFrequency = Globals.getInstance().noteFrequencies.get(indexThird);
-		fifthFrequency = Globals.getInstance().noteFrequencies.get(indexFifth);
+		Globals.getInstance();
+		tonicFrequency = Globals.noteFrequencies.get(indexTonic);
+		thirdFrequency = Globals.noteFrequencies.get(indexThird);
+		fifthFrequency = Globals.noteFrequencies.get(indexFifth);
 		
 		this.chordKey = chordKey;
 		this.chordType = chordType;

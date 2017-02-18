@@ -1,0 +1,150 @@
+Red = dominant color 	->	energetic, upbeat
+							I III IV VI
+Green = dominant color 	->  happy, vibrant
+							I II V I
+Blue = dominant color 	->	sad, melancholic
+							I VI II IV
+
+I 	= major
+II 	= minor
+III = minor
+IV	= major
+V 	= major
+VI 	= minor
+VII = diminished
+
+degree 2 minor
+degree 2 major
+degree 3 minor
+degree 3 major
+degree 4 minor
+degree 4 major
+degree 5 minor
+degree 5 major
+degree 6 minor
+degree 6 major
+degree 7 minor
+degree 7 major
+
+==============================================================
+
+entropy of an image:
+
+entropy = - sum_i [P_j * log2(P_j)]
+
+entropy is the lowest average number of bits per pixel
+	very busy image, more disorder -> high entropy
+	less busy image, less disorder, more order -> low entropy
+
+	entropy of a binary image (two bands of colors) = 1
+		a lot of order
+
+==============================================================
+
+sonia_delaunay.jpg
+	120.26155479059094
+	113.40918818129661
+	187.0797705106139
+
+	aHash: ff0323c383070b13
+	dHash: 0ff3ed925cfa1880
+	pHash: ff4d33c38531e148
+
+bruegel.jpg
+	102.7055808303887
+	82.65606007067137
+	48.99533348056536
+
+	aHash: 30a0021595a416b7
+	dHash: ce6aef17b856abad
+	pHash: 95d410b0b49fe2fc
+
+expressionisme.jpg
+	110.42584000000001
+	106.34634285714286
+	106.91502857142858
+
+	aHash: 04d682db0901fa74
+	dHash: fee99d6c33d84648
+	pHash: 6b3600d0d6436f77
+
+impressionisme.jpg
+	101.16179114583329
+	124.40148489583332
+	100.7188229166666
+
+	aHash: 1f7d4d1fa8533941
+	dHash: 7e99e451079a0541
+	pHash: e3b7c03f984035ce
+
+picasso.jpg
+	134.82987599206345
+	127.95099702380948
+	115.37682539682538
+
+	aHash: 07061e174b5be31c
+	dHash: 00799748f4332f1d
+	pHash: 3fd60af9425e944c
+
+portrait-of-dora-maar.jpg
+	118.5778905887807
+	109.74025266573943
+	102.1796708391284
+
+	aHash: ffff83833d583800
+	dHash: fb0019746e02b045
+	pHash: 71b50f4bd39321e4
+
+blue.jpg
+	1.0
+	0.0
+	204.0
+
+	aHash: ffffffffffffffff
+	dHash: 0000000000000000
+	pHash: 6b6196639663639c
+
+green.jpg
+	3.0
+	153.0
+	2.0
+
+	aHash: ffffffffffffffff
+	dHash: 0000000000000000
+	pHash: 69699c699663699c
+
+red.jpg
+	254.00444444444443
+	0.008888888888888889
+	2.008888888888889
+
+	aHash: 0000000000000000
+	dHash: 0000000000000000
+	pHash: 619e9c9696696996
+
+black.jpg
+	0.0
+	0.0
+	0.0
+
+	aHash: 0000000000000000
+	dHash: 0000000000000000
+	pHash: 0000000000000000
+
+gray.jpg
+	113.90813492063492
+	113.90813492063492
+	113.90813492063492
+
+	aHash: 48fcfcfcfcfcfcfc
+	dHash: ffffb30300800000
+	pHash: 816ee04eeaccea5c
+
+white.jpg
+	255.0
+	255.0
+	255.0
+
+	aHash: 00000000000000
+	dHash: 0000000000000000
+	pHash: abab00abab2bab54

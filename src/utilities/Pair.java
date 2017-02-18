@@ -1,6 +1,5 @@
 package utilities;
 
-import utilities.Globals.Chord;
 import utilities.Globals.ChordKey;
 
 public class Pair 

@@ -1,8 +1,6 @@
 package view;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,7 +11,6 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
@@ -21,13 +18,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import model.Data;
 import model.graphics.RManager;
-import model.music.BeadsManager;
-import model.music.Chord;
 import model.music.MusicData;
-import net.beadsproject.beads.data.Buffer;
 import utilities.ArtToMusicLogger;
 import utilities.Globals;
-import utilities.Pair;
 
 public class ArtToMusicView extends Application
 {

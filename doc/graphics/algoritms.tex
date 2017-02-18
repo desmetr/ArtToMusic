@@ -209,4 +209,30 @@ During the image analysis we will convert the image to a gray scale image, so we
 \newline
 Analogous to this we can count every gray pixel in the image, by finding every pixel where the RGB values are exactly the same.
 
+\subsection{Image Hashing}
+It is also possible to get the hash value of an image. This is a hexadecimal number.
+
+\subsubsection{Average Hashing (aHash)}
+The first hash method is just the average hash (aHash) of the image. This algorithm works in four steps.
+
+\begin{enumerate}
+	\item Convert the image to grayscale. 
+	\item Reduce the size of the image, to simplify the number of computations.
+	\item Average the resulting colors. For an 8x8 image, 64 will be averaged.
+	\item Compute the bits of the hash value by comparing if each color value is above or below the mean.
+	\item Construct the hash.
+\end{enumerate}
+
+\subsubsection{Difference Hash (dHash)}
+We can also compute the dHash of an image. It works analoguosly as the average hash, but now the difference between adjacent pixels is also considered in the computation.
+
+\subsubsection{Perceptive Hash (pHash)}
+Similar to the dhash, there exists the pHash. This method uses the discrete cosine transform (DCT) and compares the pixels based on the frequencies, given by the DCT, instead of the color values.
+
+DCT is very similar to the Fourier analysis, it expresses a finite sequence of points/pixels/data in terms of a sum of cosine functions.
+
+\subsubsection{Use Of The Hash}
+One application of these methods is the recognition of images. Search engines like Google use this technique to search similar images as any image you provide to the search engine. I could use this as a way to store information about the image my application already scanned and generated music for.
+
+For example, if you use a picture of a tree with my application, it will produce a certain kind of music. If you use another picture of another tree that looks quite similar to the first tree, you expect to get a similar result in the music. The hash values of the images will help with this. 
 \end{document}

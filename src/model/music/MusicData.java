@@ -42,6 +42,12 @@ public class MusicData
 	public static DoubleProperty destinationMedianG = new SimpleDoubleProperty(0.0);
 	public static DoubleProperty destinationMedianB = new SimpleDoubleProperty(0.0);
 	
+	public static DoubleProperty destinationAHash = new SimpleDoubleProperty(0.0);
+	public static DoubleProperty destinationDHash = new SimpleDoubleProperty(0.0);
+	public static DoubleProperty destinationPHash = new SimpleDoubleProperty(0.0);
+	
+	public static DoubleProperty destinationEntropy = new SimpleDoubleProperty(0.0);
+	
 	private static BeadsManager beadsManager;
 	
 	private static int bpm;
