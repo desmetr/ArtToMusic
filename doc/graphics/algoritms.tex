@@ -235,4 +235,35 @@ DCT is very similar to the Fourier analysis, it expresses a finite sequence of p
 One application of these methods is the recognition of images. Search engines like Google use this technique to search similar images as any image you provide to the search engine. I could use this as a way to store information about the image my application already scanned and generated music for.
 
 For example, if you use a picture of a tree with my application, it will produce a certain kind of music. If you use another picture of another tree that looks quite similar to the first tree, you expect to get a similar result in the music. The hash values of the images will help with this. 
+
+\subsection{Entropy}
+
+Another method we can use to get information from an image is via the entropy and the information content of the image.
+The entropy of an image is a measure of the amount of disorder in the image. This technique is also used in other disciplines, for example to study the structures of living organisms.
+
+In the case of an image, we consider the gray levels of the individual pixels. If all the pixels of the image have the same gray level, the entropy is zero. This means there is not a lot of information to gain from the image. When all the pixels in the image are different, the entropy of this image is maximum.
+
+To get the right information about the pixels, we use a histogram that shows the spread of the gray levels of every pixel. 
+\newline
+\newline
+The entropy of an image $H$ is defined as:
+\begin{equation}
+H = - \sum_{k=0}^{M-1} p_k log_2 (p_k)
+\end{equation}
+where M is the number of gray levels and $p_k$ is the probabilty associated with gray level k.
+
+When the entropy of an image is maximal, the histogram of the gray levels is uniformly distributed. If $M = 2^n$, then $p_k$ is constant and given by
+
+\begin{equation}
+p_k = \frac{1}{M} = 2^{-n}
+\end{equation}
+
+and the maximum entropy is found from
+
+\begin{equation}
+H_{max} = -\sum_{k=0}^{M-1} (\frac{1}{M} log_2(\frac{1}{M}) = -log(2^{-n}) = n 
+\end{equation}
+
+What is the purpose of entropy? Entropy sets a lower bound on the average number of bits per pixel required to encode an image without distortion. 
+
 \end{document}

@@ -1,43 +1,17 @@
 Red = dominant color 	->	energetic, upbeat
-							I III IV VI
-Green = dominant color 	->  happy, vibrant
-							I II V I
+							IIIIIVVI
+Green = dominant color 	->	happy, vibrant
+							IIIVI
 Blue = dominant color 	->	sad, melancholic
-							I VI II IV
+							IVIIIIV
 
 I 	= major
 II 	= minor
 III = minor
-IV	= major
+IV 	= major
 V 	= major
 VI 	= minor
 VII = diminished
-
-degree 2 minor
-degree 2 major
-degree 3 minor
-degree 3 major
-degree 4 minor
-degree 4 major
-degree 5 minor
-degree 5 major
-degree 6 minor
-degree 6 major
-degree 7 minor
-degree 7 major
-
-==============================================================
-
-entropy of an image:
-
-entropy = - sum_i [P_j * log2(P_j)]
-
-entropy is the lowest average number of bits per pixel
-	very busy image, more disorder -> high entropy
-	less busy image, less disorder, more order -> low entropy
-
-	entropy of a binary image (two bands of colors) = 1
-		a lot of order
 
 ==============================================================
 
