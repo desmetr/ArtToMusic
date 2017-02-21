@@ -1,5 +1,14 @@
 package model.graphics;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.DataBufferInt;
+import java.awt.image.Raster;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.rosuda.JRI.Rengine;
 
 import javafx.beans.property.DoubleProperty;
@@ -242,25 +251,54 @@ public class RManager
 
 	public void getEntropy()
 	{
-		ArtToMusicLogger.getInstance().info("Calculating entropy of image.");
-		Globals.getInstance();
-		
-		engine.eval("library('OpenImageR')");
-		engine.eval("library('entropy')");
-		engine.eval("im = readImage('" + Globals.pathToImages + Globals.imageName + "')");
-		engine.eval("histogram = HOG(im, cells = 3, orientations = 6)");
-		engine.eval("entropy = entropy.empirical(histogram)");
-
-		ChangeListener<?> changeListenerEntropy = new ChangeListener<Object>()
+		try 
 		{
-			@Override
-			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
-			{
-				((WritableDoubleValue) MusicData.destinationEntropy).set((double) newValue);
+			BufferedImage image = new BufferedImage(900, 900, BufferedImage.TYPE_INT_RGB);
+			image = ImageIO.read(new File(Globals.pathToImages + Globals.imageName));
+			
+			int height = image.getHeight();
+			int width = image.getWidth();
+			
+			int[] a = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+			
+			for (int i = 0; i < a.length; i++) {
+				System.out.println(a[i]);
 			}
-		};
-		sourceEntropy.addListener((ChangeListener<? super Number>) changeListenerEntropy);
-		sourceEntropy.set(engine.eval("entropy").asDoubleArray()[0]);
+			
+			Raster raster = image.getRaster();
+			int[][] bins = new int[3][256];
+	
+			for (int i = 0; i < width; i++) 
+			{
+			    for (int j = 0; j < height; j++) 
+			    {
+			        bins[0][raster.getSample(i, j, 0)]++;
+			        bins[1][raster.getSample(i, j, 1)]++;
+			        bins[2][raster.getSample(i, j, 2)]++;
+			    }
+			}
+		} 
+		catch (IOException e) {	e.printStackTrace();	}
+
+//		ArtToMusicLogger.getInstance().info("Calculating entropy of image.");
+//		Globals.getInstance();
+//		
+//		engine.eval("library('OpenImageR')");
+//		engine.eval("library('entropy')");
+//		engine.eval("im = readImage('" + Globals.pathToImages + Globals.imageName + "')");
+//		engine.eval("histogram = HOG(im, cells = 3, orientations = 6)");
+//		engine.eval("entropy = entropy.empirical(histogram)");
+//
+//		ChangeListener<?> changeListenerEntropy = new ChangeListener<Object>()
+//		{
+//			@Override
+//			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+//			{
+//				((WritableDoubleValue) MusicData.destinationEntropy).set((double) newValue);
+//			}
+//		};
+//		sourceEntropy.addListener((ChangeListener<? super Number>) changeListenerEntropy);
+//		sourceEntropy.set(engine.eval("entropy").asDoubleArray()[0]);
 	} 
 
 	public RManager() throws InterruptedException

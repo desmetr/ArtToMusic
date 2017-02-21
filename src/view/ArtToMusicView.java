@@ -62,11 +62,13 @@ public class ArtToMusicView extends Application
 	@FXML
 	protected void onTestClicked()
 	{
-		GraphicalAnalysisObserver observer = new GraphicalAnalysisObserver();
-		GraphicalAnalysisPublisher publisher = new GraphicalAnalysisPublisher(observer.getTargetInteger(), observer.getTargetBoolean());
+//		GraphicalAnalysisObserver observer = new GraphicalAnalysisObserver();
+//		GraphicalAnalysisPublisher publisher = new GraphicalAnalysisPublisher(observer.getTargetInteger(), observer.getTargetBoolean());
+//		
+//		ExecutorService executor = Executors.newSingleThreadExecutor();
+//		executor.execute(publisher);
 		
-		ExecutorService executor = Executors.newSingleThreadExecutor();
-		executor.execute(publisher);
+		rManager.getEntropy();
 	}
 	
     @Override
