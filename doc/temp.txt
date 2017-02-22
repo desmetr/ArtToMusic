@@ -15,6 +15,20 @@ VII = diminished
 
 ==============================================================
 
+x = [0 0 0 0 0; 
+     0 0 0 0 0; 
+     0 0 0 0 0]
+
+min = 0
+	= alle pixels zelfde
+max = log2(aantal elementen in matrix / aantal pixels in image)
+	= elke pixel anders
+
+=============================================================
+
+1. korte beschrijving vd implementatie
+=============================================================
+
 sonia_delaunay.jpg
 	120.26155479059094
 	113.40918818129661
@@ -23,6 +37,9 @@ sonia_delaunay.jpg
 	aHash: ff0323c383070b13
 	dHash: 0ff3ed925cfa1880
 	pHash: ff4d33c38531e148
+
+	entropy Matlab, gray image	: 2.3917
+	entropy Java, gray image	:
 
 bruegel.jpg
 	102.7055808303887
@@ -33,6 +50,9 @@ bruegel.jpg
 	dHash: ce6aef17b856abad
 	pHash: 95d410b0b49fe2fc
 
+	entropy Matlab, gray image	: 3.0534
+	entropy Java, gray image 	:
+
 expressionisme.jpg
 	110.42584000000001
 	106.34634285714286
@@ -41,6 +61,9 @@ expressionisme.jpg
 	aHash: 04d682db0901fa74
 	dHash: fee99d6c33d84648
 	pHash: 6b3600d0d6436f77
+
+	entropy Matlab, gray image	: 2.9332
+	entropy Java, gray image 	:
 
 impressionisme.jpg
 	101.16179114583329
@@ -51,6 +74,9 @@ impressionisme.jpg
 	dHash: 7e99e451079a0541
 	pHash: e3b7c03f984035ce
 
+	entropy Matlab, gray image	: 2.9521
+	entropy Java, gray image 	:
+
 picasso.jpg
 	134.82987599206345
 	127.95099702380948
@@ -59,6 +85,9 @@ picasso.jpg
 	aHash: 07061e174b5be31c
 	dHash: 00799748f4332f1d
 	pHash: 3fd60af9425e944c
+
+	entropy Matlab, gray image	: 3.0933
+	entropy Java, gray image 	:
 
 portrait-of-dora-maar.jpg
 	118.5778905887807
@@ -69,6 +98,9 @@ portrait-of-dora-maar.jpg
 	dHash: fb0019746e02b045
 	pHash: 71b50f4bd39321e4
 
+	entropy Matlab, gray image	: 2.9927
+	entropy Java, gray image 	:
+
 blue.jpg
 	1.0
 	0.0
@@ -77,6 +109,9 @@ blue.jpg
 	aHash: ffffffffffffffff
 	dHash: 0000000000000000
 	pHash: 6b6196639663639c
+
+	entropy Matlab, gray image	: 0.5283
+	entropy Java, gray image 	:
 
 green.jpg
 	3.0
@@ -87,6 +122,9 @@ green.jpg
 	dHash: 0000000000000000
 	pHash: 69699c699663699c
 
+	entropy Matlab, gray image	: 0.5283
+	entropy Java, gray image 	:
+
 red.jpg
 	254.00444444444443
 	0.008888888888888889
@@ -95,6 +133,9 @@ red.jpg
 	aHash: 0000000000000000
 	dHash: 0000000000000000
 	pHash: 619e9c9696696996
+
+	entropy Matlab, gray image	: 0.5435
+	entropy Java, gray image 	:
 
 black.jpg
 	0.0
@@ -105,6 +146,9 @@ black.jpg
 	dHash: 0000000000000000
 	pHash: 0000000000000000
 
+	entropy Matlab, gray image	: 0.5283
+	entropy Java, gray image 	:
+
 gray.jpg
 	113.90813492063492
 	113.90813492063492
@@ -114,6 +158,9 @@ gray.jpg
 	dHash: ffffb30300800000
 	pHash: 816ee04eeaccea5c
 
+	entropy Matlab, gray image	: 1.6941
+	entropy Java, gray image 	:
+
 white.jpg
 	255.0
 	255.0
@@ -122,3 +169,6 @@ white.jpg
 	aHash: 00000000000000
 	dHash: 0000000000000000
 	pHash: abab00abab2bab54
+
+	entropy Matlab, gray image	: 0.5283
+	entropy Java, gray image 	:

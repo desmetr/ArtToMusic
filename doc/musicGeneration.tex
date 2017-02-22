@@ -1,0 +1,35 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage[super]{nth}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{gensymb}
+
+\pagenumbering{arabic}
+
+\begin{document}
+\title{Music Generation in ArtToMusic}
+\date{February 22, 2017}
+\author{Rafael De Smet}
+
+\maketitle
+
+\section{Music Generation}
+
+With the help of the library Beads \footnote{http://www.beadsproject.net/}, the music is generated based on the graphical analysis. This library is just a helpful tool to produce sounds. It doesn't know anything about (good) musical patterns, rhythm or harmony. The only thing it does is generate a sounds, which is determined earlier on by the graphical analysis.
+
+\subsection{Rhythm}
+An integral part of music is the rhythm So I decided to use the edge detection of the image to determine the rhythm of the music.
+This is a work in progress. Later the entropy of an image will be added to this determination.
+
+\subsection{Harmony}
+Without a melody, there is no music. Any melody of a song is based on the rules of harmony, which notes sound good when played together, which don't? Which notes make up a chord? These kind of rules are the subject of harmony.
+\newline
+\newline
+The program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is very familiar once you hear it. This means we play the first chord of the key we are in, then the second, then the fifth and the first one to end.
+\newline
+\newline
+Based on how much of certain colors there are in the image we are analysing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
+\end{document}
