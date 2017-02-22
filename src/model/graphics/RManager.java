@@ -1,11 +1,13 @@
 package model.graphics;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.DataBufferInt;
-import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -42,6 +44,9 @@ public class RManager
 	private DoubleProperty sourcePHash = new SimpleDoubleProperty(0.0);
 	
 	private DoubleProperty sourceEntropy = new SimpleDoubleProperty(0.0);
+	
+	private ArrayList<Integer> pixels = new ArrayList<Integer>();
+	private HashMap<Integer, Double> pixelCounts = new HashMap<Integer, Double>();
 	
 	private void convertToObservableMatrix(double[][] source, ObservableList<ObservableList<Double>> destination)
 	{
@@ -251,55 +256,63 @@ public class RManager
 
 	public void getEntropy()
 	{
+		ArtToMusicLogger.getInstance().info("Calculating entropy of image.");
+		
+		ChangeListener<?> changeListenerEntropy = new ChangeListener<Object>()
+		{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				((WritableDoubleValue) MusicData.destinationEntropy).set((double) newValue);
+			}
+		};
+		sourceEntropy.addListener((ChangeListener<? super Number>) changeListenerEntropy);
+		
+		calculateCounts();
+		calculateEntropy();
+	} 
+	
+	private void calculateCounts()
+	{
 		try 
 		{
-			BufferedImage image = new BufferedImage(900, 900, BufferedImage.TYPE_INT_RGB);
-			image = ImageIO.read(new File(Globals.pathToImages + Globals.imageName));
+			BufferedImage image = ImageIO.read(new File(Globals.pathToImages + Globals.imageName));
 			
 			int height = image.getHeight();
 			int width = image.getWidth();
 			
-			int[] a = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+			System.out.println(height + " " + width);
 			
-			for (int i = 0; i < a.length; i++) {
-				System.out.println(a[i]);
-			}
-			
-			Raster raster = image.getRaster();
-			int[][] bins = new int[3][256];
-	
-			for (int i = 0; i < width; i++) 
+			for (int i = 0; i < Math.min(height,width); i++) 
 			{
-			    for (int j = 0; j < height; j++) 
-			    {
-			        bins[0][raster.getSample(i, j, 0)]++;
-			        bins[1][raster.getSample(i, j, 1)]++;
-			        bins[2][raster.getSample(i, j, 2)]++;
-			    }
+				for (int j = 0; j < Math.max(height, width); j++) 
+				{
+					pixels.add(image.getRGB(i, j));
+				}
 			}
+		
+			Arrays.stream(pixels.toArray())
+			      .collect(Collectors.groupingBy(s -> s))
+			      .forEach((key, value) -> pixelCounts.put((Integer) key, (value.size() / ((double)height * width))));
 		} 
 		catch (IOException e) {	e.printStackTrace();	}
-
-//		ArtToMusicLogger.getInstance().info("Calculating entropy of image.");
-//		Globals.getInstance();
-//		
-//		engine.eval("library('OpenImageR')");
-//		engine.eval("library('entropy')");
-//		engine.eval("im = readImage('" + Globals.pathToImages + Globals.imageName + "')");
-//		engine.eval("histogram = HOG(im, cells = 3, orientations = 6)");
-//		engine.eval("entropy = entropy.empirical(histogram)");
-//
-//		ChangeListener<?> changeListenerEntropy = new ChangeListener<Object>()
-//		{
-//			@Override
-//			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
-//			{
-//				((WritableDoubleValue) MusicData.destinationEntropy).set((double) newValue);
-//			}
-//		};
-//		sourceEntropy.addListener((ChangeListener<? super Number>) changeListenerEntropy);
-//		sourceEntropy.set(engine.eval("entropy").asDoubleArray()[0]);
-	} 
+	}
+	
+	private void calculateEntropy()
+	{
+		Double temp = 0.0;
+		Double pK = 0.0;
+		
+		for (Map.Entry<Integer, Double> entry : pixelCounts.entrySet())
+		{
+			pK = entry.getValue();
+			temp += pK * (Math.log(pK) / Math.log(2));
+		}
+		
+		temp *= -1;
+		System.out.println(temp);
+		sourceEntropy.set(temp);
+	}
 
 	public RManager() throws InterruptedException
 	{
