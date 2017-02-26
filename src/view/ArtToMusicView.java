@@ -48,7 +48,7 @@ public class ArtToMusicView extends Application
 	protected void onGraphicalAnalysisClicked() throws InterruptedException
 	{
 		ArtToMusicLogger.getInstance().info("Start Graphical Analysis button clicked.");
-		System.out.println(Globals.imageName);
+		System.out.println("Start Graphical Analysis button clicked.");
 		
 		rManager.edgeDetection("Frei_chen");
 		MusicData.setTempo();

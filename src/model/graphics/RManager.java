@@ -65,14 +65,17 @@ public class RManager
 	
 	public void edgeDetection(String algorithm)
 	{
-		ArtToMusicLogger.getInstance().info("Performing the " + algorithm + " filter."); 
+		ArtToMusicLogger.getInstance().info("Performing the " + algorithm + " filter on " + Globals.imageName + ".");
+		System.out.println("Performing the " + algorithm + " filter on " + Globals.imageName + ".");
+		
 		sourceEdgeMatrix.addListener((Change<? extends ObservableList<Double>> change) -> 
 		{
 			MusicData.destinationEdgeMatrix.setAll(change.getList());
 		});
 		
-		engine.eval("library('OpenImageR')");
 		Globals.getInstance();
+		
+		engine.eval("library('OpenImageR')");
 		engine.eval("im = readImage('" + Globals.pathToImages + Globals.imageName + "')");
 		engine.eval("imGray = rgb_2gray(im)");
 		engine.eval("imEdge = edge_detection(imGray, method = '" + algorithm + "', conv_mode = 'same')");
@@ -103,13 +106,16 @@ public class RManager
 	public void colorAnalysis()
 	{
 		ArtToMusicLogger.getInstance().info("Getting RGB values from image " + Globals.imageName + ".");
+		System.out.println("Getting RGB values from image " + Globals.imageName + ".");
+		
 		sourceRGBValues.addListener((Change<? extends ObservableList<Pixel>> change) -> 
 		{
 			MusicData.destinationRGBValuesMatrix.setAll(change.getList());
 		});
 		
-		engine.eval("library(jpeg)");
 		Globals.getInstance();
+		
+		engine.eval("library(jpeg)");
 		engine.eval("img <- readJPEG('" + Globals.pathToImages + Globals.imageName + "')");
 
 		int length = engine.eval("dim(img)[1]").asInt();
@@ -210,7 +216,9 @@ public class RManager
 	
 	public void hashAnalysis()
 	{
-		ArtToMusicLogger.getInstance().info("Performing hash analysis.");
+		ArtToMusicLogger.getInstance().info("Performing hash analysis on " + Globals.imageName + ".");
+		System.out.println("Performing hash analysis on " + Globals.imageName + ".");
+		
 		Globals.getInstance();
 		
 		engine.eval("library('OpenImageR')");
@@ -256,7 +264,8 @@ public class RManager
 
 	public void getEntropy()
 	{
-		ArtToMusicLogger.getInstance().info("Calculating entropy of image.");
+		ArtToMusicLogger.getInstance().info("Calculating entropy of " + Globals.imageName + ".");
+		System.out.println("Calculating entropy of " + Globals.imageName + ".");
 		
 		ChangeListener<?> changeListenerEntropy = new ChangeListener<Object>()
 		{
