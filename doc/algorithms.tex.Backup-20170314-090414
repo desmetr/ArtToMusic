@@ -1,0 +1,310 @@
+%
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage[super]{nth}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{graphicx}
+
+\pagenumbering{arabic}
+
+\begin{document}
+
+\title{Graphical Analysis in ArtToMusic}
+\date{December 06, 2016}
+\author{Rafael De Smet}
+
+\maketitle
+
+\section{Algorithms}
+\subsection{Edge Detection}
+
+Edge detection algorithms all use what are called convolution kernels. A kernel in image processing is a small matrix used to apply effects to an image, such as blurring, outlining. Here we will see kernels used for edge detection only. Listed below are six of the best and most used algorithms.
+
+\begin{itemize}
+        \item Sobel 
+        \item Frei-Chen
+        \item Prewitt
+        \item Roberts Cross
+        \item LoG
+        \item Scharr
+\end{itemize}
+
+\subsubsection{Convolution kernel}
+Since all the algorithms are based on the mathematical principle of convolution, some explanation of these convolution kernels is in order. 
+\newline
+
+Convolution is the technique of multiplying together two arrays of different size but of the same dimension. One of the two arrays used in the calculation is the numerical representation of the image (pixels) on which we want to perform the edge detection algorithm. The second array is called the kernel and is usually much smaller (but in the same dimension).
+\newline
+
+Each pixel of the image is added to its local neighbours, weighted by the kernel. This produces a new image. If the kernel is chosen wisely, we get all the edges found in the image.
+\newline
+
+Mathematically we can write the convolution as follows, with $O$ the output image, $I$ the input image and $K$ the kernel:
+
+\begin{equation}
+O(i, j) =  \sum\limits_{k=1}^m\sum\limits_{l=1}^n I(i + k - 1, j + l - 1)K(k,l)
+\end{equation}
+
+\subsubsection{Sobel}
+ This algorithm performs a 2D spatial gradient measurement and finds regions of 'high spatial frequency' or edges. It uses two 3x3 kernels, one kernel is used for the vertical edges and the other for the horizontal edges in the image. These two kernels can be applied separately and afterwards combined together to find the absolute magnitude of the gradient.
+ \newline
+
+ The horizontal kernel: 
+ $\begin{vmatrix}
+        -1 & 0 & +1\\
+        -2 & 0 & +2\\
+        -1 & 0 & +1\\
+\end{vmatrix}$
+and the vertical kernel:
+$\begin{vmatrix}
+        +1 & +2 & +1\\
+        0 & 0 & 0\\
+        -1 & -2 & -1\\
+\end{vmatrix}$
+
+\subsubsection{Frei-Chen}
+ The Frei-Chen algorithm also uses 3x3 kernels, but this time there are nine different convolution kernels. The four first matrices, G1, G2, G3, G4, are used for edges, the next four are used for lines and the last one is used to compute averages. 
+\newline
+\newline
+ $G_1$ = $\frac{1}{2\sqrt2}$ $\begin{vmatrix}
+        1 & \sqrt2 & 1\\
+        0 & 0 & 0\\
+        -1 & -\sqrt2 & -1\\
+\end{vmatrix}$\hspace{5mm}
+$G_2$ = $\frac{1}{2\sqrt2}$$\begin{vmatrix}
+        1 & 0 & -1\\
+        \sqrt2 & 0 & -\sqrt2\\
+        1 & 0 & -1\\
+\end{vmatrix}$\hspace{5mm}
+$G_3$ = $\frac{1}{2\sqrt2}$$\begin{vmatrix}
+        0 & -1 & \sqrt2\\
+        1 & 0 & -1\\
+        -\sqrt2 & 1 & 0\\
+\end{vmatrix}$\hspace{5mm}
+\newline
+$G_4$ = $\frac{1}{2\sqrt2}$$\begin{vmatrix}
+        \sqrt2 & -1 & 0\\
+        -1 & 0 & 1\\
+        0 & 1 & -\sqrt2\\
+\end{vmatrix}$\hspace{5mm}
+$G_5$ = $\frac{1}{2}$$\begin{vmatrix}
+        0 & 1 & 0\\
+        -1 & 0 & -1\\
+        0 & 1 & 0\\
+\end{vmatrix}$\hspace{10mm}
+$G_6$ = $\frac{1}{2}$$\begin{vmatrix}
+        -1 & 0 & 1\\
+        0 & 0 & 0\\
+        1 & 0 & -1\\
+\end{vmatrix}$\hspace{5mm}
+\newline
+$G_7$ = $\frac{1}{6}$$\begin{vmatrix}
+        1 & -2 & 1\\
+        -2 & 4 & -2\\
+        1 & -2 & 1\\
+\end{vmatrix}$\hspace{13mm}
+$G_8$ = $\frac{1}{6}$$\begin{vmatrix}
+        -2 & 1 & -2\\
+        1 & 4 & 1\\
+        -2 & 1 & -2\\
+\end{vmatrix}$\hspace{11mm}
+$G_9$ = $\frac{1}{3}$$\begin{vmatrix}
+        1 & 1 & 1\\
+        1 & 1 & 1\\
+        1 & 1 & 1\\
+\end{vmatrix}$\hspace{5mm}
+
+\subsubsection{Prewitt}
+This algorithm is very similar to the Sobel and Frei-Chen algorithms. Again, two kernels are used, one for the horizontal and one for the vertical edges. Afterwards, they are combined together to get all the edges in the image.
+\newline
+
+This time the kernels are considerably simpler:
+\newline
+
+Horizontal filter = $\begin{vmatrix}
+        1 & 1 & 1\\
+        0 & 0 & 0\\
+        -1 & -1 & -1\\
+\end{vmatrix}$\hspace{11mm}
+Vertical filter = $\begin{vmatrix}
+        -1 & 0 & 1\\
+        -1 & 0 & 1\\
+        -1 & 0 & 1\\
+\end{vmatrix}$
+\newline
+
+Because the kernels are simpler, the result is not so accurate when compared to the other algorithms.
+
+\subsubsection{Roberts Cross}
+This algorithm uses even simpler kernels than Prewitt does. This time we use two 2x2 kernels. These kernels correspond to the edges running at 45° to the pixel grid, one for each of the two perpendicular orientations.
+\newline
+
+Horizontal filter = $\begin{vmatrix}
+        1 & 0 \\
+        0 & -1 \\
+\end{vmatrix}$\hspace{11mm}
+Vertical filter = $\begin{vmatrix}
+        0 & 1\\
+        -1 & 0\\
+\end{vmatrix}$
+
+\subsubsection{LoG}
+This algorithm combines two methods, the Gaussian filtering method \footnote{The Gaussian filter is used to blur images and remove noise and detail.} and the Laplacian method for edge detection\footnote{This method highlights regions in the image of rapid intensity change, so it is useful for edge detection.}. Hence the name "Laplacian of Gaussian" (LoG).
+The edge points of an image are detected by finding the zero crossings of the \nth{2} derivative of the image intensity. Because the \nth{2} derivative is very sensitive to noise, which could give us bad results, the Gaussian filter is used to clear the noise from the image. 
+\newline
+
+The R library OpenImageR\footnote{https://cran.r-project.org/web/packages/OpenImageR/OpenImageR.pdf} uses the following LoG mask.
+\newline
+
+LoG mask = $\begin{vmatrix}
+        1 & 1 & 1\\
+        1 & -8 & 1\\
+        1 & 1 & 1\\
+\end{vmatrix}$
+
+\subsubsection{Scharr}
+This algorithm is an extension of the Sobel algorithm. Although the Sobel kernels are very good, they do not have perfect rotational symmetry. This is what the Scharr kernels try to optimize.
+\newline
+
+The most frequently used kernels are the following:
+\newline
+
+Horizontal filter = $\begin{vmatrix}
+        3 & 10 & 3\\
+        0 & 0 & 0\\
+        -3 & -10 & -3\\
+\end{vmatrix}$\hspace{11mm}
+Vertical filter = $\begin{vmatrix}
+        3 & 0 & -3\\
+        10 & 0 & -10\\
+        3 & 0 & -3\\
+\end{vmatrix}$\hspace{5mm}
+
+\subsection{Color Analysis}
+Only edge detection algorithms are not going to be sufficient to get enough data from the image to form a musical interpretation. We will need some form of color analysis. This section proposes some algorithms and methods we can use to obtain information about the colors of the image.
+
+\subsubsection{RGB}
+This is the most common representation of color on a computer. Each pixel is described using three values, the amount of red (R), green (G) and blue (B) it has. Using these values we can count how many pixels in the image are dominantly red, green or blue. When we're going to translate the image data into musical patterns, we can match each color to another kind of music (happy, sad, etc...)
+ 
+\subsubsection{HSV}
+HSV, sometimes called HSB, is another representation of a pixel. This time we use the hue (H), the saturation (S) and the brightness or value (B or V) to describe the pixel. Where the RGB model consists of three values indicating the amounts of a certain color each pixel has, the HSV model consists of three independent components. 
+\newline
+
+First we have the hue, which is basically the color. Here the color is represented using a circle with all the colors on it. So this means the value of this component is the degrees of the angle we have to make on the circle to get this color.  
+\newline
+
+The saturation indicates the fullness of the color. This value is expressed in a percentage, with 0\% a gray, flat color and 100\% is a full, rich color.
+\newline
+
+The value or brightness indicates the lightness of the color and is also expressed in a percentage, 0\% is black and 100\% is white.
+\newline
+
+This representation will be used in combination with the RGB model in the translation into the musical patterns.
+ 
+\subsubsection{CMYK}
+CMYK is another representation of color, based on the mixing of four colors, cyan (C), magenta (M), yellow (Y) and key (K, black). This model is used frequently with printing.
+\newline
+
+When combined, the data from the three models can be very accurate to use in the translation.
+
+\subsubsection{Black And White Balance}
+During the image analysis we will convert the image to a gray scale image, so we can determine the amount of white and black in it. Using the RGB model, this is an easy process. Black in the RGB model is (0,0,0) and white is (255,255,255). So we can simply count the amount of pixels that are very close to those two values and we know the amount of black and white pixels in the image.
+\newline
+
+Analogous to this we can count every gray pixel in the image, by finding every pixel where the RGB values are exactly the same.
+
+\subsubsection{Color Quantization - Image Segmentation}
+
+Sometimes it can be easier to work with images that are partitioned in simpler regions. This technique is called image segmentation or color quantification. There are many different ways to implement this technique. One such simple approach is using the K-means cluster algorithm. This algorithm attempts to partition a data set into k clusters. In this case is the data set the RGB values of each pixel.
+\newline
+
+In R this can be done easily. The code to do this is in the file segmentation.R\footnote{Code found on https://www.r-bloggers.com/color-quantization-in-r/}.
+
+\subsection{Image Hashing}
+It is also possible to get the hash value of an image. This is a hexadecimal number.
+
+\subsubsection{Average Hashing (aHash)}
+The first hash method is just the average hash (aHash) of the image. This algorithm works in four steps.
+
+\begin{enumerate}
+        \item Convert the image to grayscale. 
+        \item Reduce the size of the image, to simplify the number of computations.
+        \item Average the resulting colors. For an 8x8 image, 64 will be averaged.
+        \item Compute the bits of the hash value by comparing if each color value is above or below the mean.
+        \item Construct the hash.
+\end{enumerate}
+
+\subsubsection{Difference Hash (dHash)}
+We can also compute the dHash of an image. It works analoguosly as the average hash, but now the difference between adjacent pixels is also considered in the computation.
+
+\subsubsection{Perceptive Hash (pHash)}
+Similar to the dhash, there exists the pHash. This method uses the discrete cosine transform (DCT) and compares the pixels based on the frequencies, given by the DCT, instead of the color values.
+
+DCT is very similar to the Fourier analysis, it expresses a finite sequence of points/pixels/data in terms of a sum of cosine functions.
+
+\subsubsection{Use Of The Hash}
+One application of these methods is the recognition of images. Search engines like Google use this technique to search similar images as any image you provide to the search engine. I could use this as a way to store information about the image my application already scanned and generated music for.
+\newline
+
+For example, if you use a picture of a tree with the ArtToMusic application, it will produce a certain kind of music. If you use another picture of another tree that looks quite similar to the first tree, you expect to get a similar result in the music. The hash values of the images will help with this. 
+
+\subsection{Entropy}
+
+Another method we can use to get information from an image is via the entropy.
+The entropy of an image is a measure of the amount of disorder in the image. This technique is also used in other disciplines, for example to study the structures of living organisms.
+\newline
+
+When talking about images, we consider the following. If all the pixels of the image have the same level, the entropy is zero. This means there is not a lot of information (almost none) to gain from the image. When all the pixels in the image are different, the entropy of this image is maximum and there is a lot of information to get from the image.
+\newline
+
+To get the right information about the pixels, we use a histogram that shows the count of the distinct pixel values. 
+\newline
+
+The entropy of an image $H$ is defined as:
+\begin{equation}
+H = - \sum_{k=0}^{M-1} p_k log_2 (p_k)
+\end{equation}
+
+where M is the number of distinct pixel values and $p_k$ is the count of each pixel level.
+\newline
+
+What is the purpose of entropy? Entropy sets a lower bound on the average number of bits per pixel required to encode an image without distortion. This is used in compression of an image as well but we will use it to know how much  information there is in the image. 
+As the entropy describes how much (dis)order there is, we will use this to determine how much (dis)order there is in the generated music.
+\newline
+
+You can calculate the entropy of an image, but it is more useful to calculate the entropy of an analysis of that picture. This gives us information about the analysis and not just the image in general.
+
+\section{Practical Example}
+
+Let's use some of these techniques on a real picture. I have chosen for a idyllic landscape with two dominant colors, blue and green. Figure 1 shows a field of grass under a blue sky, with some clouds.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale = 0.38]{img/landscape}
+\caption{Idyllic landscape}
+\end{figure}
+
+\subsection{Edge Detection}
+
+We will start with applying one of the edge detection algorithms on this image. Out of the six filters I chose the Roberts Cross because it seemed a clearer result opposed to the others. In figure 2 you can see the result.
+
+\begin{figure}[h]
+\centering
+\includegraphics[]{img/landscape_RobertsCross}
+\caption{Roberts Cross edge detection on the idyllic landscape}
+\end{figure}
+
+\subsection{Hashing}
+Purely out of information, we can calculte the average hash, the dHash and the pHash of the original image. These are the results.
+
+\begin{itemize}
+\item aHash = fefffffc00000000
+\item dHash = ffff9f4080ff548d
+\item pHash = 898b65745cdaa327
+\end{itemize}
+
+\end{document}

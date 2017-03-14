@@ -22,6 +22,8 @@ public class Globals
 	public static String pathToMusic;
 	public static String pathToSamples;
 	public static String pathToData;
+	public static String pathToSource;
+	public static String pathToSegmentationFile;
 	
 	public static String imageName;
 	public static DecimalFormat decimalFormat = new DecimalFormat("0.000");
@@ -46,6 +48,8 @@ public class Globals
 		XPathExpression<Element> xpathMusic = XPathFactory.instance().compile("//path-to-music", Filters.element());
 		XPathExpression<Element> xpathSamples = XPathFactory.instance().compile("//path-to-samples", Filters.element());
 		XPathExpression<Element> xpathData = XPathFactory.instance().compile("//path-to-data", Filters.element());
+		XPathExpression<Element> xpathSource = XPathFactory.instance().compile("//path-to-source", Filters.element());
+		XPathExpression<Element> xpathSegmentation = XPathFactory.instance().compile("//path-to-segmentation-file", Filters.element());
 
 		Element pathToImagesElement = xpathImages.evaluateFirst(document);
 		if (pathToImagesElement != null)
@@ -62,6 +66,14 @@ public class Globals
 		Element pathToDataElement = xpathData.evaluateFirst(document);
 		if (pathToDataElement != null)
 		    pathToData = pathToDataElement.getValue();
+		
+		Element pathToSourceElement = xpathSource.evaluateFirst(document);
+		if (pathToSourceElement != null)
+		    pathToSource = pathToSourceElement.getValue();
+		
+		Element pathToSegmentationElement = xpathSegmentation.evaluateFirst(document);
+		if (pathToSegmentationElement != null)
+		    pathToSegmentationFile = pathToSegmentationElement.getValue();
 	}
 	
 	// Graphics

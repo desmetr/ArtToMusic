@@ -9,5 +9,7 @@
 		<path-to-music>/home/rafael/Dropbox/MasterInformatica/EersteJaar/Onderzoeksproject1/ArtToMusic/music/</path-to-music>
 		<path-to-samples>/home/rafael/Dropbox/MasterInformatica/EersteJaar/Onderzoeksproject1/ArtToMusic/samples/</path-to-samples>
 		<path-to-data>/home/rafael/Dropbox/MasterInformatica/EersteJaar/Onderzoeksproject1/ArtToMusic/data/</path-to-data>
+		<path-to-source>/home/rafael/Dropbox/MasterInformatica/EersteJaar/Onderzoeksproject1/ArtToMusic/src/</path-to-source>
+		<path-to-segmentation-file>/home/rafael/Dropbox/MasterInformatica/EersteJaar/Onderzoeksproject1/ArtToMusic/src/model/graphics/segmentation.R</path-to-segmentation-file>
 	</paths>
 </arttomusic-configuration>

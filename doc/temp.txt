@@ -3,7 +3,7 @@ Red = dominant color 	->	energetic, upbeat
 Green = dominant color 	->	happy, vibrant
 							IIIVI
 Blue = dominant color 	->	sad, melancholic
-							IVIIIIV
+							I-VI-IIIV
 
 I 	= major
 II 	= minor

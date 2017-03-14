@@ -262,6 +262,18 @@ public class RManager
 		sourcePHash.set(engine.eval("pH").asDoubleArray()[0]);
 	}
 
+	public void imageSegmentation(Integer k)
+	{
+		ArtToMusicLogger.getInstance().info("Segmenting image " + Globals.imageName + ".");
+		System.out.println("Segmenting image " + Globals.imageName + ".");
+
+		Globals.getInstance();
+		engine.eval("library('png')");
+		engine.eval("k = " + Integer.toString(k));	// Number of clusters
+		engine.eval("image = readPNG('')");
+		engine.eval("source('" + Globals.pathToSegmentationFile + "')");
+	}
+
 	public void getEntropy()
 	{
 		ArtToMusicLogger.getInstance().info("Calculating entropy of " + Globals.imageName + ".");
