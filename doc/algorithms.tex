@@ -18,6 +18,11 @@
 
 \maketitle
 \tableofcontents
+\newpage
+\section{Introduction}
+
+In this paper I will be discussing several graphical analysis algorithms. Some of these are actually used in the code of ArtToMusic and others are discussed out of interest. I will also compare the algorithms I used and didn't use. These algorithms will return data which is used to generate music.
+
 \section{Algorithms}
 
 \subsection{Edge Detection}
@@ -38,7 +43,7 @@ Edge detection algorithms all use what are called convolution kernels. A kernel 
 Since all the algorithms are based on the mathematical principle of convolution, an explanation of these convolution kernels is in order. 
 \newline
 
-Convolution is the technique of multiplying together two arrays of different size but of the same dimensionality. An array of with dimensionality two is just a matrix. So when working with images the pixels are represented as a (2D) matrix and the kernel is also a 2D matrix.
+Convolution is the technique of multiplying together two arrays of different size but of the same dimensionality. An array of dimensionality two is simply a matrix. When working with images the pixels are represented as a (2D) matrix and the kernel is also a 2D matrix.
 The kernel is a small matrix that we will multiply with the image matrix to perform the convolution. This kernel matrix is different for each edge detection algorithm and we will see examples of different matrices in later chapters of this paper. 
 \newline
 
@@ -67,8 +72,7 @@ In our example, the value of the bottom right pixel in the output image will be 
 \begin{equation}
 O_{57} = I_{57}K_{11} + I_{58}K_{12} + I_{59}K_{13} + I_{67}K_{21} + I_{68}K_{22} + I_{69}K_{23}
 \end{equation}
-
-\subsubsection{Sobel}
+\newpage
 
 In figure 2 you can see an idyllic landscape. We will use this image to see how well the different edge detection algorithms work.
 
@@ -78,9 +82,9 @@ In figure 2 you can see an idyllic landscape. We will use this image to see how 
 \caption{Idyllic landscape}
 \end{figure}
 
-\newpage
+\subsubsection{Sobel}
 
- This algorithm performs a 2D spatial gradient measurement and finds regions of 'high spatial frequency' or edges. It uses two 3x3 kernels, one for the vertical edges and the other for the horizontal edges. These two kernels can be applied separately and afterwards combined to find all the edges.
+ The Sobel algorithm performs a 2D spatial gradient measurement and finds regions of 'high spatial frequency' or edges. It uses two 3x3 kernels, one for the vertical edges and the other for the horizontal edges. These two kernels can be applied separately and afterwards combined to find all the edges.
  \newline
 
  The horizontal kernel: 
@@ -101,6 +105,7 @@ $\begin{vmatrix}
 \includegraphics[scale = 0.45]{img/landscape_Sobel}
 \caption{Sobel filter applied to Figure 2}
 \end{figure}
+\newpage
 
 \subsubsection{Frei-Chen}
  The Frei-Chen algorithm also uses 3x3 kernels, but this time there are nine different convolution kernels. The four first matrices, G1, G2, G3, G4, are used for edges, the next four are used for lines and the last one is used to compute averages. 
@@ -205,7 +210,6 @@ Vertical filter = $\begin{vmatrix}
 \includegraphics[scale = 0.45]{img/landscape_RobertsCross}
 \caption{Roberts Cross filter applied to Figure 2}
 \end{figure}
-\newpage
 
 \subsubsection{LoG}
 This algorithm combines two methods, the Gaussian filtering method\footnote{The Gaussian filter is used to blur images and remove noise and detail.} and the Laplacian method for edge detection\footnote{This method highlights regions in the image of rapid intensity change, so it is useful for edge detection.}. Hence the name "Laplacian of Gaussian" (LoG).
@@ -226,7 +230,6 @@ LoG mask = $\begin{vmatrix}
 \includegraphics[scale = 0.45]{img/landscape_LoG}
 \caption{LoG filter applied to Figure 2}
 \end{figure}
-\newpage
 
 \subsubsection{Scharr}
 This algorithm is an extension of the Sobel algorithm. Although the Sobel kernels are very good, they do not have perfect rotational symmetry. This is what the Scharr kernels try to optimize.
@@ -251,33 +254,37 @@ Vertical filter = $\begin{vmatrix}
 \includegraphics[scale = 0.45]{img/landscape_Scharr}
 \caption{Scharr filter applied to Figure 2}
 \end{figure}
+\newpage
 
 \subsection{Color Analysis}
-Only edge detection algorithms are not going to be enough to get data from the image to form a musical interpretation. We will need some form of color analysis. This section describes some algorithms and methods we can use to obtain information about the colors of the image.
+Only edge detection algorithms are not sufficient to get enough data from the image to form a musical interpretation. We will need some form of color analysis. This section describes some algorithms and methods we can use to obtain information about the colors of the image.
 
-\subsubsection{RGB}
+\subsubsection{RGB - HSV - CMYK}
 This is the most common representation of color on a computer. Each pixel is described using three values, the amount of red (R), green (G) and blue (B). Using these values we can count how many pixels in the image are dominantly red, green or blue. When we're going to translate the image data into musical patterns, we can match each color to another kind of music (happy, sad, etc...)
- 
-\subsubsection{HSV}
+\newline
+
 HSV, sometimes called HSB, is another representation of a pixel. This time we use the hue (H), the saturation (S) and the brightness or value (B or V) to describe the pixel. Where the RGB model consists of three values indicating the amounts of a certain color each pixel has, the HSV model consists of three independent components. 
 \newline
 
 First we have the hue, which is basically the color. Here the color is represented using a circle with all the colors on it. The value of this component is the degrees of the angle we have to make on the circle to get this color.  
-\newline
 
 The saturation indicates the fullness of the color. This value is expressed in a percentage, with 0\% a gray, flat color and 100\%  a full, rich color.
-\newline
 
 The value or brightness indicates the lightness of the color and is also expressed in a percentage, 0\% is black and 100\% is white.
-\newline
 
 This representation will be used in combination with the RGB model in the translation into the musical patterns.
- 
-\subsubsection{CMYK}
+\newline
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale = 0.45]{img/hsv}
+\caption{The HSV color representation}
+\end{figure}
+
 CMYK is another representation of color, based on the mixing of four colors, cyan (C), magenta (M), yellow (Y) and key (K, black). This model is used frequently with printing.
 \newline
 
-When combined, the data from the three models can be very accurate to use in the translation.
+When combined, the data from the three models can be very accurate to use in the translation to music.
 
 \subsubsection{Black And White Balance}
 During the image analysis we will convert the image to a gray scale image, so we can determine the amount of white and black in it. Using the RGB model, this is an easy process. Black in the RGB model is (0,0,0) and white is (255,255,255). So we can simply count the amount of pixels that are very close to those two values and we know the amount of black and white pixels in the image.
@@ -312,7 +319,7 @@ We can also compute the dHash of an image. It is similar to the average hash, bu
 \subsubsection{Perceptive Hash}
 This method uses the discrete cosine transform (DCT) and compares the pixels based on the frequencies, given by the DCT, instead of the color values.
 
-DCT is very similar to Fourier analysis, it expresses a finite sequence of points/pixels/data in terms of a sum of cosine functions.
+DCT is very similar to Fourier analysis, it expresses a finite sequence of points, in this case the pixels, in terms of a sum of cosine functions.
 
 \subsubsection{Use Of The Hash}
 One application of these methods is the recognition of images. Search engines like Google use this technique to search similar images as any image you provide to the search engine. I could use this as a way to store information about the image my application has already scanned and generated music for.
@@ -352,7 +359,7 @@ Let's use some of these techniques on a real picture, an idyllic landscape with 
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale = 0.38]{img/landscape}
+\includegraphics[scale = 0.2]{img/landscape}
 \caption{Idyllic landscape}
 \end{figure}
 
@@ -362,7 +369,7 @@ We will start with applying one of the edge detection algorithms on this image. 
 
 \begin{figure}[h]
 \centering
-\includegraphics[]{img/landscape_RobertsCross}
+\includegraphics[scale=0.38]{img/landscape_RobertsCross}
 \caption{Roberts Cross edge detection on the idyllic landscape}
 \end{figure}
 
@@ -374,5 +381,32 @@ We can calculate the average hash, the dHash and the pHash of the original image
 \item dHash = ffff9f4080ff548d
 \item pHash = 898b65745cdaa327
 \end{itemize}
+
+\begin{thebibliography}{1}
+
+\bibitem{OpenImageR} Lampros Mouselimis {\em OpenPackageR, An Image Processing Toolkit} 2017
+
+\bibitem{Convolution} R. Fisher, S. Perkins, A. Walker, E. Wolfart {\em Hypermedia Image Processing Reference} 2003
+
+\bibitem{Frei_Chen_Sobel} Daniel R\'akos' blog (http://rastergrid.com/blog/2011/01/frei-chen-edge-detector/) 2011
+
+\bibitem{Gaussian} University of Auckland, New Zealand, Computer Science course Computer Graphics and Image Processing {\em Gaussian Filtering} 2010
+
+\bibitem{edge} Computaç\~ao Visual e Multimédia, course on Image Processing
+
+\bibitem{prewitt} RoboRealm blog {http://www.roborealm.com/help/Prewitt.php} 2017
+
+\bibitem{image filter} Simon Colton, Pedro Torres {\em Evolving Approximate Image Filters} 2009, Computational Creativity Group
+Department of Computing, Imperial College London
+
+\bibitem{hash} Dr. Neal Krawetz' blog (http://www.hackerfactor.com/blog/?/archives/529-Kind-of-Like-That.html) 2013
+
+\bibitem{entropy} John Loomis' site (http://www.johnloomis.org/ece563/notes/basics/entropy/entropy.html) 1998
+
+\bibitem{entropy} Kevin Meurer's blog (http://kevinmeurer.com/a-simple-guide-to-entropy-based-discretization/) 2015
+
+\bibitem{color} Ryan Walker's blogpost (https://www.r-bloggers.com/color-quantization-in-r/) 2016
+
+\end{thebibliography}
 
 \end{document}

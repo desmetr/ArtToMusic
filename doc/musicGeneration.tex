@@ -14,16 +14,19 @@
 \pagenumbering{arabic}
 
 \begin{document}
+
 \title{Music Generation in ArtToMusic}
 \date{February 22, 2017}
 \author{Rafael De Smet}
 
 \maketitle
+\tableofcontents
+
+\section{Introduction}
+
+In this paper I will discuss several methods to generate music with software. Analogous to the paper in graphical analysis, I will discuss methods I use in the ArtToMusic project and methods I did not use and compare them to each other. Since music is different for every person, my reasoning can be subjective at times and you may preffer other methods. 
 
 \section{Music Generation}
-
-The ArtToMusic project consists of two main parts, the graphical analysis and the music generation.
-The latter part is explained in detail in this paper. I will be discussing different libraries and tools that generate music. At the end of this paper I will cover the actual implementations used in the ArtToMusic project.
 
 \subsection{Rhythm And Harmony}
 
@@ -75,8 +78,9 @@ Using the Beads library we can create our own music simply by passing the right 
 \subsubsection{Wolfram Tones}
 
 Desgined by the mathematician Stephen Wolfram, WolframTones is an online application to generate music. The user can choose from multiple styles of music and the application generates a new piece of music. The way this works is based on a discovery of Stephen Wolfram himself. In the early 1980s Wolfram was researching ``one-dimensional cellular automata''. He discovered that a set of very simple rules can create a very complex situation. 
+\newline
 
-His experiments started with a row of cells, each black or white. The set of rules, determined before the execution, decide which colour every cell on the next line will get and so on. Figure 1 shows a possible set of rules. This rule makes a new cell black if either of its neighbours was black (on the row above) and makes the cell white if both its neighbours were white. BETER UITLEGGEN OBV FIGUUR.
+His experiments started with a row of cells, each black or white. The set of rules, determined before the execution, decide which colour every cell on the next line will get and so on. Figure 1 shows a possible set of rules. The top row in each box gives one of the possible combinations of colors for a cell and its immediate neighbours. The bottom row then specifies what color the center cell should be on the next step in each of these cases [1]. The rules of figure 1 can be described as follows. A particular cell will be black if either of its neighbours was black on the step before. A cell will be white if both its neighbours were white on the step before.
 
 \begin{figure}[h]
 \centering
@@ -94,13 +98,13 @@ This gives the result in figure 2. In this case the result is very well structur
 
 \paragraph{Music}
 
-Wolfram used his automata to create music. Let's say we used one of the 256 sets of rules to create a result pattern. We can take a swatch IS HET SWATCH OF SWATH EN WAT WIL DAT ZEGGEN ? through this pattern of 15 cells wide. When we flip it on its side we can treat it as a musical score.
-Figure 3 shows the swatch from a resulting pattern and figure 4 shows this swatch as a musical score.
+Wolfram used his automata to create music. Let's say we used one of the 256 sets of rules to create a result pattern. We can take a partition through this pattern of 15 cells wide. When we flip this partition on its side we can treat it as a musical score.
+Figure 3 shows the partition from a resulting pattern and figure 4 shows it as a musical score.
 
  \begin{figure}[h]
 \centering
 \includegraphics[]{img/wolframMusic1}
-\caption{Swath through pattern}
+\caption{Partition through pattern}
 \end{figure}
 
 \begin{figure}[h]
@@ -109,24 +113,20 @@ Figure 3 shows the swatch from a resulting pattern and figure 4 shows this swatc
 \caption{Musical score}
 \end{figure}
 
-Now we can assume that time runs across the page from left to right and every black cell represents a note played. Wolfram has developed his own language and uses various of his own algorithms to form music out of these cellular automaton patterns.
+Now we can assume that time runs across the page from left to right and every black cell represents a note played. Wolfram has developed his own programming language and uses various of his own algorithms to form music out of these cellular automaton patterns.
 \newline
 \newline
 The number of rules isn't limited by eight individual rules. We can determine the color of the next cell by looking at his five upper row neighbours, instead of three. This gives a much bigger number of results (around 4 billion) and much more interesting results to use in the music creation. 
 
 \subsubsection{Genetic algorithms}
 
-Another interesting case to focus on is the use of genetic algorithms to produce music, as explained in the paper by Dragan Matic of the University of Banjaluka, Bosnia and Herzegovina. HIER MOET JE EEN BIBLIOGRAFISCHE REFERENTIE OPNEMEN DIE VERWIJST NAAR HET VOLLEDIGE ARTIKEL DAT JE ONDERAAN JE DOC ZET (Auteur, jaar, titel).
+Another interesting case to focus on is the use of genetic algorithms to produce music, as explained in the paper by Dragan Matic [2].
 \newline
 
 A genetic algorithm is an algorithm based on the idea of natural selection. The execution of a genetic algorithm starts with an initial population of individuals. During the execution of the algorithm, it will try and find an optimal solution based on predetermined rules. Each indiviual of the population has an attribute 'fitness'. This attribute denotes the quality of each individual of the population.
 \newline
-\newline
 
 This particular GA used in the paper of Dragan Matic uses complete compositions as the individuals of the population. A composition is any combination of rhythm and notes, the concept of good and bad music is represented in the fitness attribute. Because the notion of good and bad music is very subjective and different for each person, Matic uses a reference individual for the evaluation of the resulting composition.
-\newline
-
-Matic's paper explains in detail how he calculated the fitness of each individual, how one such individual is created and how the mutations of the GA are applied on each individual. To explain all these parts of the paper is redundant, if interested read Matic's paper. ?????????????????????? DIT DOE JE NOOIT !!!!!!!!!!!!!!!!!!!!!!!!!!!
 \newline
 
 We start with the initial population, containing $n$ individuals. After this, an iterative process begins. The fitness of each individual is calculated in each iteration. Based on the best individual (best fitness), we test if the stop condition is met. This stop condition can be set by the user before execution. If the algorithm decides to stop, the best individual is played.
@@ -207,5 +207,19 @@ To make matters more interesting, I can use some famous numbers from mathematics
 Analogous to the example we can use the digits of the other numbers and create many progressions based on the graphical analysis.
 
 \section{Conclusion}
+
+\begin{thebibliography}{1}
+
+\bibitem{beads} Ollie Bown (http://www.beadsproject.net/) 2008
+
+\bibitem{beads_sonifying} Evan X. Merz {\em Sonifying Processing: The Beads Tutorial} 2011
+
+\bibitem{wolfram} Stephen Wolfram {\em A new kind of science} 2002
+
+\bibitem{genetic} Dragan Mati\'c {\em A genetic algorithm for composing music} 2010, Faculty of Natural Sciences, University of Banjaluka, Bosnia and Herzegovina
+
+\bibitem{computoser} Bozhidar Bozhanov {\em Computoser - rule-based, probability-driven algorithmic music composition} 2014,  independent researcher
+
+\end{thebibliography}
 
 \end{document}
