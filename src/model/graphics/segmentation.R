@@ -5,7 +5,7 @@ library("grid")
 dim(image)
 
 # show the full RGB image
-grid.raster(image)
+#grid.raster(image)
 
 # show the 3 channels in separate images
 # copy the image three times
@@ -65,4 +65,4 @@ image.segmented[,,2] = G
 image.segmented[,,3] = B
 
 # View the result
-grid.raster(image.segmented)
+#grid.raster(image.segmented)

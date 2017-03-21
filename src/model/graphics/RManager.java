@@ -31,6 +31,7 @@ public class RManager
 	
 	private ObservableList<ObservableList<Double>> sourceEdgeMatrix = FXCollections.observableArrayList();
 	private ObservableList<ObservableList<Pixel>> sourceRGBValues= FXCollections.observableArrayList();
+	private ObservableList<ObservableList<Double>> sourceResultSegmentation = FXCollections.observableArrayList();
 	
 	private DoubleProperty sourceMeanR = new SimpleDoubleProperty(0.0);
 	private DoubleProperty sourceMeanG = new SimpleDoubleProperty(0.0);
@@ -267,11 +268,23 @@ public class RManager
 		ArtToMusicLogger.getInstance().info("Segmenting image " + Globals.imageName + ".");
 		System.out.println("Segmenting image " + Globals.imageName + ".");
 
+		sourceResultSegmentation.addListener((Change<? extends ObservableList<Double>> change) -> 
+		{
+			MusicData.destinationResultSegmentation.setAll(change.getList());
+		});
+		
 		Globals.getInstance();
 		engine.eval("library('png')");
 		engine.eval("k = " + Integer.toString(k));	// Number of clusters
-		engine.eval("image = readPNG('')");
+		engine.eval("image = readPNG('" + Globals.pathToImages + Globals.imageName + "')");
 		engine.eval("source('" + Globals.pathToSegmentationFile + "')");
+		engine.eval("result = matrix(data = image.segmented, nrow = dim(image.segmented)[1], ncol = dim(image.segmented)[2])");
+		
+		double[][] resultSegmentation = engine.eval("result").asDoubleMatrix();		
+		convertToObservableMatrix(resultSegmentation, sourceResultSegmentation);
+		
+		// TODO: calculate entropy of matrix to see how well the number of clusters k was chosen
+		// eventually, segment the image according to a couple of k's and choose the one with the best entropy
 	}
 
 	public void getEntropy()

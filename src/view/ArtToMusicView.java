@@ -68,7 +68,7 @@ public class ArtToMusicView extends Application
 //		ExecutorService executor = Executors.newSingleThreadExecutor();
 //		executor.execute(publisher);
 		
-		rManager.getEntropy();
+		rManager.imageSegmentation(2);
 	}
 	
     @Override

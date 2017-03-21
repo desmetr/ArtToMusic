@@ -1,4 +1,6 @@
 /controller/
+/log4j.dtd
+/log4j.xml
 /model/
 /utilities/
 /view/

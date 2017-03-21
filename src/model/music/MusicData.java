@@ -27,7 +27,8 @@ public class MusicData
 {
 	public static ObservableList<ObservableList<Double>> destinationEdgeMatrix = FXCollections.observableArrayList();
 	public static ObservableList<ObservableList<Pixel>> destinationRGBValuesMatrix = FXCollections.observableArrayList();
-
+	public static ObservableList<ObservableList<Double>> destinationResultSegmentation = FXCollections.observableArrayList();
+	
 	private static ObservableList<Pixel> grayList = FXCollections.observableArrayList();
 //	private static ObservableList<Pixel> blackList = FXCollections.observableArrayList();
 //	private static ObservableList<Pixel> whiteList = FXCollections.observableArrayList();
