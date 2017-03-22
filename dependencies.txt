@@ -3,8 +3,13 @@
 # R packages
 sudo apt-get install libtiff5-dev
 
-install.packages('OpenImageR')
-install.packages('entropy')
-library(jpeg)
-library('OpenImageR')
-library('entropy')
+jpeg
+OpenImageR
+entropy
+RWeka
+
+om RWeka te installeren kan het zijn dat je eerst dit commando moet uitvoeren, in de terminal
+	sudo R CMD javareconf
+en dan pas installeren in R
+en dan om XMeans te kunnen gebruiken , het volgende commando, in R:
+	WPM("install-package", "XMeans")

@@ -65,4 +65,4 @@ image.segmented[,,2] = G
 image.segmented[,,3] = B
 
 # View the result
-#grid.raster(image.segmented)
+grid.raster(image.segmented)

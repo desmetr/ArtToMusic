@@ -1,0 +1,22 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Algorithms}{2}
+\contentsline {subsection}{\numberline {2.1}Edge Detection}{2}
+\contentsline {subsubsection}{\numberline {2.1.1}Convolution kernel}{2}
+\contentsline {subsubsection}{\numberline {2.1.2}Sobel}{4}
+\contentsline {subsubsection}{\numberline {2.1.3}Frei-Chen}{5}
+\contentsline {subsubsection}{\numberline {2.1.4}Prewitt}{6}
+\contentsline {subsubsection}{\numberline {2.1.5}Roberts Cross}{7}
+\contentsline {subsubsection}{\numberline {2.1.6}LoG}{7}
+\contentsline {subsubsection}{\numberline {2.1.7}Scharr}{8}
+\contentsline {subsection}{\numberline {2.2}Color Analysis}{9}
+\contentsline {subsubsection}{\numberline {2.2.1}RGB - HSV - CMYK}{9}
+\contentsline {subsubsection}{\numberline {2.2.2}Black And White Balance}{10}
+\contentsline {subsubsection}{\numberline {2.2.3}Color Quantization - Image Segmentation}{11}
+\contentsline {subsection}{\numberline {2.3}Image Hashing}{11}
+\contentsline {subsubsection}{\numberline {2.3.1}Average Hashing}{11}
+\contentsline {subsubsection}{\numberline {2.3.2}Difference Hash}{11}
+\contentsline {subsubsection}{\numberline {2.3.3}Perceptive Hash}{12}
+\contentsline {subsubsection}{\numberline {2.3.4}Use Of The Hash}{12}
+\contentsline {subsection}{\numberline {2.4}Entropy}{12}
+\contentsline {subsubsection}{\numberline {2.4.1}Image}{12}
+\contentsline {subsubsection}{\numberline {2.4.2}Matrix}{13}

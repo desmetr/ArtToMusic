@@ -273,15 +273,27 @@ public class RManager
 			MusicData.destinationResultSegmentation.setAll(change.getList());
 		});
 		
-		Globals.getInstance();
-		engine.eval("library('png')");
-		engine.eval("k = " + Integer.toString(k));	// Number of clusters
-		engine.eval("image = readPNG('" + Globals.pathToImages + Globals.imageName + "')");
-		engine.eval("source('" + Globals.pathToSegmentationFile + "')");
-		engine.eval("result = matrix(data = image.segmented, nrow = dim(image.segmented)[1], ncol = dim(image.segmented)[2])");
+		// K means
+//		Globals.getInstance();
+//		engine.eval("library('png')");
+//		engine.eval("k = " + Integer.toString(k));	// Number of clusters
+//		engine.eval("image = readPNG('" + Globals.pathToImages + Globals.imageName + "')");
+//		engine.eval("source('" + Globals.pathToSegmentationFile + "')");
+//		engine.eval("result = matrix(data = image.segmented, nrow = dim(image.segmented)[1], ncol = dim(image.segmented)[2])");
+//		
+//		double[][] resultSegmentation = engine.eval("result").asDoubleMatrix();		
+//		convertToObservableMatrix(resultSegmentation, sourceResultSegmentation);
 		
-		double[][] resultSegmentation = engine.eval("result").asDoubleMatrix();		
-		convertToObservableMatrix(resultSegmentation, sourceResultSegmentation);
+		// XMeans
+		engine.eval("library('OpenImageR')");
+		engine.eval("library('RWeka')");
+		engine.eval("WPM('install-package', 'XMeans')");
+		engine.eval("im = readImage('" + Globals.pathToImages + Globals.imageName + "')");
+		engine.eval("clusterResult <- XMeans(im)");
+		engine.eval("numberOfClusters <- length(unique(clusterResult$class_ids))");
+		
+		int numberOfClusters = engine.eval("numberOfClusters").asIntArray()[0];
+		System.out.println(numberOfClusters);
 		
 		// TODO: calculate entropy of matrix to see how well the number of clusters k was chosen
 		// eventually, segment the image according to a couple of k's and choose the one with the best entropy

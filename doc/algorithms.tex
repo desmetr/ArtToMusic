@@ -329,11 +329,14 @@ For example, if you use a picture of a tree with the ArtToMusic application, it 
 
 \subsection{Entropy}
 
+\subsubsection{Image}
+
 Another method we can use to get information from an image is via entropy.
 The entropy of an image is a measure of the amount of disorder in the image. This technique is also used in other disciplines, for example to study the structures of living organisms.
 \newline
 
 When talking about images, we consider the following. If all the pixels of the image have the same level, the entropy is zero. This means there is not a lot of information (almost none) to be gained from the image. When all the pixels in the image are different, the entropy of this image is maximum and there is a lot of information to get from the image.
+As the entropy describes how much (dis)order there is, we will use this to determine how much (dis)order there is in the generated music.
 \newline
 
 To get the right information about the pixels, we use a histogram that shows the count of the distinct pixel values. 
@@ -347,40 +350,11 @@ H = - \sum_{k=0}^{M-1} p_k log_2 (p_k)
 where M is the number of distinct pixel values and $p_k$ is the count of each pixel level.
 \newline
 
-What is the purpose of entropy? Entropy sets a lower bound on the average number of bits per pixel required to encode an image without distortion. This is used in compression of an image as well but we will use it to find out how much information there is in the image.
-As the entropy describes how much (dis)order there is, we will use this to determine how much (dis)order there is in the generated music.
-\newline
-
 You can calculate the entropy of an image, but it is more useful to calculate the entropy of an analysis of that picture. This gives us information about the analysis and not just the image in general.
 
-\section{Practical Example}
+\subsubsection{Matrix}
 
-Let's use some of these techniques on a real picture, an idyllic landscape with two dominant colors, blue and green. Figure 1 shows a field of grass under a blue sky, with some clouds.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale = 0.2]{img/landscape}
-\caption{Idyllic landscape}
-\end{figure}
-
-\subsection{Edge Detection}
-
-We will start with applying one of the edge detection algorithms on this image. Out of the six filters I chose the Roberts Cross because it seemed a clearer result opposed to the others. In figure 2 you can see the result.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.38]{img/landscape_RobertsCross}
-\caption{Roberts Cross edge detection on the idyllic landscape}
-\end{figure}
-
-\subsection{Hashing}
-We can calculate the average hash, the dHash and the pHash of the original image. These are the results.
-
-\begin{itemize}
-\item aHash = fefffffc00000000
-\item dHash = ffff9f4080ff548d
-\item pHash = 898b65745cdaa327
-\end{itemize}
+Entropy is a technique that is frequently used on images but can also be used on any datastructure. Since we will calculate the entropy of analysises of an image and not the original image, we will be working with matrices of values. To calculate the entropy of a matrix of values 
 
 \begin{thebibliography}{1}
 
