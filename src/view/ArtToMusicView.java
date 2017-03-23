@@ -56,6 +56,7 @@ public class ArtToMusicView extends Application
 		Thread.sleep(1000);
 		
 		rManager.colorAnalysis();
+		rManager.imageSegmentation();
 		MusicData.analyseRGB();
 	}
 	
@@ -68,7 +69,7 @@ public class ArtToMusicView extends Application
 //		ExecutorService executor = Executors.newSingleThreadExecutor();
 //		executor.execute(publisher);
 		
-		rManager.imageSegmentation(2);
+//		rManager.imageSegmentation(2);
 	}
 	
     @Override

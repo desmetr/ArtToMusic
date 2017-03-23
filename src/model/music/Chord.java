@@ -10,16 +10,19 @@ public class Chord
 	private float tonicFrequency;
 	private float thirdFrequency;
 	private float fifthFrequency;
+	private float bassFrequency;
 	
 	private Globals.ChordKey chordKey;
 	private Globals.ChordType chordType;
 	private Globals.Chord chord;
 	
-	public Chord(Globals.ChordKey chordKey, Globals.ChordType chordType, int pitch, Globals.Chord chord)
+	public Chord(Globals.ChordKey chordKey, Globals.ChordType chordType, int pitch, Globals.Chord chord, int bassPitch)
 	{	
 		int indexTonic = pitch * 12 + Arrays.asList(Globals.ChordKey.values()).indexOf(chordKey);
 		int indexThird = 0;
 		int indexFifth = 0;
+		
+		int indexBass = bassPitch * 12 + Arrays.asList(Globals.ChordKey.values()).indexOf(chordKey);
 		
 		// TODO: use vectors of tuples per chordtypes, zie BeadsManager.java
 		
@@ -44,6 +47,8 @@ public class Chord
 		thirdFrequency = Globals.noteFrequencies.get(indexThird);
 		fifthFrequency = Globals.noteFrequencies.get(indexFifth);
 		
+		bassFrequency = Globals.noteFrequencies.get(indexBass);
+		
 		this.chordKey = chordKey;
 		this.chordType = chordType;
 		this.chord = chord;
@@ -52,6 +57,7 @@ public class Chord
 	public float getTonicFrequency() 			{	return tonicFrequency;	}
 	public float getThirdFrequency()			{	return thirdFrequency;	}
 	public float getFifthFrequency() 			{	return fifthFrequency;	}
+	public float getBassFrequency()				{	return bassFrequency;	}
 	public Globals.ChordKey getChordKey()		{	return chordKey;		}
 	public Globals.Chord getChord()				{	return chord;			}		
 	

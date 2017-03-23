@@ -18,7 +18,7 @@ public class BeadsManager
 	{
 	}
 	
-	public void playChordProgression(Globals.ChordProgression chordProgression, int bpm, Chord key, Buffer buffer)
+	public void playChordProgression(Globals.ChordProgression chordProgression, int bpm, Chord key, Buffer buffer, boolean bass)
 	{
 		List<Chord> chords = new ArrayList<Chord>();
 		
@@ -51,7 +51,7 @@ public class BeadsManager
 				break;
 		}
 		
-		player = new Player(chords, bpm);
+		player = new Player(chords, bpm, bass);
 		
 		try 
 		{
@@ -151,47 +151,47 @@ public class BeadsManager
 		switch (degree)
 		{
 			case 1:
-				return new Chord(chordKey, chordType, 4, Globals.chords.get(chordKey).get(chordType));
+				return new Chord(chordKey, chordType, 4, Globals.chords.get(chordKey).get(chordType),4);
 			case 2:
 				// The second degree is always a major step from the root for now, TODO: add minor second degree?
 				newChordKey = getFromList(Globals.degrees.get("degree2major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
+				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR), 4);
 			case 3:
 				switch (chordType)
 				{
 				case MAJOR:
 					newChordKey = getFromList(Globals.degrees.get("degree3major"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
+					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR), 4);
 				case MINOR:
 				case DIMINISHED:
 					newChordKey = getFromList(Globals.degrees.get("degree3minor"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
+					return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR), 4);
 				}
 				break;
 			case 4:
 				// TODO: add minor fourth degree?
 				newChordKey = getFromList(Globals.degrees.get("degree4major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR));
+				return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR), 4);
 			case 5:
 				switch (chordType)
 				{
 				case MAJOR:
 				case MINOR:
 					newChordKey = getFromList(Globals.degrees.get("degree5major"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR));
+					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR), 4);
 				case DIMINISHED:
 					newChordKey = getFromList(Globals.degrees.get("degree5minor"), chordKey);
-					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR));
+					return new Chord(newChordKey, Globals.ChordType.MAJOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MAJOR), 4);
 				}
 				break;
 			case 6:
 				// TODO: add minor sixth degree?
 				newChordKey = getFromList(Globals.degrees.get("degree6major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR));
+				return new Chord(newChordKey, Globals.ChordType.MINOR, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.MINOR), 4);
 			case 7:
 				// TODO add major/minor seventh?
 				newChordKey = getFromList(Globals.degrees.get("degree7major"), chordKey);
-				return new Chord(newChordKey, Globals.ChordType.DIMINISHED, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.DIMINISHED));
+				return new Chord(newChordKey, Globals.ChordType.DIMINISHED, 4, Globals.chords.get(newChordKey).get(Globals.ChordType.DIMINISHED), 4);
 		}
 		return null;
 	}

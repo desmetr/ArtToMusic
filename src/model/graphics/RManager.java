@@ -14,7 +14,9 @@ import javax.imageio.ImageIO;
 import org.rosuda.JRI.Rengine;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WritableDoubleValue;
@@ -45,6 +47,8 @@ public class RManager
 	private DoubleProperty sourcePHash = new SimpleDoubleProperty(0.0);
 	
 	private DoubleProperty sourceEntropy = new SimpleDoubleProperty(0.0);
+	
+	private IntegerProperty sourceNumberOfClusters = new SimpleIntegerProperty(0);
 	
 	private ArrayList<Integer> pixels = new ArrayList<Integer>();
 	private HashMap<Integer, Double> pixelCounts = new HashMap<Integer, Double>();
@@ -263,17 +267,17 @@ public class RManager
 		sourcePHash.set(engine.eval("pH").asDoubleArray()[0]);
 	}
 
-	public void imageSegmentation(Integer k)
+	public void imageSegmentation()
 	{
 		ArtToMusicLogger.getInstance().info("Segmenting image " + Globals.imageName + ".");
 		System.out.println("Segmenting image " + Globals.imageName + ".");
-
-		sourceResultSegmentation.addListener((Change<? extends ObservableList<Double>> change) -> 
-		{
-			MusicData.destinationResultSegmentation.setAll(change.getList());
-		});
 		
 		// K means
+//		sourceResultSegmentation.addListener((Change<? extends ObservableList<Double>> change) -> 
+//		{
+//			MusicData.destinationResultSegmentation.setAll(change.getList());
+//		});
+		
 //		Globals.getInstance();
 //		engine.eval("library('png')");
 //		engine.eval("k = " + Integer.toString(k));	// Number of clusters
@@ -285,6 +289,15 @@ public class RManager
 //		convertToObservableMatrix(resultSegmentation, sourceResultSegmentation);
 		
 		// XMeans
+		ChangeListener<?> changeListenerNumberOfClusters = new ChangeListener<Object>()
+		{
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) 
+			{
+				MusicData.destinationNumberOfClusters.set((int) newValue);
+			}
+		};
+		
 		engine.eval("library('OpenImageR')");
 		engine.eval("library('RWeka')");
 		engine.eval("WPM('install-package', 'XMeans')");
@@ -292,8 +305,7 @@ public class RManager
 		engine.eval("clusterResult <- XMeans(im)");
 		engine.eval("numberOfClusters <- length(unique(clusterResult$class_ids))");
 		
-		int numberOfClusters = engine.eval("numberOfClusters").asIntArray()[0];
-		System.out.println(numberOfClusters);
+		sourceNumberOfClusters.set(engine.eval("numberOfClusters").asIntArray()[0]);
 		
 		// TODO: calculate entropy of matrix to see how well the number of clusters k was chosen
 		// eventually, segment the image according to a couple of k's and choose the one with the best entropy

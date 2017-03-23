@@ -15,7 +15,9 @@ import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.graphics.Pixel;
@@ -48,6 +50,8 @@ public class MusicData
 	public static DoubleProperty destinationPHash = new SimpleDoubleProperty(0.0);
 	
 	public static DoubleProperty destinationEntropy = new SimpleDoubleProperty(0.0);
+	
+	public static IntegerProperty destinationNumberOfClusters = new SimpleIntegerProperty(0);
 	
 	private static BeadsManager beadsManager;
 	
@@ -115,40 +119,46 @@ public class MusicData
     
     public static void analyseRGB() throws InterruptedException
     {
-    	Chord chord = null;
+    	Chord key = null;
     	Globals.ChordProgression chordProgression = null;
     	
     	Thread.sleep(1000);
     	
     	beadsManager = new BeadsManager();
+    	
     	double max = Math.max(destinationMeanR.doubleValue(), Math.max(destinationMeanG.doubleValue(), destinationMeanB.doubleValue()));
     	
+    	int pitch = ThreadLocalRandom.current().nextInt(4, 7 + 1);
+    	int bassPitch = ThreadLocalRandom.current().nextInt(2, 3 + 1);
+    	
+    	boolean bass = (destinationNumberOfClusters.intValue() >= 4) ? true : false;
+    	 
     	// All colors are equal.
     	if ((destinationMeanR.doubleValue() == destinationMeanG.doubleValue()) && (destinationMeanR.doubleValue() == destinationMeanB.doubleValue()))
     	{
     		chordProgression = Globals.ChordProgression.I_III_VI_II_V;
-    		chord = new Chord(Globals.ChordKey.G, Globals.ChordType.MAJOR, 4, Globals.Chord.C_MAJOR);
+    		key = new Chord(Globals.ChordKey.G, Globals.ChordType.MAJOR, pitch, Globals.Chord.C_MAJOR, bassPitch);
     	}
     	// More red.
     	else if (max == destinationMeanR.doubleValue())
     	{
     		chordProgression = Globals.ChordProgression.I_II_V_I;
-    		chord = new Chord(Globals.ChordKey.C, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
+    		key = new Chord(Globals.ChordKey.C, Globals.ChordType.DIMINISHED, pitch, Globals.Chord.C_MAJOR, bassPitch);
     	}
     	// More green.
     	else if (max == destinationMeanG.doubleValue())
     	{
     		chordProgression = Globals.ChordProgression.I_III_IV_VI;
-    		chord = new Chord(Globals.ChordKey.E, Globals.ChordType.MINOR, 4, Globals.Chord.C_MAJOR);
+    		key = new Chord(Globals.ChordKey.E, Globals.ChordType.MINOR, pitch, Globals.Chord.C_MAJOR, bassPitch);
     	}
     	// More blue
     	else if (max == destinationMeanB.doubleValue())
     	{
     		chordProgression = Globals.ChordProgression.I_VI_II_IV;
-    		chord = new Chord(Globals.ChordKey.A_SHARP, Globals.ChordType.DIMINISHED, 4, Globals.Chord.C_MAJOR);
+    		key = new Chord(Globals.ChordKey.A_SHARP, Globals.ChordType.DIMINISHED, pitch, Globals.Chord.C_MAJOR, bassPitch);
     	}
     	
-    	beadsManager.playChordProgression(chordProgression, bpm, chord, Buffer.SINE);
+    	beadsManager.playChordProgression(chordProgression, bpm, key, Buffer.SINE, bass);
     }
     
     public static Vector<Note> generate(String path)
