@@ -106,13 +106,13 @@ public class MusicData
 		}
 
 		if ((0 <= counter) && (counter < 50))
-			bpm = ThreadLocalRandom.current().nextInt(50, 60 + 1);
+			bpm = ThreadLocalRandom.current().nextInt(40, 60 + 1);		// Lento
 		else if ((50 <= counter) && (counter < 150))
-			bpm = ThreadLocalRandom.current().nextInt(61, 80 + 1);
+			bpm = ThreadLocalRandom.current().nextInt(69, 84 + 1);		// Andante
 		else if ((150 <= counter) && (counter < 500))
-			bpm = ThreadLocalRandom.current().nextInt(81, 120 + 1);
+			bpm = ThreadLocalRandom.current().nextInt(98, 120 + 1);		// Allegretto
 		else if ((500 <= counter) && (counter < 1000)) 
-			bpm = ThreadLocalRandom.current().nextInt(121, 150 + 1);
+			bpm = ThreadLocalRandom.current().nextInt(144, 160 + 1);	// Vivace
 		
 		System.out.println("BPM: " + bpm);
     }

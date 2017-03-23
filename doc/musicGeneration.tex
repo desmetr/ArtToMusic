@@ -26,23 +26,30 @@
 
 In this paper I will discuss several methods to generate music with software. Analogous to the paper in graphical analysis, I will discuss methods I use in the ArtToMusic project and methods I did not use and compare them to each other. Since music is different for every person, my reasoning can be subjective at times and you may preffer other methods. 
 
-\section{Music Generation}
+\section{Music generation - a discussion}
 
-\subsection{Rhythm And Harmony}
+\subsection{Rhythm and harmony}
 
-Before I start comparing the different options, it is useful to explain what parts of music I will be relying on to generate music.
+When we listen to music, unconciously we focus on a couple of things to process what we are hearing.
+
+\subsubsection{Rhythm}
+
+One of these things is the rhythm. A very simple way to talk about music and to distinguish between different pieces of music is to say if it is a fast piece or a slow piece. This discussion can be subjective as different people have different notions of speed. Luckily we can objectively determine how fast or slow a piece is, using the BPM (beats per minute).
+This tells us how many quarter notes there are played in one minute, or how fast/slow the quarter notes are played after each other.
 \newline
 
-An essential part of music is the rhythm. I decided to use the edges of the image to determine the rhythm of the music. When you have a picture with a lot of shapes in it, you are likely to get a busier piece of music, with complex rhythms. Another feature that can be useful is the entropy of the analysis of an image. This gives us an estimation of how much information there is in an image. More on these techniques in the paper on graphical analysis.
+In the music theory they have introduced a few terms to indicate certain intervals of speed, based on the BPM. For example, the term \textit{larghissimo} means that the piece of music has a BPM in the range ]0, 20], very slowly. \textit{Moderato} means moderate, so a piece that has a moderate speed usually has a BPM in the range [108, 120]. Most of the popular songs you hear on the radio are \textit{moderato}.
 \newline
 
-Without a melody, there is no music. All melodies of songs are based on the rules of harmony, e.g. which notes sound good when played together, and which don't? Which notes make up a chord? These kind of rules are the subject of harmony. I will be using the standard and most used rules of harmony. This means I only work with major, minor or diminished chords. The more special chords such as sus4 or add9 chords are not (yet) in the scope of this project.
+As I will explain later in this paper, I will be using the BPM to determine the tempo of the song.
+
+\subsubsection{Melody}
+
+A second crucial part of music is the melody. All melodies of songs are based on the rules of harmony. We can formulate a couple of questions that will help us understand the purpose of harmony, e.g. which notes sound good when played together, and which don't? Which notes make up a chord?
 \newline
 
-Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is very familiar once you hear it. This means we play the first chord of the key we are in, then the second, then the fifth and the first one to end. Every one of these chords is major,  minor or diminished, based on the rules of harmony.
-\newline
-
-Based on how much of certain colors there are in the image we are analysing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
+The notion of chords is very important. A chord is a group of notes played at the same time.
+There are major chords, which sound happy, and there are minor chords which sound sad or melancholic. These two types of chords are the most commonly used. There are many other types of chords such as the diminished, the sus4, add9 etc. But for this project I will stick the two most important types and one special chord, the diminished.
 
 \subsection{Comparison of music generation techniques}
 
@@ -206,7 +213,33 @@ To make matters more interesting, I can use some famous numbers from mathematics
 
 Analogous to the example we can use the digits of the other numbers and create many progressions based on the graphical analysis.
 
-\section{Conclusion}
+\section{ArtToMusic's way to generate music}
+
+
+The most challenging concept of this project is the translation of graphical concepts, things we see on the image to musical concepts, things we hear. I had to make choices regarding which graphical elements I wanted to translate into music.
+
+\subsubsection{Rhythm}
+
+I decided to use the edges of objects in the image to determine the rhythm of the music. When you have a picture with a lot of shapes in it, you are likely to get a busier piece of music with complex rhythms. I used edge detection algorithms, discussed in the paper on graphical analysis, to get a representation of the image where only the edges were shown.
+
+Depending on how many edges there are in the image, I randomly generated a BPM. I predefined several ranges based on actual ranges used in musical theory and randomly generated a BPM from these ranges.
+If the picture has very few edges, the number would be generated from the \textit{lento} range, [40-60].
+
+\begin{figure}[h]
+\centering
+\hbox{\hspace{-1.3em}\includegraphics[scale=0.7]{img/bpm_code}}
+\caption{Code to determine the BPM}
+\end{figure}
+
+\subsubsection{Melody}
+
+Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is a very commonly used progression. This means we play the first chord of the key we are in, then the second, then the fifth and the first one to end. All of the chords used is major, minor or diminished, based on the rules of harmony.
+\newline
+
+Based on how much of certain colors there are in the image we are analysing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
+\newline
+
+Using the technique of image segmentation, I will determine how many dominant shapes of colors there are. If this number is high, I generate an extra bassline to accompany the main melody. 
 
 \begin{thebibliography}{1}
 

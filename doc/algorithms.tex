@@ -294,10 +294,12 @@ Analogous to this we can count every gray pixel in the image, by finding every p
 
 \subsubsection{Color Quantization - Image Segmentation}
 
-Sometimes it can be easier to work with images that are partitioned in simpler regions. This technique is called image segmentation or color quantification. There are many different ways to implement this technique. One such simple approach is using the K-means cluster algorithm. This algorithm attempts to partition a data set into k clusters. The data set contains the RGB values of each pixel.
-\newline
+Sometimes it can be easier to work with images that are partitioned in simpler regions. This technique is called image segmentation or color quantification. There are many different ways to implement this technique. One such simple approach is using the k-means cluster algorithm. This algorithm attempts to partition a data set into k clusters. The data set contains the RGB values of each pixel.
 
 In R this can be done easily. The code to do this is in the file segmentation.R\footnote{Code found on https://www.r-bloggers.com/color-quantization-in-r/}.
+\newline
+
+A second technique is the X-means algorithm which is an improvement of the k-means algorithm. Where we don't know how many clusters there are when using k-means, and thus guessing, the X-means algorithm can determine the number of clusters by itself.
 
 \subsection{Image Hashing}
 It is also possible to get the hash value of an image. This is a hexadecimal number.
@@ -351,10 +353,6 @@ where M is the number of distinct pixel values and $p_k$ is the count of each pi
 \newline
 
 You can calculate the entropy of an image, but it is more useful to calculate the entropy of an analysis of that picture. This gives us information about the analysis and not just the image in general.
-
-\subsubsection{Matrix}
-
-Entropy is a technique that is frequently used on images but can also be used on any datastructure. Since we will calculate the entropy of analysises of an image and not the original image, we will be working with matrices of values. To calculate the entropy of a matrix of values 
 
 \begin{thebibliography}{1}
 
