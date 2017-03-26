@@ -194,84 +194,79 @@ where $\lambda_{ij}$ is the weight of value $f_i$ in the $j-th$ bar, $n$ is the 
 To know if we have a good piece of music, we must compare it with the predefined reference individual. This similarity is determined based on the "distance" between them. This distance is calculated bar by bar. The distance between individuals, and the appropriate bars of the two individuals in the comparison is based on the number and type of "good" intervals.
 \newline
 
-These "good" intervals are predefined, in table 1 you can see a proposal of these intervals [2].
-\newline
+These "good" intervals are predefined, in table 1 at the top of this page, you can see a proposal of these intervals [2]. An interval here means two consecutive notes and their relation to each other, are they in unison, a perfect fourth etc. Based on these values given to every note combination we can compute the fitness level of a bar of music.
 
 \begin{figure}
-\begin{adjustwidth}{-2.3cm}{}
 \begin{tabular}{| c | c | c | c |}
 \hline
-\textbf{Categories of intervals} & \textbf{Intervals} & \textbf{Values Proposal 1} & \textbf{Values Proposal 2} \\
+\textbf{Categories of intervals} & \textbf{Intervals} & \textbf{Values Proposal} \\
 \hline
-Perfect Consonants & unison, perfect fourth, & 1 & 1  \\ 
-& perfect fifth, octave & & \\
+Perfect Consonants & unison, perfect fourth, & 1  \\ 
+& perfect fifth, octave & \\
 \hline
-Imperfect Consonants & minor and major thirds & 2 & 2 \\
-& and sixths & & \\
+Imperfect Consonants & minor and major thirds & 2 \\
+& and sixths & \\
 \hline
-Seconds & minor and major seconds & 3 & 1 \\
+Seconds & minor and major seconds & 3 \\
  \hline
-Sevenths & minor and major sevenths & 3 & 3 \\
+Sevenths & minor and major sevenths & 3 \\
 \hline
-Intervals greater & all intervals greater & 5 & 5 \\
-than octave & than octave & & \\
+Intervals greater & all intervals greater & 5 \\
+than octave & than octave & \\
 
 \hline
 \end{tabular}
-\end{adjustwidth}
 \end{figure}
+
+\newpage
 
 \subsubsection{Computoser}
 
-Computoser is a web application that generates random music. It is based on a rule-based, probability-driven algorithm. This means that it composes by following a set of rules and decisions between several alternatives that are based on predefined probabilities.
+Computoser is another web application that generates random music. It is a rule-based, probability-driven algorithm. This means that it composes by following a set of rules and makes decisions between several (musical) alternatives that are based on predefined probabilities.
 \newline
 
-Computoser gives probabilities to every type of interval in music theory and to each note length.
-An interval in music is the distance between two consecutive played notes, e.g. a fifth is a distance of five notes in the scale and gets a probability of 25\%. This is fairly high because it is very commonly used in composing.
+Computoser gives probabilities to every type of note interval (analoguos as the intervals in the GA section) and to each note length.
+This means that for example a fifth (a distance of five notes in the scale) gets a probability of 25\%. This is a fairly high chance because a fifth is very commonly used in composing.
 \newline
 
 Computoser uses seven groups of rules.
 \begin{enumerate}
-\item Structure
-\item Rhythm
-\item Repetition
-\item Variations
-\item Dissonance and syncopation
-\item Endings
-\item Effects
+\item Structure of the piece of music 
+\item Rhythm; notes must conform to a rhythm scheme
+\item Repetition; each component of the piece (a group of notes) is repeated several times for memorability 
+\item Variations; slight changes are made to each component to make it more interesting
+\item Dissonance and syncopation; unexpected elements in music are what makes it interesting to listen to
+\item Endings; there are several ways to end a piece of music
+\item Effects; different kind of sounds, such as distortion, tremolo etc
 \end{enumerate}
 
 Analogous to the probabilities given to intervals, each of the rules used in the algorithm has a certain percentage that decides which rule to use.
 \newline
 
-The components of the Computoser algorithm are called manipulators. They each fill in a part of information of the score. Analogous to the Unit Generators of the Beads library, these work as a chain. Subsequent manipulators depend on previous ones. There are four main manipulators.
+The components of the Computoser algorithm are called manipulators. They each fill in a part of information of the score. Analogous to the Unit Generators of the Beads library, these work as a chain. Subsequent manipulators depend on previous ones. There are four main manipulators. I pose several questions these manipulators try to solve.
 
 \begin{enumerate}
 \item Part configurer: what parts are there in the piece? Is there a bass line, a piano part?
-\item Scale configurer: what scale is the piece in? The most likely scales are the major and minor scales. Scales like the Dorian are less likely.
+\item Scale configurer: what scale/key is the piece in? The most likely scales are the major and minor scales. Scales like the Dorian are less likely.
 \item Meter configurer: what meter is the piece in? 4/4 is the most common meter, but you can have a piece in 6/8, 3/4, etc.
-\item Each part has its own generator and decides for each part what notes to play.
+\item Part generator: each part has its own generator and decides for each part what notes to play.
 \end{enumerate}
  
-The part generator is obviously the most important part of the algorithm, because it decides what notes to play. There are three main aspects to the generator. The decisions are all based on the idea of probability.
+The part generator is obviously the most important one of the algorithm, because it decides what notes to play. There are three main aspects to this generator. Again, the decisions are all based on probabilities.
 
-\paragraph{Pitch} Apart form using the probabilities there are a few other constraints used to determine what note to play next. First, there should not be more than two subsequent unstable notes. Secondly, long jumps (more than 7 steps) require a step in the opposition direction. Thirdly, a predefined sequence of notes may be used, if they are from the circle of fifths or part of an extended chord.
+\paragraph{Pitch} Apart from using the probabilities there are a few other constraints used to determine what note to play next. First, there should not be more than two subsequent unstable notes. Unstable notes are notes that are quite dissonant. Secondly, long jumps between notes (more than 7 steps/notes) require a step in the opposition direction. Thirdly, a predefined sequence of notes may be used, if they are from the circle of fifths or part of an extended chord.
 
 \paragraph{Length} Here are the probabilities used as well, but again some other constraints are used. First is the measure size, all measures should have the same length. The second constraint is rhythm. Each measure is either simple (only one down-beat, e.g. 2/4) or compound (more than one down-beat, e.g. 4/4).
 
-\paragraph{Variation} Computoser uses motifs to construct the parts. There are a few simple motifs that we use as a basis. These motifs can undergo several musical variations to create new motifs. A few of these are transposition, all notes go higher or lower within the same scale. You have inversion, turning the melody 'upside-down', you have retrograding, playing the motif backwards, etc.
-\newline
-
-This is a quick rundown of how the Computoser algorithm works. There is more going on in the algorithm but that is out of scope of this paper.
+\paragraph{Variation} Computoser uses motifs to construct the parts. There are a few simple motifs that we use as a basis. These motifs can undergo several musical variations to create new motifs. A few of these are transposition (all notes go higher or lower within the same scale), inversion (turning the melody 'upside-down'), retrograding (playing the motif backwards), etc.
 
 \section{ArtToMusic's way to generate music}
 
-The most challenging concept of this project is the translation of graphical concepts, things we see on the image to musical concepts, things we hear. I had to make choices regarding which graphical elements I wanted to translate into music.
+The most challenging concept of this project is the translation of graphical concepts, things we see on the image, into musical concepts, things we hear. I had to make choices regarding which graphical elements I wanted to translate into music.
 
 \subsection{Rhythm}
 
 I decided to use the edges of objects in the image to determine the rhythm of the music. When you have a picture with a lot of shapes in it, you are likely to get a busier piece of music with complex rhythms. I used edge detection algorithms, discussed in the paper on graphical analysis, to get a representation of the image where only the edges were shown.
-
 Depending on how many edges there are in the image, I randomly generated a BPM. I predefined several ranges based on actual ranges used in musical theory and randomly generated a BPM from these ranges.
 If the picture has very few edges, the number would be generated from the \textit{lento} range, [40-60].
 
@@ -283,7 +278,7 @@ If the picture has very few edges, the number would be generated from the \texti
 
 \subsection{Melody}
 
-Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is a very commonly used progression. This means we play the first chord of the key we are in, then the second, then the fifth and the first one to end. All of the chords used is major, minor or diminished, based on the rules of harmony.
+Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is a very commonly used progression. This means we play the first chord of the key we are in, then the second, then the fifth and the first one to end. All of the chords used are major, minor or diminished, based on the rules of harmony.
 \newline
 
 Based on how much of certain colors there are in the image we are analysing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
@@ -291,23 +286,20 @@ Based on how much of certain colors there are in the image we are analysing, we 
 
 Using the technique of image segmentation, I will determine how many dominant shapes of colors there are. If this number is high, I generate an extra bassline to accompany the main melody. 
 
-\subsection{Chord Progressions}
+\subsubsection{Chord Progressions}
 
 In ArtToMusic I will be using some standard chord progressions and some more unusual ones. There are a few reasons I choose for the use of chord progressions. Firstly, it is the most common way to write music. Secondly, it facilitates the generation of music in code. Several progressions are known to the ArtToMusic program and can be played easily, given the key of the song. 
 ‌\newline
 
 A few of these standard chord progressions are the following:
 \begin{itemize}
-\item I-II-V-I: happy, vibrant
-\item I-V-VI-IV: neutral
-\item I-IV-I-V: very happy, upbeat
+\item I-II-V-I: a happy, vibrant sound
+\item I-V-VI-IV: a neutral sound
+\item I-IV-I-V: a very upbeat sound
 \end{itemize} 
 
 To make matters more interesting, I use some famous numbers from mathematics, such as $\pi$, $\phi$ and $e$. These irrational numbers can be seen as a series of digits. These digits can be seen as chords in a progression. For example, the first five digits of $\pi$ are 3, 1, 4, 5, and 1. When we see them as chords we get the following chord progression: III-I-IV-V-I, which seems a very interesting progression.
-\newline
-
-Analogous to the example we can use the digits of the other numbers and create many progressions based on the graphical analysis.
-
+\newpage
 
 \begin{thebibliography}{1}
 
