@@ -21,7 +21,6 @@
 \begin{document}
 
 \title{Music Generation in ArtToMusic}
-\date{February 22, 2017}
 \author{Rafael De Smet}
 
 \maketitle
@@ -29,21 +28,21 @@
 
 \section{Introduction}
 
-In this paper I will discuss several methods to generate music with software. Analogous to the paper in graphical analysis, I will discuss methods I use in the ArtToMusic project and methods I did not use and compare them to each other. Since music is different for every person, my reasoning can be subjective at times and you may preffer other methods. 
+In this paper I will discuss several methods to generate music with software. Analogous to the paper in graphical analysis, I will discuss methods I use in the ArtToMusic project and methods I did not use and compare them to each other. Since music is different for every person, my reasoning can be subjective at times and you may prefer other methods. 
 
 \section{Music generation - a discussion}
 
-\subsection{Rhythm and harmony}
+\subsection{Tempo and harmony}
 
-When we listen to music, unconciously we focus on a couple of things to process what we are hearing.
+When we listen to music, unconsciously we focus on a couple of things to process what we are hearing.
 
-\subsubsection{Rhythm}
+\subsubsection{Tempo}
 
-One of these things is the rhythm. A very simple way to talk about music and to distinguish between different pieces of music is to say if it is a fast piece or a slow piece. This discussion can be subjective as different people have different notions of speed. Luckily we can objectively determine how fast or slow a piece is, using the BPM (beats per minute).
+One of these things is the tempo. A very simple way to talk about music and to distinguish between different pieces of music is to determine whether it's a fast or a slow piece. This discussion can be subjective as different people have different notions of speed. Luckily we can objectively determine the tempo of a piece, using the BPM (beats per minute).
 This tells us how many quarter notes are played in one minute, or how fast/slow the quarter notes are played after each other.
 \newline
 
-In the music theory there are a couple of terms to indicate certain intervals of speed, based on the BPM. For example, the term \textit{larghissimo} means that the piece of music has a BPM in the range ]0, 20], which is very slowly. \textit{Moderato} means moderate, so a piece that has a moderate speed usually has a BPM in the range [108, 120]. Most of the popular songs you hear on the radio are \textit{moderato}.
+In music theory there are a couple of terms to indicate certain intervals of speed, based on the BPM. For example, the term \textit{larghissimo} means that the piece of music has a BPM in the range ]0, 20], which is very slow. \textit{Moderato} means moderate, a piece that has a moderate speed usually has a BPM in the range [108, 120]. Most of the popular songs you hear on the radio are \textit{moderato}.
 
 \subsubsection{Melody}
 
@@ -51,11 +50,11 @@ A second crucial part of music is the melody. All melodies of songs are based on
 \newline
 
 The notion of chords is very important. A chord is a group of notes played at the same time.
-There are major chords, which sound happy, and there are minor chords which sound sad or melancholic. These two types of chords are the most commonly used. There are many other types of chords such as the diminished, the sus4, add9 etc. But for this project I will stick the two most important types and one special chord, the diminished.
+There are major chords, which sound happy, and there are minor chords which sound sad or melancholic. These two types of chords are the most commonly used. There are many other types of chords such as the diminished, the sus4, add9 etc. But for this project I will stick to the two most important types and one special chord, the diminished.
 
 \subsection{Chords and progressions}
 
-A crucial element of music is the use of chord progressions. The most common example of this is a twelve bar blues. This type of music is characterised by a strict pattern. Every song that uses a twelve bar blues follows the same chord progression and thus sounds very similar and recongizable.
+A crucial element of music is the use of chord progressions. The most common example of this is a twelve bar blues. This type of music is characterised by a strict pattern. Every song that uses a twelve bar blues schema follows the same chord progression and thus sounds very similar and recognizable, see figure 1.
 
 \begin{figure}[h]
 \centering
@@ -63,15 +62,15 @@ A crucial element of music is the use of chord progressions. The most common exa
 \caption{Twelve bar blues}
 \end{figure}
 
-In figure 1 you can see the structure of a twelve bar blues, very simple yet very recognisable. The roman numbers denote which chord is played, relatively to the key of the song. For example if the piece is in the key of C major, the \rom{1} denotes the first chord of the key, the C chord. The \rom{4} is the fourth chord of the key, the F major. The \rom{5} is the fifth of the key, the G major.
+The roman numbers denote which chord is played, relatively to the key of the song. For example if the piece is in the key of C major, the \rom{1} denotes the first chord of the key, the C chord. The \rom{4} is the fourth chord of the key, the F major. The \rom{5} is the fifth of the key, the G major.
 \newline
 
-There are many other kinds of progressions, such as the \rom{1}-\rom{2}-\rom{5}-\rom{1} chord progression, or any other combination. Most popular songs use multiple chord progressions, one for the verse, one for the chorus and so on. It's the concept of combining different chords in one progression that allows us to create new original pieces of music.
+There are many other kinds of progressions, e.g. \rom{1}-\rom{2}-\rom{5}-\rom{1}, or any other combination. Most popular songs use multiple chord progressions, one for the verse, one for the chorus and so on. It's the concept of combining different chords in one progression that allows us to create new original pieces of music.
 \newpage
 
-\subsection{Comparison of music generation techniques}
+\subsection{Comparison of music generation technologies}
 
-In this section I will be comparing multiple music generation techniques. I will discuss libraries as well as online applications that have the same goal, creating enjoyable music based on software.
+In this section I will be comparing multiple music generation technologies. I will discuss libraries as well as online applications that have the same goal, creating enjoyable music based on software.
 
 \subsubsection{Beads}
 The Beads library, developed by Ollie Bown with the support of the university of Melbourne, is a very handy tool to generate music. Beads uses the concept of unit generators (UGs) as the core of the software. As described by Evan Merz, the author of \textit{Sonifying Processing: The Beads Tutorial} [2], a unit generator is a ``building block of the audio signal''.  One unit generator takes care of one function in the generation of music. 
@@ -80,18 +79,18 @@ The Beads library, developed by Ollie Bown with the support of the university of
 A simple example of a unit generator is a guitar player's distortion pedal. The clean signal of his guitar enters the unit generator and a distorted version of the signal is produced. Beads works as a series of unit generators (or guitar pedals). You can plug one UG into another to create a chain of effects, sounds etc... 
 \newline
 
-The Beads library has many of these UGs, such as an envelope filter, a gain, a waveplayer, etc. The most important UG is the AudioContext. This is the main UG where every other UG plugs into. Without this there is no music. It doesn't create any sound by itself, it just acts as an interface to the computer's hardware. The audio comes from other UGs.
+The Beads library has many of these UGs, such as an envelope filter, a gain, a waveplayer, etc. The AudioContext is the main UG where every other UG plugs into. Without this there is no music. It doesn't create any sound by itself, it just acts as an interface to the computer's hardware. The audio comes from other UGs.
 \newline
 
 Beads has two main ways of creating audio.
 
 \paragraph{Samples}
 
-You can load multiple samples for later use. Once you have found the file and loaded it in via the SamplePlayer, you can use it as any other UG, connect it to the Gain UG to determine the volume or apply multiple effects on it, such as pass it through an EnvelopeFilter, etc.  
+You can load multiple samples for later use. Once you have found the file and loaded it via the SamplePlayer, you can use it as any other UG, connect it to the Gain UG to determine the volume or apply multiple effects on it, such as pass it through an EnvelopeFilter, etc.  
 
 \paragraph{Waves}
 
-Another technique is to use audio waves that are generated in real time. The most simple form of audio is a sine wave that produces one tone. Beads has implemented five different kind of waves, each called a Buffer. Each Buffer stores an array of floats in the range [-1,1] that represent the function it is based on. In this list you can see the different buffers and their functions.
+Another technique is to use audio waves that are generated in real time. The most simple form of audio is a sine wave that produces one tone. Beads has implemented five different kind of waves, each called a Buffer. Each Buffer stores an array of floats in the range [-1,1] that represent the function it is based on. In the following list you can see the different buffers and their functions.
 \begin{itemize}
 \item SINE:  based on the sine function $y(t) = A sin (\omega t + \phi)$
 \item SAW: based on the saw function $y(t) = t - \floor{t}$
@@ -144,57 +143,56 @@ Figure 4 shows the partition from a resulting pattern and figure 5 shows it as a
 \caption{Musical score}
 \end{figure}
 
-Now we can assume that time runs across the page from left to right and every black cell represents a note played. Wolfram has developed his own programming language (Wolfram Language [4]) and uses various of his own algorithms to form music out of these cellular automaton patterns.
+Now we can assume that time runs across the page from left to right and every black cell represents a note played. Wolfram has developed his own programming language [4] to process these cellular automaton patterns. The music generation process is black-box.
 \newline
 
 The number of rules isn't limited by eight individual rules. We could also determine the color of the next cell by looking at his five upper row neighbours, instead of three. This gives a much bigger number of results (around 4 billion) and much more interesting results to use in the music creation. 
 
 \subsubsection{Genetic algorithms}
 
-Another interesting case to focus on is the use of genetic algorithms to produce music, as explained in the paper by Dragan Matic [2].
+Another interesting case to focus on is the use of genetic algorithms to produce music, as explained in the paper by Dragan Mati\'c [2].
 \newline
 
-A genetic algorithm (GA) is an algorithm based on the idea of natural selection. The execution of a genetic algorithm starts with an initial population of individuals. During the execution of the algorithm, it will try and find an optimal solution based on predetermined rules. Each indiviual of the population has an attribute 'fitness'. This attribute denotes the quality of each individual of the population.
+A genetic algorithm (GA) is based on the idea of natural selection. The execution of a genetic algorithm starts with an initial population of individuals. During the execution of the algorithm, it will try and find an optimal solution based on predetermined rules. Each indiviual of the population has an attribute 'fitness'. This attribute denotes the quality of each individual of the population.
 \newline
 
-This particular GA used in the paper of Dragan Matic uses complete musical compositions as the individuals of the population. A composition is any combination of rhythm and notes, while the concept of good and bad music is represented in the fitness attribute. Because the notion of good and bad music is very subjective and different for each person, Matic uses a reference individual (another composition) for the evaluation of the resulting composition.
+The particular GA used in the paper of Dragan Mati\'c uses complete musical compositions as the individuals of the population. A composition is any combination of rhythm and notes, while the concept of good and bad music is represented in the fitness attribute. Because the notion of good and bad music is very subjective and different for each person, Mati\'c uses a reference individual (another composition) for the evaluation of the resulting composition.
 \newline
 
 We start with the initial population, containing $n$ individuals. After this, an iterative process begins. The fitness of each individual is calculated in each iteration. Based on the best individual (best fitness), we test if the stop condition is met. This stop condition can be set by the user before execution. If the algorithm decides to stop, the best individual is played.
 \newline
 
 If the algorithm continues, we remove two-thirds of the individuals in the population. Mutation operators are applied to the remaining individuals to generate new different individuals. Now the next iteration starts and we calculate the fitness of the new individuals and test if we have found a good composition.
-
 This continues till the stop condition is met.
 
 \paragraph{Determining the fitness}
 
-This GA uses a function to compute the total fitness of an individual based on different criteria. Since there is an extra subjective aspect to music, the end result of the algorithm may suffice to the criteria of the fitness function but still seem a bad choice (bad piece of music) to the listener. 
+This GA uses a function to compute the total fitness of an individual based on different criteria. Since there is an extra subjective aspect to music, the end result of the algorithm may comply to the criteria of the fitness function but still seem a bad choice (bad piece of music) to the listener. 
 \newline
 
-Equation 1 gives the total fitness of one individual. $\lambda_i$ represents the weight (influence) of the value $f_i$ to the total fitness and $n$ is the number of criteria [5].
+Equation 1 gives the total fitness of one individual. $\lambda_i$ represents the weight of the value $f_i$ to the total fitness and $n$ is the number of criteria [5].
 
 \begin{equation}
 f = \sum_{i = 1}^{n}\lambda_i f_i
 \end{equation}
+\\
+There are a couple of ways to calculate this. You can say that for different $i$, $f_i$ may be a ratio between the number of tones out of a given tonality and the total number of tones, the ratio between the number of dissonant intervals and all intervals, the ratio between the number of appearances of some pattern in relation to the total number of notes, the density of notes, etc [2]. 
+\newpage
 
-There are a couple of ways to go about this. You can say that for different $i$, $f_i$ may be a ratio between the number of tones out of a given tonality and the total number of tones, the ratio between the number of dissonant intervals and all intervals, the ratio between the number of appearances of some pattern in relation to the total number of notes, density of notes, etc [2]. 
-\newline
-
-The approach the GA in the paper of Mati\'c uses a more general approach. This means the fitness is calculated from one to another bar, and the total fitness is the sum of those values. Therefore, we have a new definition for $f$.
+The approach the GA in the paper of Mati\'c uses a more general approach. You calculate the fitness for each bar and the and the total fitness is the sum of those values. Now, we have a new definition for $f$.
 
 \begin{equation}
 f = \sum_{j = 1}^{k} \sum_{i = 1}^{n}\lambda_{ij} f_i
 \end{equation}
+\\
+where $\lambda_{ij}$ is the weight of value $f_i$ in the $j^{th}$ bar, $n$ is the total number of criteria and $k$ is the total number of bars.
 
-where $\lambda_{ij}$ is the weight of value $f_i$ in the $j-th$ bar, $n$ is the total number of criteria and $k$ is the total number of bars.
+\paragraph{Comparison to the reference individual}
 
-\paragraph{Comparing with the reference individual}
-
-To know if we have a good piece of music, we must compare it with the predefined reference individual. This similarity is determined based on the "distance" between them. This distance is calculated bar by bar. The distance between individuals, and the appropriate bars of the two individuals in the comparison is based on the number and type of "good" intervals.
+To know if the GA has chosen a good piece of music, we must compare it with the predefined reference individual. For this comparison we need a measure of similarity. This is determined based on the dissimilarity between them. To calculate the dissimilarity we use the note distance and the number and type of "good" intervals.
 \newline
 
-These "good" intervals are predefined, in table 1 at the top of this page, you can see a proposal of these intervals [2]. An interval here means two consecutive notes and their relation to each other, are they in unison, a perfect fourth etc. Based on these values given to every note combination we can compute the fitness level of a bar of music.
+These intervals are predefined. See table 1 at the top of this page for a proposal of the values assigned to these intervals [2]. An interval here means two consecutive notes in a bar and their relation to each other. Are they in unison, a perfect fourth etc? Based on these values given to every note combination we can compute the fitness level of a bar of music.
 
 \begin{figure}
 \begin{tabular}{| c | c | c | c |}
@@ -222,28 +220,29 @@ than octave & than octave & \\
 
 \subsubsection{Computoser}
 
-Computoser is another web application that generates random music. It is a rule-based, probability-driven algorithm. This means that it composes by following a set of rules and makes decisions between several (musical) alternatives that are based on predefined probabilities.
+Computoser is another web application that generates random music. It is a rule-based, probability-driven algorithm. This means that it composes by following a set of rules and makes decisions between several (musical) alternatives based on predefined probabilities.
 \newline
 
-Computoser gives probabilities to every type of note interval (analoguos as the intervals in the GA section) and to each note length.
+Computoser gives probabilities to every type of note interval (analoguos to the intervals in the GA section) and to each note length.
 This means that for example a fifth (a distance of five notes in the scale) gets a probability of 25\%. This is a fairly high chance because a fifth is very commonly used in composing.
 \newline
 
 Computoser uses seven groups of rules.
 \begin{enumerate}
 \item Structure of the piece of music 
-\item Rhythm; notes must conform to a rhythm scheme
-\item Repetition; each component of the piece (a group of notes) is repeated several times for memorability 
-\item Variations; slight changes are made to each component to make it more interesting
-\item Dissonance and syncopation; unexpected elements in music are what makes it interesting to listen to
-\item Endings; there are several ways to end a piece of music
-\item Effects; different kind of sounds, such as distortion, tremolo etc
+\item Rhythm: notes must conform to a rhythm scheme
+\item Repetition: each component of the piece (a group of notes) is repeated several times for memorability 
+\item Variations: slight changes are made to each component to make it more interesting
+\item Dissonance and syncopation: unexpected elements in music are what makes it interesting to listen to
+\item Endings: there are several predefined ways to end a piece of music
+\item Effects: different kind of sounds, such as distortion, tremolo etc
 \end{enumerate}
 
 Analogous to the probabilities given to intervals, each of the rules used in the algorithm has a certain percentage that decides which rule to use.
 \newline
 
-The components of the Computoser algorithm are called manipulators. They each fill in a part of information of the score. Analogous to the Unit Generators of the Beads library, these work as a chain. Subsequent manipulators depend on previous ones. There are four main manipulators. I pose several questions these manipulators try to solve.
+The components of the Computoser algorithm are called manipulators. They each fill in a part of information of the score. Analogous to the Unit Generators of the Beads library, these work as a chain. Subsequent manipulators depend on previous ones. There are four main manipulators.
+\newline
 
 \begin{enumerate}
 \item Part configurer: what parts are there in the piece? Is there a bass line, a piano part?
@@ -252,53 +251,47 @@ The components of the Computoser algorithm are called manipulators. They each fi
 \item Part generator: each part has its own generator and decides for each part what notes to play.
 \end{enumerate}
  
-The part generator is obviously the most important one of the algorithm, because it decides what notes to play. There are three main aspects to this generator. Again, the decisions are all based on probabilities.
+The part generator is obviously the most important one of the algorithm, because it decides what notes to play. There are three main aspects to this generator, pitch, length and variation. Again, the decisions are all based on probabilities.
 
 \paragraph{Pitch} Apart from using the probabilities there are a few other constraints used to determine what note to play next. First, there should not be more than two subsequent unstable notes. Unstable notes are notes that are quite dissonant. Secondly, long jumps between notes (more than 7 steps/notes) require a step in the opposition direction. Thirdly, a predefined sequence of notes may be used, if they are from the circle of fifths or part of an extended chord.
 
-\paragraph{Length} Here are the probabilities used as well, but again some other constraints are used. First is the measure size, all measures should have the same length. The second constraint is rhythm. Each measure is either simple (only one down-beat, e.g. 2/4) or compound (more than one down-beat, e.g. 4/4).
+\paragraph{Length} Both probabilities and some other constraints are used. The first is the measure size, all measures should have the same length. The second constraint is rhythm. Each measure is either simple (only one down-beat, e.g. 2/4) or compound (more than one down-beat, e.g. 4/4).
 
-\paragraph{Variation} Computoser uses motifs to construct the parts. There are a few simple motifs that we use as a basis. These motifs can undergo several musical variations to create new motifs. A few of these are transposition (all notes go higher or lower within the same scale), inversion (turning the melody 'upside-down'), retrograding (playing the motif backwards), etc.
+\paragraph{Variation} Computoser uses motifs to construct the parts. There are a few simple motifs that we use as a basis. These motifs can undergo several musical variations to create new ones. A few of these are transposition (all notes go higher or lower within the same scale), inversion (turning the melody 'upside-down'), retrograding (playing the motif backwards), etc.
 
 \section{ArtToMusic's way to generate music}
 
 The most challenging concept of this project is the translation of graphical concepts, things we see on the image, into musical concepts, things we hear. I had to make choices regarding which graphical elements I wanted to translate into music.
 
-\subsection{Rhythm}
+\subsection{Tempo}
 
-I decided to use the edges of objects in the image to determine the rhythm of the music. When you have a picture with a lot of shapes in it, you are likely to get a busier piece of music with complex rhythms. I used edge detection algorithms, discussed in the paper on graphical analysis, to get a representation of the image where only the edges were shown.
-Depending on how many edges there are in the image, I randomly generated a BPM. I predefined several ranges based on actual ranges used in musical theory and randomly generated a BPM from these ranges.
-If the picture has very few edges, the number would be generated from the \textit{lento} range, [40-60].
-
-\begin{figure}[h]
-\centering
-\hbox{\hspace{-1.3em}\includegraphics[scale=0.7]{img/bpm_code}}
-\caption{Code to determine the BPM}
-\end{figure}
+I decided to use the edges of objects in the image to determine the tempo of the music. When you have a picture with a lot of shapes in it, you are likely to get a piece of music with a faster tempo. I used edge detection algorithms, discussed in the paper on graphical analysis, to get a representation of the image where only the edges were shown.
+Depending on how many edges there are in the image and predefined ranges (based on musical theory), I randomly generated a BPM.
+If the picture has very few edges, the number would be generated in the \textit{lento} range, [40-60].
 
 \subsection{Melody}
 
-Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is a very commonly used progression. This means we play the first chord of the key we are in, then the second, then the fifth and the first one to end. All of the chords used are major, minor or diminished, based on the rules of harmony.
+Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is very commonly used. This means we play the first chord of the key we are in in the first bar, then the second in the second bar and so on. All of the chords used are major, minor or diminished.
 \newline
 
-Based on how much of certain colors there are in the image we are analysing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
+Based on how much of certain color there is in the image we are analysing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
 \newline
 
 Using the technique of image segmentation, I will determine how many dominant shapes of colors there are. If this number is high, I generate an extra bassline to accompany the main melody. 
 
 \subsubsection{Chord Progressions}
 
-In ArtToMusic I will be using some standard chord progressions and some more unusual ones. There are a few reasons I choose for the use of chord progressions. Firstly, it is the most common way to write music. Secondly, it facilitates the generation of music in code. Several progressions are known to the ArtToMusic program and can be played easily, given the key of the song. 
+I will be using some standard chord progressions and some more unusual ones. Several progressions are known to the ArtToMusic program and can be played easily, given the key of the song. 
 ‌\newline
 
 A few of these standard chord progressions are the following:
 \begin{itemize}
-\item I-II-V-I: a happy, vibrant sound
-\item I-V-VI-IV: a neutral sound
-\item I-IV-I-V: a very upbeat sound
+\item I-II-V-I: a happy, vibrant feel
+\item I-V-VI-IV: a neutral feel
+\item I-IV-I-V: a very upbeat feel
 \end{itemize} 
 
-To make matters more interesting, I use some famous numbers from mathematics, such as $\pi$, $\phi$ and $e$. These irrational numbers can be seen as a series of digits. These digits can be seen as chords in a progression. For example, the first five digits of $\pi$ are 3, 1, 4, 5, and 1. When we see them as chords we get the following chord progression: III-I-IV-V-I, which seems a very interesting progression.
+To make matters more interesting, I use some famous numbers from mathematics, such as $\pi$, $\phi$ and $e$. These irrational numbers can be seen as a series of digits. These digits can be seen as chords in a progression. For example, the first five digits of $\pi$ are 3, 1, 4, 5, and 1. When we see them as chords we get the following chord progression: \rom{3}-\rom{1}-\rom{4}-\rom{5}-\rom{1}, which seems a very interesting progression.
 \newpage
 
 \begin{thebibliography}{1}
