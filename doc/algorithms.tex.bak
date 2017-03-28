@@ -44,11 +44,11 @@ Edge detection algorithms all use what are called convolution kernels. A kernel 
 Since all the algorithms are based on the mathematical principle of convolution, an explanation of these convolution kernels is in order. 
 \newline
 
-Convolution is the technique of multiplying together two arrays of different size but of the same dimension. An array of dimension two is simply a matrix. When working with images the pixels are represented as a (2D) matrix and the kernel is also a 2D matrix.
+Convolution is the technique of multiplying together two arrays of different size but of the same dimensionality. An array of dimensionality two is simply a matrix. When working with images the pixels are represented as a (2D) matrix and the kernel is also a 2D matrix.
 The kernel is a small matrix that we will multiply with the image matrix to perform the convolution. This kernel matrix is different for each edge detection algorithm and we will see examples of different matrices in later chapters of this paper. 
 \newline
 
-The idea of these algorithms is to create a new image that shows us the edges of the image. Each pixel of the original image is added to its local neighbors, weighted by the kernel. This produces a new image. If the kernel is chosen wisely, we get all the edges found in the image.
+The idea of these algorithms is to create a new image that shows us the edges of the image. Each pixel of the original image is added to its local neighbours, weighted by the kernel. This produces a new image. If the kernel is chosen wisely, we get all the edges found in the image.
 Mathematically we can write the convolution as follows, with $O$ the output image, $I$ the input image and $K$ the kernel. $I(i,j)$ means the pixel on the $i^{th}$ row and the $j^{th}$ column.
 
 \begin{equation}
@@ -300,7 +300,7 @@ It is also possible to get the hash value of an image. The hash is a hexadecimal
 The first hash method is the average hash (aHash) of the image. This algorithm works in five steps.
 
 \begin{enumerate}
-        \item Convert the image to gray scale. 
+        \item Convert the image to grayscale. 
         \item Reduce the size of the image, to reduce the number of computations.
         \item Average the resulting colors. For an 8x8 image, 64 will be averaged.
         \item Compute the bits of the hash value by comparing if each color value is above or below the mean.
@@ -337,7 +337,7 @@ To get the right information about the pixels, we use a histogram that shows the
 H = - \sum_{k=0}^{M-1} p_k log_2 (p_k)
 \end{equation}
 
-where M is the number of unique pixel values and $p_k$ is the count of each pixel level, how many times this pixel level occurs in the image.
+where M is the number of unique pixel values and $p_k$ is the count of each pixel level, how many times this pixel level occures in the image.
 \newline
 
 You can calculate the entropy of an image, but it is more useful to calculate the entropy of an analysis of that picture. This gives us information about the analysis and not just the image in general.

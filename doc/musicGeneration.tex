@@ -11,6 +11,7 @@
 \usepackage{gensymb}
 \usepackage{graphicx}
 \usepackage{changepage}
+\usepackage{hyperref}
 
 \pagenumbering{arabic}
 
@@ -54,7 +55,7 @@ There are major chords, which sound happy, and there are minor chords which soun
 
 \subsection{Chords and progressions}
 
-A crucial element of music is the use of chord progressions. The most common example of this is a twelve bar blues. This type of music is characterised by a strict pattern. Every song that uses a twelve bar blues schema follows the same chord progression and thus sounds very similar and recognizable, see figure 1.
+A crucial element of music is the use of chord progressions. The most common example of this is a twelve bar blues. This type of music is characterized by a strict pattern. Every song that uses a twelve bar blues schema follows the same chord progression and thus sounds very similar and recognizable, see figure 1.
 
 \begin{figure}[h]
 \centering
@@ -93,23 +94,29 @@ You can load multiple samples for later use. Once you have found the file and lo
 Another technique is to use audio waves that are generated in real time. The most simple form of audio is a sine wave that produces one tone. Beads has implemented five different kind of waves, each called a Buffer. Each Buffer stores an array of floats in the range [-1,1] that represent the function it is based on. In the following list you can see the different buffers and their functions.
 \begin{itemize}
 \item SINE:  based on the sine function $y(t) = A sin (\omega t + \phi)$
-\item SAW: based on the saw function $y(t) = t - \floor{t}$
 \item SQUARE: based on the square function $y(t) = sgn(sin(t))$
 \item TRIANGLE: based on the triangle function, with range from -1 to 1 and period 2a, $y(t) = \frac{2}{a}(t - a \floor{\frac{t}{a} + \frac{1}{2}}) (-1)^{\floor{\frac{t}{a} + \frac{1}{2}}}$
+\item SAW: based on the saw function $y(t) = t - \floor{t}$
 \item NOISE: based on a random variable to determine each value in the buffer
 \end{itemize} 
 
-Every Buffer has other (mathematical) characteristics and thus sounds differently. A sine wave produces a gentle tone, while a saw wave is less enjoyable to listen to.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.45]{img/waveForms}
+\caption{Buffer functions}
+\end{figure}
+
+Every Buffer has other (mathematical) characteristics and thus sounds differently. A sine wave produces a gentle tone, while a saw wave is less enjoyable to listen to. With the Online Tone Generator \url{http://onlinetonegenerator.com/}, we can hear the difference between the various functions.
 \newline
 
 Using the Beads library we can create our own music simply by passing the right input parameters to the different UG's to get the desired music.
 
 \subsubsection{Wolfram Tones}
 
-Desgined by the mathematician Stephen Wolfram, WolframTones is an online application to generate music. The user can choose from multiple styles of music and the application generates a new piece of music. The way this works is based on a discovery of Stephen Wolfram himself. In the early 1980s Wolfram was researching ``one-dimensional cellular automata''. He discovered that a set of very simple rules can create a very complex situation. 
+Designed by the mathematician Stephen Wolfram, WolframTones is an online application to generate music. The user can choose from multiple styles of music and the application generates a new piece of music. The way this works is based on a discovery of Stephen Wolfram himself. In the early 1980s Wolfram was researching ``one-dimensional cellular automata''. He discovered that a set of very simple rules can create a very complex situation. 
 \newline
 
-His experiments start with a row of cells, each cell black or white. The set of rules, determined before the execution, decide which colour every cell on the next line will get and so on. Figure 2 shows a possible set of rules. The top row in each box gives one of the possible combinations of colors for a cell and its immediate neighbours. The bottom row then specifies what color the center cell should be on the next step in each of these cases [1]. The rules of figure 2 can be described as follows. A particular cell will be black if either of its neighbours was black on the step before. A cell will be white if both its neighbours were white on the step before.
+His experiments start with a row of cells, each cell black or white. The set of rules, determined before the execution, decide which colour every cell on the next line will get and so on. Figure 3 shows a possible set of rules. The top row in each box gives one of the possible combinations of colors for a cell and its immediate neighbors. The bottom row then specifies what color the center cell should be on the next step in each of these cases [1]. The rules of figure 2 can be described as follows. A particular cell will be black if either of its neighbors was black on the step before. A cell will be white if both its neighbors were white on the step before.
 
 \begin{figure}[h]
 \centering
@@ -123,12 +130,12 @@ His experiments start with a row of cells, each cell black or white. The set of 
 \caption{Result automata}
 \end{figure}
 
-This gives the result in figure 3. In this case the result is very well structured and organized. Wolfram discovered that there are 256 of these simple sets of rules, based on eight individual rules. Not every one of these 256 sets gives nicely structured results.
+This gives the result in figure 4. In this case the result is very well structured and organized. Wolfram discovered that there are 256 of these simple sets of rules, based on eight individual rules. Not every one of these 256 sets gives nicely structured results.
 
 \paragraph{Music}
 
 Wolfram used his automata to create music. Let's say we used one of the 256 sets of rules to create a result pattern. We can take a partition through this pattern of 15 cells wide. When we flip this partition on its side we can treat it as a musical score.
-Figure 4 shows the partition from a resulting pattern and figure 5 shows it as a musical score.
+Figure 5 shows the partition from a resulting pattern and figure 6 shows it as a musical score.
 \newline
 
  \begin{figure}[h]
@@ -146,14 +153,14 @@ Figure 4 shows the partition from a resulting pattern and figure 5 shows it as a
 Now we can assume that time runs across the page from left to right and every black cell represents a note played. Wolfram has developed his own programming language [4] to process these cellular automaton patterns. The music generation process is black-box.
 \newline
 
-The number of rules isn't limited by eight individual rules. We could also determine the color of the next cell by looking at his five upper row neighbours, instead of three. This gives a much bigger number of results (around 4 billion) and much more interesting results to use in the music creation. 
+The number of rules isn't limited by eight individual rules. We could also determine the color of the next cell by looking at his five upper row neighbors, instead of three. This gives a much bigger number of results (around 4 billion) and much more interesting results to use in the music creation. 
 
 \subsubsection{Genetic algorithms}
 
 Another interesting case to focus on is the use of genetic algorithms to produce music, as explained in the paper by Dragan Mati\'c [2].
 \newline
 
-A genetic algorithm (GA) is based on the idea of natural selection. The execution of a genetic algorithm starts with an initial population of individuals. During the execution of the algorithm, it will try and find an optimal solution based on predetermined rules. Each indiviual of the population has an attribute 'fitness'. This attribute denotes the quality of each individual of the population.
+A genetic algorithm (GA) is based on the idea of natural selection. The execution of a genetic algorithm starts with an initial population of individuals. During the execution of the algorithm, it will try and find an optimal solution based on predetermined rules. Each individual of the population has an attribute 'fitness'. This attribute denotes the quality of each individual of the population.
 \newline
 
 The particular GA used in the paper of Dragan Mati\'c uses complete musical compositions as the individuals of the population. A composition is any combination of rhythm and notes, while the concept of good and bad music is represented in the fitness attribute. Because the notion of good and bad music is very subjective and different for each person, Mati\'c uses a reference individual (another composition) for the evaluation of the resulting composition.
@@ -223,7 +230,7 @@ than octave & than octave & \\
 Computoser is another web application that generates random music. It is a rule-based, probability-driven algorithm. This means that it composes by following a set of rules and makes decisions between several (musical) alternatives based on predefined probabilities.
 \newline
 
-Computoser gives probabilities to every type of note interval (analoguos to the intervals in the GA section) and to each note length.
+Computoser gives probabilities to every type of note interval (analogous to the intervals in the GA section) and to each note length.
 This means that for example a fifth (a distance of five notes in the scale) gets a probability of 25\%. This is a fairly high chance because a fifth is very commonly used in composing.
 \newline
 
@@ -274,7 +281,7 @@ If the picture has very few edges, the number would be generated in the \textit{
 Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is very commonly used. This means we play the first chord of the key we are in in the first bar, then the second in the second bar and so on. All of the chords used are major, minor or diminished.
 \newline
 
-Based on how much of certain color there is in the image we are analysing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
+Based on how much of certain color there is in the image we are analyzing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
 \newline
 
 Using the technique of image segmentation, I will determine how many dominant shapes of colors there are. If this number is high, I generate an extra bassline to accompany the main melody. 

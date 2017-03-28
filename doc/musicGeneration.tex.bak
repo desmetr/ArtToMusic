@@ -11,6 +11,7 @@
 \usepackage{gensymb}
 \usepackage{graphicx}
 \usepackage{changepage}
+\usepackage{hyperref}
 
 \pagenumbering{arabic}
 
@@ -93,13 +94,19 @@ You can load multiple samples for later use. Once you have found the file and lo
 Another technique is to use audio waves that are generated in real time. The most simple form of audio is a sine wave that produces one tone. Beads has implemented five different kind of waves, each called a Buffer. Each Buffer stores an array of floats in the range [-1,1] that represent the function it is based on. In the following list you can see the different buffers and their functions.
 \begin{itemize}
 \item SINE:  based on the sine function $y(t) = A sin (\omega t + \phi)$
-\item SAW: based on the saw function $y(t) = t - \floor{t}$
 \item SQUARE: based on the square function $y(t) = sgn(sin(t))$
 \item TRIANGLE: based on the triangle function, with range from -1 to 1 and period 2a, $y(t) = \frac{2}{a}(t - a \floor{\frac{t}{a} + \frac{1}{2}}) (-1)^{\floor{\frac{t}{a} + \frac{1}{2}}}$
+\item SAW: based on the saw function $y(t) = t - \floor{t}$
 \item NOISE: based on a random variable to determine each value in the buffer
 \end{itemize} 
 
-Every Buffer has other (mathematical) characteristics and thus sounds differently. A sine wave produces a gentle tone, while a saw wave is less enjoyable to listen to.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.45]{img/waveForms}
+\caption{Buffer functions}
+\end{figure}
+
+Every Buffer has other (mathematical) characteristics and thus sounds differently. A sine wave produces a gentle tone, while a saw wave is less enjoyable to listen to. With the Online Tone Generator \url{http://onlinetonegenerator.com/}, we can hear the difference between the various functions.
 \newline
 
 Using the Beads library we can create our own music simply by passing the right input parameters to the different UG's to get the desired music.
@@ -109,7 +116,7 @@ Using the Beads library we can create our own music simply by passing the right 
 Desgined by the mathematician Stephen Wolfram, WolframTones is an online application to generate music. The user can choose from multiple styles of music and the application generates a new piece of music. The way this works is based on a discovery of Stephen Wolfram himself. In the early 1980s Wolfram was researching ``one-dimensional cellular automata''. He discovered that a set of very simple rules can create a very complex situation. 
 \newline
 
-His experiments start with a row of cells, each cell black or white. The set of rules, determined before the execution, decide which colour every cell on the next line will get and so on. Figure 2 shows a possible set of rules. The top row in each box gives one of the possible combinations of colors for a cell and its immediate neighbours. The bottom row then specifies what color the center cell should be on the next step in each of these cases [1]. The rules of figure 2 can be described as follows. A particular cell will be black if either of its neighbours was black on the step before. A cell will be white if both its neighbours were white on the step before.
+His experiments start with a row of cells, each cell black or white. The set of rules, determined before the execution, decide which colour every cell on the next line will get and so on. Figure 3 shows a possible set of rules. The top row in each box gives one of the possible combinations of colors for a cell and its immediate neighbours. The bottom row then specifies what color the center cell should be on the next step in each of these cases [1]. The rules of figure 2 can be described as follows. A particular cell will be black if either of its neighbours was black on the step before. A cell will be white if both its neighbours were white on the step before.
 
 \begin{figure}[h]
 \centering
@@ -123,12 +130,12 @@ His experiments start with a row of cells, each cell black or white. The set of 
 \caption{Result automata}
 \end{figure}
 
-This gives the result in figure 3. In this case the result is very well structured and organized. Wolfram discovered that there are 256 of these simple sets of rules, based on eight individual rules. Not every one of these 256 sets gives nicely structured results.
+This gives the result in figure 4. In this case the result is very well structured and organized. Wolfram discovered that there are 256 of these simple sets of rules, based on eight individual rules. Not every one of these 256 sets gives nicely structured results.
 
 \paragraph{Music}
 
 Wolfram used his automata to create music. Let's say we used one of the 256 sets of rules to create a result pattern. We can take a partition through this pattern of 15 cells wide. When we flip this partition on its side we can treat it as a musical score.
-Figure 4 shows the partition from a resulting pattern and figure 5 shows it as a musical score.
+Figure 5 shows the partition from a resulting pattern and figure 6 shows it as a musical score.
 \newline
 
  \begin{figure}[h]
