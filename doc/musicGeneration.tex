@@ -31,7 +31,7 @@
 
 In this paper I will discuss several methods to generate music with software. Analogous to the paper in graphical analysis, I will discuss methods I use in the ArtToMusic project and methods I did not use and compare them to each other. Since music is different for every person, my reasoning can be subjective at times and you may prefer other methods. 
 
-\section{Music generation - a discussion}
+\section{Music theory}
 
 \subsection{Tempo and harmony}
 
@@ -69,11 +69,11 @@ The roman numbers denote which chord is played, relatively to the key of the son
 There are many other kinds of progressions, e.g. \rom{1}-\rom{2}-\rom{5}-\rom{1}, or any other combination. Most popular songs use multiple chord progressions, one for the verse, one for the chorus and so on. It's the concept of combining different chords in one progression that allows us to create new original pieces of music.
 \newpage
 
-\subsection{Comparison of music generation technologies}
+\section{Music generation technologies}
 
 In this section I will be comparing multiple music generation technologies. I will discuss libraries as well as online applications that have the same goal, creating enjoyable music based on software.
 
-\subsubsection{Beads}
+\subsection{Beads}
 The Beads library, developed by Ollie Bown with the support of the university of Melbourne, is a very handy tool to generate music. Beads uses the concept of unit generators (UGs) as the core of the software. As described by Evan Merz, the author of \textit{Sonifying Processing: The Beads Tutorial} [2], a unit generator is a ``building block of the audio signal''.  One unit generator takes care of one function in the generation of music. 
 \newline
 
@@ -111,7 +111,39 @@ Every Buffer has other (mathematical) characteristics and thus sounds differentl
 
 Using the Beads library we can create our own music simply by passing the right input parameters to the different UG's to get the desired music.
 
-\subsubsection{Wolfram Tones}
+\subsubsection{Examples}
+
+The Beads project was started by Ollie Brown and has support from the Monash University in Melbourne but has since then been an open source project. When you go to the library's website [1], you can download the latest version of source code. This code contains several tutorial projects that showcase how the library works. There are eight different tutorials or lessons,  provided, increasing in complexity. It starts off easy with an explanation on how to use the AudioContext UG in code (Lesson01\_AudioContext) and ends with a complete runnable program that generates random music based on some input UGs (Lesson07\_Music).
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.67]{img/beads_tut}
+\caption{Beads tutorial projects}
+\end{figure}
+
+I will discuss the code and results of Lesson07\_Music to give the reader an idea of the capabilities of the Beads library. I provided a small application that plays the results of this lesson and other examples later in this paper. To hear the results of the Lesson 07, click on \textbf{Beads Demo Lesson 7}.
+
+\paragraph{Code of main melody part}
+
+This code uses a Clock UG as the basis of the generated music. A Gain and an AudioContext are there as well but these are mandatory to have in your code. The Clock is a special type of UG because it works just like a regular clock, which makes it run for ever (till you terminate the program). The Clock receives messages on-the-fly that determine what notes when to play. There are a few advantages of using a Clock as the basis. First, you can work with the concept of beats per minute (BPM). We add a new note to the Gain every beat we encounter. This note is generated from a scale which was chosen by the programmer when he wrote the code. In this case we are working with a mixolydian scale based on a random chosen pitch. From this scale we generate a random note which is then added to the Gain to be played by the Au	dioContext.
+
+In the code you can use multiple Buffers (the type of sound wave we use to generate the frequencies heard). To generate the main melody of the song the Sine wave is used, which is the most enjoyale of all to listen to.
+
+\paragraph{Code of bass part and rhythm} 
+
+The code used to generate a bass part and a rhythm part is very similar to the above code. For the bass part we again can choose between multiple scales and buffers. In this case we use a pentatonic scale based on a random chosen pitch. To make it sound more simplistic and not too dominant in regards to the main melody part we use a Square wave as the Buffer. This produces slightly harsher sounds and more cut off notes than the Sine wave.
+
+The rhythm is generated using the concept of Noise. Noise in audio is anything that's not a note, for example the noise of an old TV when the channel was of the air (what is called snow). This sound is not pleasant to hear but when we strategically play small bits of this noise it sounds like a snare drum playing a rhythm. Again, the code determines randomly when to play this noise. 
+
+\paragraph{Sample Lesson}
+
+The previous demo shows what Beads can do by generating music autonomously. Lesson04\_SamplePlayer is a tutorial to use the SamplePlayer UG. This loads a sample and plays it. You can again run this sample through different UGs to modify the sound as you want. To hear the results of this lesson, click on \textbf{Beads Demo Lesson 4 Samples}. 
+
+\subsubsection{Conclusion}
+
+In conclusion we can say that by using the Beads library music can be randomly generated. The benefit of this library is that you can easily integrate it in your own application and that it handles all of the communication with your system's audio device. The disadvantage of it is that it takes quite a bit of experimenting and work to fully understand how the code works and how to use it yourself.
+
+\subsection{Wolfram Tones}
 
 Designed by the mathematician Stephen Wolfram, WolframTones is an online application to generate music. The user can choose from multiple styles of music and the application generates a new piece of music. The way this works is based on a discovery of Stephen Wolfram himself. In the early 1980s Wolfram was researching ``one-dimensional cellular automata''. He discovered that a set of very simple rules can create a very complex situation. 
 \newline
@@ -155,7 +187,70 @@ Now we can assume that time runs across the page from left to right and every bl
 
 The number of rules isn't limited by eight individual rules. We could also determine the color of the next cell by looking at his five upper row neighbors, instead of three. This gives a much bigger number of results (around 4 billion) and much more interesting results to use in the music creation. 
 
-\subsubsection{Genetic algorithms}
+\subsubsection{Examples}
+
+WolframTones is a web application [4] and therefore mostly black-box and closed-source. Every time you open the website, it generates a random piece of music on its own. There are multiple input parameters you can change to create music that fits your requirements. One of them is the music style, the site allows you to choose your own style from a wide variety of styles.
+
+\paragraph{Algorithm Control}
+
+Next is the Algorithm Control. Here you can choose the program to be used to generate the composition. These inputs determine the rule type and the specific rule (see above) used to generate music. You can set other parameters such as the seed and the height of the rule. The seed means what random seed you will use for any random selection that is made during the process.
+
+\paragraph{Instrumentation}
+
+In this section you can choose what instruments you want to hear in the piece. You can choose from 117 of the 128 MIDI instruments. The sound effects (MIDI 121 - 128) and a few other weird sounds such as a whistle are not included in the list of choices. Per instrument you can choose the role of this instrument in the song. There are 119 roles to choose from, varying from playing chords in a swing feel to playing a hip-hop inspired bass part. For every song you can select up to five instruments, each with their own individual role. This means we have in total 117*119*5 = 69615 different combinations of five instruments playing together.
+
+To make things even more complicated you can also add a percussion part where you can choose from 111 types of percussion, ranging from a reggae beat to a jazz beat.
+
+\paragraph{Pitch Mapping}
+
+Every song has a central key that determines which notes are dissonant and which sound good. In this section you can choose a musical scale and a pitch where this scale is based on. WolframTones has a massive collection of scales to choose from, to be exact 404 different scales. These range from the common Western scales such as the Harmonic Major, the Blues scale etc to the more unknown ones, such as the Indian scales, the Japanese scales etc.
+
+There are 48 different pitches you can choose to base your scale on, these range from C1 (number 24 and  a low C) to C5 (number 72, a relatively high C). Again many choices to form a unique piece of music.
+
+\paragraph{Time Control}
+
+The last section is the Time Control where you can determine the BPM, the notes per beat and the duration of the song. The BPM is straightforward (see above for more information about this) and ranges from 24 (very slow, \textit{larghissimo}) to 288 (very fast, even faster than \textit{prestissimo}).
+The notes per beat range from 1 note per beat to 16 notes per beat, which leads to a very chaotic piece of music.
+\newline
+
+In the application I provided you can find examples of a few different combinations I tried on the website. Below is explained what choices were made for each result.
+
+\begin{enumerate}
+\item Rock/Pop style, based on rule type 31 (r=2) and rule number 3000041762. Random seed is set to 6800 and height of the score is 12. There are three instruments playing, each with another role.
+\begin{itemize}
+\item Electric Bass (Pick) with role: Bass - Driving
+\item Guitar (Jazz) with role: Lead - Upper Part
+\item Rock Organ with role: Lead - Lower Part - Legato 
+\end{itemize}
+A Funk 3 percussion track is also added. The scale is a Minor scale based on the F2 pitch, number 53. BPM is 116 with two notes per beat and the piece is 15 seconds long, 60 steps. Click on \textbf{Wolfram Demo 1} to hear this music.
+
+\item R\&B style, based on rule type 7 (r=1) and rule number 168230930. Random seed is set to 123721 and height of the score is 16.
+There are three instruments.
+\begin{itemize}
+\item Electric Bass (Finger) with role: Bass - Driving
+\item Trumpet with role: Lead - Upper Part - 4x4 Loop
+\item Grand Piano with role: Lead - Moving - Shorter - Legato 
+\end{itemize}
+A Hip Hop 1 percussion track is added. The scale is a Blues With Leading Tone scale based on the B1 pitch, number 47. BPM is 88 with 4 notes per beat and the piece is 15 seconds long, 88 steps. Click on \textbf{Wolfram Demo 2} to hear this music.
+
+\item Ambient style, based on rule type 1585 and rule number 338039596. Random seed is set to 10839 and height of the score is 13.
+There are four instruments.
+\begin{itemize}
+\item Electric Piano 2 with role: Polyphonic - Length 4+
+\item Electric Bass (Fretless) with role: Bass - Moving - Legato
+\item Harp with role: Lead - Moving - Shorter - Medium
+\item Bright Piano with role: Chords - Comp
+\end{itemize}
+A Jazz 1 percussion track is added. The scale is a Harmonic Minor scale based on the G\#2 pitch, number 56. BPM is 38 with 3 notes per beat and the piece is 14 seconds long, 28 steps. Click on \textbf{Wolfram Demo 3} to hear this music.
+\end{enumerate}
+
+To show what happens when we alter only one parameter, I changed the scale, number of notes per beat and the random seed of Demo 3. To hear the version of Demo 3 with the Major Pentachord scale, click on \textbf{Wolfram Demo 3 Other Scale}. To hear the version of Demo 3 with 5 notes per beat, and again the Harmonic Minor scale, click on \textbf{Wolfram Demo 3 More Notes Per Beat}. To hear the version of Demo 3 with the random seed set to 15159, click on \textbf{Wolfram Demo 3 Other Random Seed}.
+
+\subsubsection{Conclusion}
+
+WolframTones is a very powerful tool to create music. It is very easy to use and understand. The big advantage of this for a user is the clear way to define the characteristics of your piece of music. WolframTones provides you with the notion of musical styles and scales, rhythm etc. When we look at Beads these concepts were not so clear when providing the input parameters. This makes WolframTones a very easy tool to use. The only disadvantage is the fact that is mosty black-box and restricted to a website, so a programmer who wants to use this technique can't download code or a library to work with himself.
+
+\subsection{Genetic algorithms}
 
 Another interesting case to focus on is the use of genetic algorithms to produce music, as explained in the paper by Dragan Mati\'c [2].
 \newline
@@ -184,9 +279,9 @@ f = \sum_{i = 1}^{n}\lambda_i f_i
 \end{equation}
 \\
 There are a couple of ways to calculate this. You can say that for different $i$, $f_i$ may be a ratio between the number of tones out of a given tonality and the total number of tones, the ratio between the number of dissonant intervals and all intervals, the ratio between the number of appearances of some pattern in relation to the total number of notes, the density of notes, etc [2]. 
-\newpage
+\newline
 
-The approach the GA in the paper of Mati\'c uses a more general approach. You calculate the fitness for each bar and the and the total fitness is the sum of those values. Now, we have a new definition for $f$.
+The approach of the GA in the paper of Mati\'c uses a more general approach. You calculate the fitness for each bar and the and the total fitness is the sum of those values. Now, we have a new definition for $f$.
 
 \begin{equation}
 f = \sum_{j = 1}^{k} \sum_{i = 1}^{n}\lambda_{ij} f_i
@@ -225,7 +320,11 @@ than octave & than octave & \\
 
 \newpage
 
-\subsubsection{Computoser}
+\subsubsection{Examples}
+
+\subsubsection{Conclusion}
+
+\subsection{Computoser}
 
 Computoser is another web application that generates random music. It is a rule-based, probability-driven algorithm. This means that it composes by following a set of rules and makes decisions between several (musical) alternatives based on predefined probabilities.
 \newline
@@ -266,40 +365,9 @@ The part generator is obviously the most important one of the algorithm, because
 
 \paragraph{Variation} Computoser uses motifs to construct the parts. There are a few simple motifs that we use as a basis. These motifs can undergo several musical variations to create new ones. A few of these are transposition (all notes go higher or lower within the same scale), inversion (turning the melody 'upside-down'), retrograding (playing the motif backwards), etc.
 
-\section{ArtToMusic's way to generate music}
+\subsubsection{Examples}
 
-The most challenging concept of this project is the translation of graphical concepts, things we see on the image, into musical concepts, things we hear. I had to make choices regarding which graphical elements I wanted to translate into music.
-
-\subsection{Tempo}
-
-I decided to use the edges of objects in the image to determine the tempo of the music. When you have a picture with a lot of shapes in it, you are likely to get a piece of music with a faster tempo. I used edge detection algorithms, discussed in the paper on graphical analysis, to get a representation of the image where only the edges were shown.
-Depending on how many edges there are in the image and predefined ranges (based on musical theory), I randomly generated a BPM.
-If the picture has very few edges, the number would be generated in the \textit{lento} range, [40-60].
-
-\subsection{Melody}
-
-Based on the rules of harmony, the program works with premade chord progressions. These are enumerations of a number of chords in a certain order which creates a melody. For example, the chord progression I-II-V-I is very commonly used. This means we play the first chord of the key we are in in the first bar, then the second in the second bar and so on. All of the chords used are major, minor or diminished.
-\newline
-
-Based on how much of certain color there is in the image we are analyzing, we choose a different chord progression to work with. If there is a lot of red in the image, the program chooses the I-II-V-I progression, for instance. Other dominant colors lead to other chord progressions.
-\newline
-
-Using the technique of image segmentation, I will determine how many dominant shapes of colors there are. If this number is high, I generate an extra bassline to accompany the main melody. 
-
-\subsubsection{Chord Progressions}
-
-I will be using some standard chord progressions and some more unusual ones. Several progressions are known to the ArtToMusic program and can be played easily, given the key of the song. 
-‌\newline
-
-A few of these standard chord progressions are the following:
-\begin{itemize}
-\item I-II-V-I: a happy, vibrant feel
-\item I-V-VI-IV: a neutral feel
-\item I-IV-I-V: a very upbeat feel
-\end{itemize} 
-
-To make matters more interesting, I use some famous numbers from mathematics, such as $\pi$, $\phi$ and $e$. These irrational numbers can be seen as a series of digits. These digits can be seen as chords in a progression. For example, the first five digits of $\pi$ are 3, 1, 4, 5, and 1. When we see them as chords we get the following chord progression: \rom{3}-\rom{1}-\rom{4}-\rom{5}-\rom{1}, which seems a very interesting progression.
-\newpage
+\subsubsection{Conclusion}
 
 \begin{thebibliography}{1}
 
@@ -308,6 +376,8 @@ To make matters more interesting, I use some famous numbers from mathematics, su
 \bibitem{beads_sonifying} Evan X. Merz {\em Sonifying Processing: The Beads Tutorial} 2011
 
 \bibitem{wolfram} Stephen Wolfram {\em A new kind of science} 2002
+
+\bibitem{wolframtones} http://tones.wolfram.com/
 
 \bibitem{wolfram language} The Wolfram Language Documentation Center {\em http://reference.wolfram.com/language/guide/LanguageOverview.html}
 
