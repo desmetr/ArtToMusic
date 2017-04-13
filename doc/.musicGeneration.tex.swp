@@ -189,7 +189,9 @@ The number of rules isn't limited by eight individual rules. We could also deter
 
 \subsubsection{Examples}
 
-WolframTones is a web application [4] and therefore mostly black-box and closed-source. Every time you open the website, it generates a random piece of music on its own. There are multiple input parameters you can change to create music that fits your requirements. One of them is the music style, the site allows you to choose your own style from a wide variety of styles.
+WolframTones is a web application [4] and therefore mostly black-box and closed-source. Every time you open the website, it generates a random piece of music on its own. There are multiple input parameters you can change to create music that fits your requirements. 
+
+\paragraph{Music Style} The first is the music style, where you can choose your own style from a wide variety of styles.
 
 \paragraph{Algorithm Control}
 
@@ -318,8 +320,6 @@ than octave & than octave & \\
 \end{tabular}
 \end{figure}
 
-\newpage
-
 \subsubsection{Examples}
 
 \subsubsection{Conclusion}
@@ -367,6 +367,54 @@ The part generator is obviously the most important one of the algorithm, because
 
 \subsubsection{Examples}
 
+On the web application of Computoser it says, "Each track you hear is algorithmically generated". This means that there are inputs to be defined for the algorithm to create a piece of music. Analoguos to WolframTones, Computoser is a web application, so the input parameters are changed on the website. Where WolframTones was black-box and closed source, the source for this application can be found on Github [8].
+\newline
+
+I will again explain the different input parameters we can choose and the results that this gives. In contrast to WolframTones, the range of inputs is considerably simpler. 
+
+\paragraph{Mood}
+
+There are three options to choose from to set the mood of the piece of music, Major (happy mood), Minor (sad) or a random choice made by the algorithm.
+
+\paragraph{Tempo}
+
+For the tempo there are six choices, ranging from very slow to very fast, again with the option to choose the tempo randomly. In constrast to WolframTones there is no clear distinction between the different choices of tempo. The notion of 'very slow' is different for every person, whereas the notion of a BPM of 30 is clear to everyone.
+
+\paragraph{Accompanient(chords)}
+
+Here you can choose if you want to hear chords accompanying the track or not.
+
+\paragraph{Instrument}
+
+Here you can choose the instrument that will be playing the piece of music. Again, in contrast to WolframTones, there is a limited choice of instruments, only seven, while WolframTones had 117 instruments to choose from.
+
+\paragraph{Scale}
+
+This parameter also has a limited range of choices. There are 'only' 13 different scales, while WolframTones had 404 unique scales.
+
+\paragraph{Classical, Electronic-like, Drums, More dissonant}
+
+With the last few parameters you can choose if you want a classical sound or not, an electronic-like sound or not, drums, or a more dissonant sounds.
+\newline
+
+In the application I provided you can find examples of a few different combinations I tried on the website. Below is explained what choices were made for each result. Click in the application on the respective button to hear what the results sound like.
+\newline
+
+\begin{tabular}[]{| l |  c | c | c |}
+\hline
+& Computoser Demo 1 & Computoser Demo 2 & Computoser Demo 3 \\ \hline
+Mood & Minor & Major & Any \\
+Tempo & Medium & Fast & Very Slow \\
+Chords & Yes & Yes & No Chords \\
+Instrument & Guitar & String Ensemble & French Horn \\
+Scale & Minor & Major Pentatonic & Indian \\
+Classical & Optional & Yes & Optional \\
+Electronic-like & Optional & No & Yes\\
+Drums & Yes & No Drums & Yes \\
+More Dissonant & Optional & Optional & Yes \\
+\hline
+\end{tabular}
+
 \subsubsection{Conclusion}
 
 \begin{thebibliography}{1}
@@ -384,6 +432,8 @@ The part generator is obviously the most important one of the algorithm, because
 \bibitem{genetic} Dragan Mati\'c {\em A genetic algorithm for composing music} 2010, Faculty of Natural Sciences, University of Banjaluka, Bosnia and Herzegovina
 
 \bibitem{computoser} Bozhidar Bozhanov {\em Computoser - rule-based, probability-driven algorithmic music composition} 2014,  independent researcher
+
+\bibitem{computoser_source} https://github.com/glamdring/computoser
 
 \end{thebibliography}
 
