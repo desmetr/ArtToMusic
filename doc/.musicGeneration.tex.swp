@@ -121,7 +121,7 @@ The Beads project was started by Ollie Brown and has support from the Monash Uni
 \caption{Beads tutorial projects}
 \end{figure}
 
-I will discuss the code and results of Lesson07\_Music to give the reader an idea of the capabilities of the Beads library. I provided a small application that plays the results of this lesson and other examples later in this paper. To hear the results of the Lesson 07, click on \textbf{Beads Demo Lesson 7}.
+I will discuss the code and results of Lesson07\_Music to give the reader an idea of the capabilities of the Beads library. I provided a small application that plays the results of this lesson and other examples later in this paper. To hear the results of the Lesson 07, click on \textbf{Music Demo} in the Beads cell.
 
 \paragraph{Code of main melody part}
 
@@ -137,7 +137,7 @@ The rhythm is generated using the concept of Noise. Noise in audio is anything t
 
 \paragraph{Sample Lesson}
 
-The previous demo shows what Beads can do by generating music autonomously. Lesson04\_SamplePlayer is a tutorial to use the SamplePlayer UG. This loads a sample and plays it. You can again run this sample through different UGs to modify the sound as you want. To hear the results of this lesson, click on \textbf{Beads Demo Lesson 4 Samples}. 
+The previous demo shows what Beads can do by generating music autonomously. Lesson04\_SamplePlayer is a tutorial to use the SamplePlayer UG. This loads a sample and plays it. You can again run this sample through different UGs to modify the sound as you want. To hear the results of this lesson, click on \textbf{Sample Demo} in the Beads Cell. 
 
 \subsubsection{Conclusion}
 
@@ -222,7 +222,7 @@ In the application I provided you can find examples of a few different combinati
 \item Guitar (Jazz) with role: Lead - Upper Part
 \item Rock Organ with role: Lead - Lower Part - Legato 
 \end{itemize}
-A Funk 3 percussion track is also added. The scale is a Minor scale based on the F2 pitch, number 53. BPM is 116 with two notes per beat and the piece is 15 seconds long, 60 steps. Click on \textbf{Wolfram Demo 1} to hear this music.
+A Funk 3 percussion track is also added. The scale is a Minor scale based on the F2 pitch, number 53. BPM is 116 with two notes per beat and the piece is 15 seconds long, 60 steps. Click on \textbf{Wolfram Demo 1} in the WolframTones cell of the application to hear this music.
 
 \item R\&B style, based on rule type 7 (r=1) and rule number 168230930. Random seed is set to 123721 and height of the score is 16.
 There are three instruments.
@@ -231,7 +231,7 @@ There are three instruments.
 \item Trumpet with role: Lead - Upper Part - 4x4 Loop
 \item Grand Piano with role: Lead - Moving - Shorter - Legato 
 \end{itemize}
-A Hip Hop 1 percussion track is added. The scale is a Blues With Leading Tone scale based on the B1 pitch, number 47. BPM is 88 with 4 notes per beat and the piece is 15 seconds long, 88 steps. Click on \textbf{Wolfram Demo 2} to hear this music.
+A Hip Hop 1 percussion track is added. The scale is a Blues With Leading Tone scale based on the B1 pitch, number 47. BPM is 88 with 4 notes per beat and the piece is 15 seconds long, 88 steps. Click on \textbf{Wolfram Demo 2} in the WolframTones cell to hear this music.
 
 \item Ambient style, based on rule type 1585 and rule number 338039596. Random seed is set to 10839 and height of the score is 13.
 There are four instruments.
@@ -241,10 +241,10 @@ There are four instruments.
 \item Harp with role: Lead - Moving - Shorter - Medium
 \item Bright Piano with role: Chords - Comp
 \end{itemize}
-A Jazz 1 percussion track is added. The scale is a Harmonic Minor scale based on the G\#2 pitch, number 56. BPM is 38 with 3 notes per beat and the piece is 14 seconds long, 28 steps. Click on \textbf{Wolfram Demo 3} to hear this music.
+A Jazz 1 percussion track is added. The scale is a Harmonic Minor scale based on the G\#2 pitch, number 56. BPM is 38 with 3 notes per beat and the piece is 14 seconds long, 28 steps. Click on \textbf{Wolfram Demo 3} in the WolframTones cell to hear this music.
 \end{enumerate}
 
-To show what happens when we alter only one parameter, I changed the scale, number of notes per beat and the random seed of Demo 3. To hear the version of Demo 3 with the Major Pentachord scale, click on \textbf{Wolfram Demo 3 Other Scale}. To hear the version of Demo 3 with 5 notes per beat, and again the Harmonic Minor scale, click on \textbf{Wolfram Demo 3 More Notes Per Beat}. To hear the version of Demo 3 with the random seed set to 15159, click on \textbf{Wolfram Demo 3 Other Random Seed}.
+To show what happens when we alter only one parameter, I changed the scale, number of notes per beat and the random seed of Demo 3. To hear the version of Demo 3 with the Major Pentachord scale, click on \textbf{Wolfram Demo 3 Other Scale}. To hear the version of Demo 3 with 5 notes per beat, and again the Harmonic Minor scale, click on \textbf{Wolfram Demo 3 More NPB} (NPB is Notes Per Beat). To hear the version of Demo 3 with the random seed set to 15159, click on \textbf{Wolfram Demo 3 Other Random Seed}.
 
 \subsubsection{Conclusion}
 
