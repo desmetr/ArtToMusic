@@ -281,7 +281,7 @@ public class RManager
 //		Globals.getInstance();
 //		engine.eval("library('png')");
 //		engine.eval("k = " + Integer.toString(k));	// Number of clusters
-//		engine.eval("image = readPNG('" + Globals.pathToImages + Globals.imageName + "')");
+//		engine.eval("image = readPNG('" + Globals.pathToImages + Globals.imageName + "'"));
 //		engine.eval("source('" + Globals.pathToSegmentationFile + "')");
 //		engine.eval("result = matrix(data = image.segmented, nrow = dim(image.segmented)[1], ncol = dim(image.segmented)[2])");
 //		

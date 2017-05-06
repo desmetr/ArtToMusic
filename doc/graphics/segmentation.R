@@ -1,5 +1,8 @@
 library("png")
 
+k = 15
+image = readPNG('picasso.png')
+
 # load the PNG into an RGB image object
 dim(image)
 
@@ -66,4 +69,19 @@ image.segmented[,,2] = G
 image.segmented[,,3] = B
 
 # View the result
+png("picasso_segmented.png", dim(image.segmented)[1], dim(image.segmented)[2])
 grid.raster(image.segmented)
+dev.off()
+
+library("rgl")
+library("caTools")
+# color space plot of segmented image
+open3d()
+plot3d(df$red, df$green, df$blue, 
+                       col = rgb(df$R, df$G, df$B),
+                       xlab = "R", ylab = "G", zlab = "B",
+                       size = 3, box = FALSE)
+
+
+gifSegmented <- movie3d(spin3d(axis = c(1,1,1), rpm = 3), duration = 10)
+write.gif(gifSegmented, "picasso_segmented.gif")

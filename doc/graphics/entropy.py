@@ -11,7 +11,7 @@ def entropy(signal):
     ent = np.sum([p * np.log2(1.0 / p) for p in propab])
     return ent
 
-colorIm = Image.open('../img/blue_red.jpg')
+colorIm = Image.open('../img/picassoPrewitt.png')
 greyIm = colorIm.convert('L')
 colorIm = np.array(colorIm)
 greyIm = np.array(greyIm)
