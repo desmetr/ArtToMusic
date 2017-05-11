@@ -585,25 +585,42 @@ In figure \ref{kNN} you can see an example of the $k$-NN algorithm. The green ci
 \caption{Example of the $k$-NN algorithm}
 \label{kNN}
 \end{figure} 
+\newpage
 
 \section{Conclusion}
 
-Eventually the ArtToMusic application will extract useful data from all the algorithms discussed in this paper. In this section I will run several algorithms on several paintings, each in a completely different style. At the end we will have a collection of parameters we can use generate music. I will use the painting of Picasso, figure \ref{picasso}, a painting of Bruegel, figure \ref{bruegel} and a painting of Mondriaan, figure \ref{mondriaan}.
+Eventually the ArtToMusic application will extract useful data from all the algorithms discussed in this paper. In this section I will run several algorithms on several paintings, each in a completely different style. At the end we will have a collection of parameters we can use to generate music. I will use the painting of Picasso, figure \ref{picasso}, a painting of Bruegel, figure \ref{bruegel} and a painting of Mondriaan, figure \ref{mondriaan}.
 \newline
 
-These three paintings are very different, the Bruegel is very busy and intricate, so we expect results that represent this, for example a high entropy of the edge detection result. The Picasso is a face so it's not a busy painting, but with a wide range of colours we expect a high value for $k$ in the image segmentation algorithm. The Mondriaan, figure \ref{mondriaan} consists of big squares of solid colours which suggets a low amount of edges and a low entropy in general.
+These three paintings are very different. The Bruegel is very busy and intricate, so we expect results that represent this, for example a high entropy of the edge detection result. The Picasso is a face so it's not a busy painting, but with a wide range of colours we expect a high value for $k$ in the image segmentation algorithm. The Mondriaan, figure \ref{mondriaan} consists of big squares of solid colours which suggets a low amount of edges and a low entropy in general.
 
 \subsection{Picasso}
 
-\subsubsection{Edge Detection}
+\subsubsection{Noise Removal}
 
-Let's look at the results of the edge detection algorithms for the Picasso. The resulting images can be found in section 2.1. We want to get as much information as possible from the result of the edge detection. When we look at the entropy of each resulting image, it is clear that the results of the algorithms are very close to each other. In table \ref{entropy_results} you can see the entropies of the columns of each resulting image. In this case we will choose the algorithm with the highest entorpy, the LoG algorithm, its output is figure \ref{log}.
+As discussed in section 2.3 we have four noise removal ralgorithms. To use these algorithms in a meaningfull way, we can apply one of them on the image before the edge detection step to improve the results of the edge detection algorithm. In order for the noise removal algorithms to work we first have to convert the images to gray scale images.
 \newline
 
-\begin{figure}
+In figure \ref{noise_picasso} you can see the results of the four algorithms. The median filter gives us the clearest result, as expected cause this is the most statistical robust filter of the four discussed here. Since the Gaussian filter also smooths the image, we won't be using this to detect the edges, even though the noise is removed. The median and the rank filter are not adequate enough to compete with the other filters.
+
+\begin{figure}[H]
+\hspace*{-0.70cm}
+\centering
+\includegraphics[scale = 0.85]{img/picasso_noise}
+\caption{Results of noise removal algorithms on the Picasso}
+\label{noise_picasso}
+\end{figure} 
+
+\subsubsection{Edge Detection}
+
+Let's look at the results of the edge detection algorithms for the Picasso. The resulting images can be found in section 2.1. We want to get as much information as possible from the result of the edge detection. When we look at the entropy of each resulting image, it is clear that the results of the algorithms are very close to each other. In table \ref{entropy_results} you can see the entropies of the columns of each resulting image. In this case we will choose the algorithm with the highest entropy, the LoG algorithm. The resulting output image is figure \ref{log}.
+\newline
+
+\begin{figure}[H]
+\hspace*{-0.70cm}
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
-& Sobel & Frei Chen & Prewitt & Roberts Cross & LoG & Scharr \\
+& \textbf{Sobel} & \textbf{Frei Chen} & \textbf{Prewitt} & \textbf{Roberts Cross} & \textbf{LoG} & \textbf{Scharr} \\
 \hline
 Entropy & 12.30425 & 12.30326 & 12.30373 & 12.32597 & 12.88781 & 12.30777 \\ 
 \hline
@@ -612,34 +629,34 @@ Entropy & 12.30425 & 12.30326 & 12.30373 & 12.32597 & 12.88781 & 12.30777 \\
 \label{entropy_results}
 \end{figure} 
 
-The output from this algorithm is a matrix representing the edges of the image. We need to get information about this matrix to create useful input parameters. For instance, we can count the number of distinct values in the matrix. This gives us an idea of how many edges there are, on the condition that the values in the matrix are rounded to two decimals. For the LoG algorithm this gives us 95 unique values. To translate this into an input parameter we can create a scale, ranging from 20 to 500\footnote{This is an arbitrary chosen scale.} and see where the calculated number is situated on this scale. A low number of edges can result in a slow piece of music and a high number of edges can result in a fast piece of music.
+The output from this algorithm is a matrix representing the edges of the image. We need to get information about this matrix to create useful input parameters. For instance, we can count the number of distinct values in the matrix. This gives us an idea of how many edges there are. When we round the pixel values of the output of the edge detection algorithm to three decimals we get a good value. Less than three decimals doesn't show the difference between the paintings and more than three decimals returns a number that almost represents the whole matrix. For the LoG algorithm this gives us 811 unique values. To translate this into an input parameter we can create a scale, ranging from 500 to 1500\footnote{This is an arbitrary chosen scale.} and see where the calculated number is situated on this scale. A low number of edges can result in a slow piece of music and a high number of edges can result in a fast piece of music.
 
 \subsubsection{Image Segmentation}
 
-Using the technique of image segmentation we can get a number representing the amount of colors in the image. Analogous to the results of the edge detection we can create a scale that represents the possible values of $k$. A low $k$ (e.g. 1 or 2) will result in a piece of music with very few notes, while a high $k$ (e.g. 20) will play a busy piece of music. If we run this algorithm on the same Picasso of figure \ref{picasso} we get the following result. When we use $k = 15$ we get a satisfying result. Figure \ref{picasso_segmented} shows the segmented Picasso painting and figure \ref{picasso_colors} shows the colors in the RGB color space.
+Using the technique of image segmentation we can get the amount of colors in the image. Analogous to the results of the edge detection we can create a scale that represents the possible values of $k$. A low $k$ (e.g. 1 or 2) will result in a piece of music with very few notes, while a high $k$ (e.g. 20 and upwards) will result in a busy piece of music. If we run this algorithm on the same Picasso of figure \ref{picasso} we get the following result. When we use $k = 15$ we get a satisfying result. Figure \ref{picasso_segmented} shows the segmented Picasso painting and figure \ref{picasso_colors} shows the colors in the RGB color space. The segmented image is very close to the original image cause we were able to find sufficient colours to reconstruct the image.
 
 \begin{figure}[h]
 \hspace*{-0.70cm}
 \centering
-\includegraphics[scale = 0.6]{img/picasso_segmented}
+\includegraphics[scale = 0.5]{img/picasso_segmented}
 \caption{The Picasso segmented in colours}
 \label{picasso_segmented}
 \end{figure} 
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale = 1]{img/picasso_colors}
+\includegraphics[scale = 0.9]{img/picasso_colors}
 \caption{Colours of the Picasso}
 \label{picasso_colors}
 \end{figure}
 
 \subsubsection{Colours}
 
-The image segmentation not only returns the number of colours (clusters) in the painting, it also specifies what these colours are. In the table below you can see the 15 colours extracted from the Picasso painting. You can see the RGB value of each colour, in 255 format and in percentage, as well as the HSV value. The hexadecimal representation is also included.
+The image segmentation not only returns the number of colours (clusters) in the painting, it also specifies what these colours are. In the table below you can see the 15 colours extracted from the Picasso painting, shown in figure \ref{picasso_colors}. You can see the RGB value of each colour, in 255 format and in percentage, as well as the HSV value. The hexadecimal representation is also included.
 
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
-Hex & R & G & B & H & S & V \\
+\textbf{Hex} & \textbf{R} & \textbf{G} & \textbf{B} & \textbf{H} & \textbf{S} & \textbf{V} \\
 \hline
 \#0D0D0A & 13 (5\%) & 13 (5\%) & 10 (4\%) &  60° & 23\% & 5\% \\ 
 \hline
@@ -673,8 +690,6 @@ Hex & R & G & B & H & S & V \\
 \hline
 \end{tabular}
 
-\subsubsection{Noise Removal}
-
 \subsection{Bruegel}
 
 As explained above, we use a painting of Bruegel, figure \ref{bruegel}, because we expect results from the algorithms that indicate a busy, high tempo piece of music.
@@ -687,14 +702,27 @@ As explained above, we use a painting of Bruegel, figure \ref{bruegel}, because 
 \label{bruegel}
 \end{figure} 
 
+\subsubsection{Noise Removal}
+
+When we apply the four noise removal algorithms to the Bruegel we get the result in figure \ref{noise_bruegel}.
+We can draw the same conclusion as with the Picasso. The median filter the best to work with. Gaussian filter is a close second, but the smoothing of the image causes us the disregard it, thinking of the edge detection algorithms. 
+
+\begin{figure}[H]
+\hspace*{-0.70cm}
+\centering
+\includegraphics[scale = 1]{img/bruegel_noise}
+\caption{Results of noise removal algorithms on the Bruegel}
+\label{noise_bruegel}
+\end{figure}
+
 \subsubsection{Edge Detection}
 
-Analogous to the Picasso, I applied the six edge detection algorithms to the Bruegel painting. In table \ref{bruegel_entropy} you can see the results. As with the Picasso, the LoG algorithm has the highest entropy. We find 99 unique values, so this would give a similar tempo as the Picasso.
+Analogous to the Picasso, I applied the six edge detection algorithms to the Bruegel painting. In table \ref{bruegel_entropy} you can see the results. As with the Picasso, the LoG algorithm has the highest entropy. We find 848 unique values, so this would give a similar tempo as the Picasso.
 
 \begin{figure}
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
-& Sobel & Frei Chen & Prewitt & Roberts Cross & LoG & Scharr \\
+& \textbf{Sobel} & \textbf{Frei Chen} & \textbf{Prewitt} & \textbf{Roberts Cross} & \textbf{LoG} & \textbf{Scharr} \\
 \hline
 Entropy & 12.56623 & 12.56724 & 12.57051 & 12.59074 & 13.01124 & 12.5687 \\ 
 \hline
@@ -702,7 +730,7 @@ Entropy & 12.56623 & 12.56724 & 12.57051 & 12.59074 & 13.01124 & 12.5687 \\
 \caption{Entropies of edge detection algorithms on the Bruegel}
 \label{bruegel_entropy}
 \end{figure} 
-
+\newpage
 \subsubsection{Image Segmentation}
 
 When we apply the image segmentation algorithm to the painting of Bruegel, we can see that it takes $k = 20$ clusters to classify enough colours. This is a big number, more than we needed with the Picasso, so we expect a busy piece of music to be generated based on this parameter. In figure \ref{bruegel_segmented} you can see the segmented version of this painting. Since our $k$ is so high, there is not so much difference between the original painting and this version. In figure \ref{bruegel_colors} you can see the colours extracted.  
@@ -710,25 +738,27 @@ When we apply the image segmentation algorithm to the painting of Bruegel, we ca
 \begin{figure}[h]
 \hspace*{-0.70cm}
 \centering
-\includegraphics[scale = 0.5]{img/bruegel_segmented}
+\includegraphics[scale = 0.55]{img/bruegel_segmented}
 \caption{The Bruegel segmented in colours}
 \label{bruegel_segmented}
 \end{figure} 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale = 0.8]{img/bruegel_colors}
 \caption{Colours of the Bruegel}
 \label{bruegel_colors}
 \end{figure}
+\newpage
 
 \subsubsection{Colours}
 
 Analogous to the Picasso painting, below are the 20 colours of the Bruegel painting.
+\newline
 
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
-Hex & R & G & B & H & S & V \\
+\textbf{Hex} & \textbf{R} & \textbf{G} & \textbf{B} & \textbf{H} & \textbf{S} & \textbf{V} \\
 \hline
 \#B17817 & 177 (69\%) & 120 (44\%) & 23 (9\%) & 38° & 87\% & 69\% \\ 
 \hline
@@ -772,27 +802,39 @@ Hex & R & G & B & H & S & V \\
 \hline
 \end{tabular}
 
-\subsubsection{Noise Removal}
-
+\newpage
 \subsection{Mondriaan}
 
 To conlude the comparison, a painting of Mondriaan is used, figure \ref{mondriaan}. Mondriaan's paintings were famous for its straight lines and full colours. We expect results that indicate a piece of music with little notes and not so difficult or busy rhythms.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale = 0.6]{img/mondriaan}
 \caption{The Mondriaan}
 \label{mondriaan}
 \end{figure}
 
+\subsubsection{Noise Removal}
+
+When we apply the four noise removal algorithms to the Mondriaan we get the result in figure \ref{noise_mondriaan}.
+Since there are a lot of squares of full colour and not so many edges in this image, the results of the noise removal algorithms are very similar. To continue the trend we again choose the median filter to work with.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 1]{img/mondriaan_noise}
+\caption{Results of noise removal algorithms on the Mondriaan}
+\label{noise_mondriaan}
+\end{figure}
+
 \subsubsection{Edge Detection}
 
-Analogous to the Picasso and the Bruegel, the six edge detection algorithms were applied to the Mondriaan painting. In table \ref{mondriaan_entropy} you can see the results. As with the Picasso and the Bruegel, the LoG algorithm has the highest entropy. We find 91 unique values, so this would again give a similar tempo as the Picasso and the Bruegel. This result is unexpected because with the naked eye we see very little edges on the Mondriaan painting and would expect a lower number of unique values than the two previous paintings. The overall entropy is lower in this painting, which was to be expected, but the difference between the entropies of the Mondriaan and the Picasso is less than expected.
+Analogous to the Picasso and the Bruegel, the six edge detection algorithms were applied to the Mondriaan painting. In table \ref{mondriaan_entropy} you can see the results. As with the Picasso and the Bruegel, the LoG algorithm has the highest entropy. We find 806 unique values, so this would again give a similar tempo as the Picasso and the Bruegel. This result is unexpected because with the naked eye we see very little edges on the Mondriaan painting and would expect a lower number of unique values than the two previous paintings. The overall entropy is lower in this painting, which was to be expected, but the difference between the entropies of the Mondriaan and the Picasso is less than expected.
 
-\begin{figure}
+\begin{figure}[H]
+\hspace*{-0.70cm}
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
-& Sobel & Frei Chen & Prewitt & Roberts Cross & LoG & Scharr \\
+& \textbf{Sobel} & \textbf{Frei Chen} & \textbf{Prewitt} & \textbf{Roberts Cross} & \textbf{LoG} & \textbf{Scharr} \\
 \hline
 Entropy & 11.0401 & 11.03431 & 11.03016 & 11.02275 & 12.77017 & 11.05094 \\ 
 \hline
@@ -826,7 +868,7 @@ Below are the colours of the Mondriaan painting.
 
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
-Hex & R & G & B & H & S & V \\
+\textbf{Hex} & \textbf{R} & \textbf{G} & \textbf{B} & \textbf{H} & \textbf{S} & \textbf{V} \\
 \hline
 \#FCDE30 & 252 (99\%) & 222 (87\%) & 48 (19\%) & 52° & 81\% & 99\% \\ 
 \hline
@@ -841,9 +883,6 @@ Hex & R & G & B & H & S & V \\
 \#143B70 & 20 (8\%) & 59 (23\%) & 112 (44\%) & 216° & 82\% & 44\% \\ 
 \hline
 \end{tabular}
-
-\subsubsection{Noise Removal}
-
 
 \newpage
 
